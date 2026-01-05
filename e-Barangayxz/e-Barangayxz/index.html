@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>eBarangay | Document Request</title>
+  <link rel="icon" type="image/jpeg" href="pics/eb-logo.jpg"> <!--FAVICON-->
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="index-page">
+  
+  <!-- Fixed Header -->
+<nav class="navbar navbar-expand-lg fixed-top shadow-sm">
+  <div class="container-fluid px-3 px-md-4">
+    <a class="navbar-brand d-flex align-items-center fw-bold text-white" href="index.html" style="white-space: normal; line-height: 1.2;">
+      <img src="pics/eb-logo.jpg" alt="eBarangay Logo" class="me-2" style="height: 55px; width: auto;">
+      Pulong Buhangin eBarangay: Online Document Request and Management System
+    </a>
+
+    <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto align-items-lg-center">
+        <li class="nav-item">
+          <a class="nav-link fw-medium" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fw-medium" href="#documents">Documents</a>
+        </li>
+         <li class="nav-item">
+      <a class="nav-link fw-medium" href="#payment">Payment</a>
+    </li>
+      <li class="nav-item">
+      <a class="nav-link fw-medium" href="#regulations">Regulations</a>
+    </ul>
+      <a href="login-register.html#login" class="btn btn-login fw-bold px-3 ms-lg-3">Login</a>
+      </ul>
+      <a href="login-register.html" class="btn btn-login fw-bold px-3 ms-lg-3">Register</a>
+    </div>
+  </div>
+</nav>
+
+
+
+ <section class="hero-section"> <!-- navbar section -->
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-md-10">
+                <p class="lead text-uppercase mb-3">BARANGAY SERVICES MADE SIMPLE</p>
+                <h1>Skip Line, Request Online</h1>
+                <p>Fast, secure, and hassle-free services at your fingertips.</p>
+                <a href="login-register.html" class="btn btn-danger btn-lg">Get Started</a>
+                <a href="#eBarangay" class="btn btn-outline-light btn-lg">Learn More</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+  <section class="py-5" id="eBarangay"> <!-- .py-5: Padding y -->
+    <div class="container text-center"> <!-- .text-center: Centered text -->
+      <h2 class="fw-bold mb-5">Why Choose eBarangay?</h2> <!-- .fw-bold: Bold; .mb-5: margin bottom -->
+      <div class="row g-4"> <!-- .row: Bootstrap grid row; .g-4: gap -->
+        <div class="col-md-4"><div class="feature-card"><i class="bi bi-file-earmark-text"></i><h5>Complete Forms</h5><p>Clearances, residencies, and more in minutes.</p></div></div> <!-- .col-md-4: 4 columns on md+; .feature-card: Card for feature highlights; .bi: Bootstrap Icons -->
+        <div class="col-md-4"><div class="feature-card"><i class="bi bi-shield-check"></i><h5>Secure Processing</h5><p>Every request verified by staff before release.</p></div></div>
+        <div class="col-md-4"><div class="feature-card"><i class="bi bi-people"></i><h5>Resident-Friendly</h5><p>Stay updated with SMS and email notifications.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="document-types-section" id="documents"> <!-- types of documents -->
+    <div class="container text-center">
+      <h2 class="fw-bold mb-5">Available Documents</h2>
+      <div id="docCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#docCarousel" data-bs-slide-to="0" class="active"></button>
+          <button type="button" data-bs-target="#docCarousel" data-bs-slide-to="1"></button>
+          <button type="button" data-bs-target="#docCarousel" data-bs-slide-to="2"></button>
+          <button type="button" data-bs-target="#docCarousel" data-bs-slide-to="3"></button>
+        </div>
+
+        <div class="carousel-inner">
+
+          <div class="carousel-item active">
+            <div class="row g-4 justify-content-center">
+              <div class="col-md-3"><div class="doc-card"><i class="bi bi-shield-check doc-icon"></i><h5>Barangay Clearance</h5><p><b>Processing:</b> 3–5 days</p><p><b>Requirements:</b><br> Valid ID, Cedula</p></div></div>
+              <div class="col-md-3"><div class="doc-card"><i class="bi bi-house-door doc-icon"></i><h5>Certificate of Residency</h5><p><b>Processing:</b> 2–3 days</p><p><b>Requirements:</b><br> Valid ID, Proof of Address</p></div></div>
+              <div class="col-md-3"><div class="doc-card"><i class="bi bi-cash-coin doc-icon"></i><h5>Certificate of Indigency</h5><p><b>Processing:</b> 5–7 days</p><p><b>Requirements:</b><br> Valid ID, Barangay Clearance</p></div></div>
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <div class="row g-4 justify-content-center">
+              <div class="col-md-3"><div class="doc-card"><i class="bi bi-person-check doc-icon"></i><h5>Good Moral Character</h5><p><b>Processing:</b> 3–5 days</p><p><b>Requirements:</b><br> Barangay Clearance, Valid ID</p></div></div>
+              <div class="col-md-3"><div class="doc-card"><i class="bi bi-briefcase doc-icon"></i><h5>Business Permit</h5><p><b>Processing:</b> 7–10 days</p><p><b>Requirements:</b><br> DTI/SEC Papers, Valid ID</p></div></div>
+              <div class="col-md-3"><div class="doc-card"><i class="bi bi-person-lines-fill doc-icon"></i><h5>Certificate of Solo Parent</h5><p><b>Processing:</b> 5–7 days</p><p><b>Requirements:</b><br> Birth Certificate, Valid ID</p></div></div>
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <div class="row g-4 justify-content-center">
+              <div class="col-md-3"><div class="doc-card"><i class="bi bi-x-octagon doc-icon"></i><h5>No Derogatory Record</h5><p><b>Processing:</b> 3–4 days</p><p><b>Requirements:</b><br> Valid ID, Application Form</p></div></div>
+              <div class="col-md-3"><div class="doc-card"><i class="bi bi-journal-text doc-icon"></i><h5>Blotter / Incident Report</h5><p><b>Processing:</b> 3–5 days</p><p><b>Requirements:</b><br> Incident Details, Valid ID</p></div></div>
+              <div class="col-md-3"><div class="doc-card"><i class="bi bi-card-text doc-icon"></i><h5>Barangay ID</h5><p><b>Processing:</b> 3–4 days</p><p><b>Requirements:</b><br> Birth Certificate, 1x1 Picture</p></div></div>
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <div class="row g-4 justify-content-center">
+              <div class="col-md-3"><div class="doc-card"><i class="bi bi-cash-stack doc-icon"></i><h5>Certificate of Low Income</h5><p><b>Processing:</b> 4–6 days</p><p><b>Requirements:</b><br> Valid ID, Proof of Income</p></div></div>
+              <div class="col-md-3"><div class="doc-card"><i class="bi bi-x-circle doc-icon"></i><h5>Non-Employment Certificate</h5><p><b>Processing:</b> 2–3 days</p><p><b>Requirements:</b><br> Affidavit, Valid ID</p></div></div>
+              <div class="col-md-3"><div class="doc-card"><i class="bi bi-emoji-frown doc-icon"></i><h5>Burial Assistance</h5><p><b>Processing:</b> 3–5 days</p><p><b>Requirements:</b><br> Death Certificate, Valid ID</p></div></div>
+            </div>
+          </div>
+
+        </div>
+
+        <button class="carousel-control-prev bg-transparent border-0" type="button" data-bs-target="#docCarousel" data-bs-slide="prev" aria-label="Previous">
+          <i class="bi bi-chevron-left fs-1 text-dark"></i>
+        </button>
+        <button class="carousel-control-next bg-transparent border-0" type="button" data-bs-target="#docCarousel" data-bs-slide="next" aria-label="Next">
+          <i class="bi bi-chevron-right fs-1 text-dark"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="payment-section" id="payment"> <!-- payment option section -->
+    <div class="container text-center">
+      <h2 class="fw-bold mb-5">Payment Options</h2>
+      <div class="row g-4">
+        <div class="col-md-4"><div class="payment-card"><i class="bi bi-phone doc-icon"></i><h5>GCash</h5><p>Pay instantly with your mobile wallet.</p></div></div>
+        <div class="col-md-4"><div class="payment-card"><i class="bi bi-wallet2 doc-icon"></i><h5>PayMaya</h5><p>Secure payments through PayMaya.</p></div></div>
+        <div class="col-md-4"><div class="payment-card"><i class="bi bi-cash doc-icon"></i><h5>Cash</h5><p>Pay upon claiming at the barangay hall.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+ <section class="feedback-section py-5"> <!-- feedback-->
+  <div class="container text-center">
+    <h2 class="fw-bold mb-3">What Residents Say</h2>
+    <p class="text-muted mb-4">
+      Hear from our residents — <span id="feedbackCount">0</span> feedback entries and counting!
+    </p>
+
+    <div class="row g-4 justify-content-center" id="feedbackContainer">
+      <div class="col-md-4">
+        <div class="feedback-card p-4 shadow-sm rounded-4">
+          <p class="fw-semibold">“The process was quick and easy! I received my barangay clearance in just 3 days.”</p>
+          <small class="text-muted">— Maria D.</small>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="feedback-card p-4 shadow-sm rounded-4">
+          <p class="fw-semibold">“I like how I get notified by text when my document is ready. Very convenient!”</p>
+          <small class="text-muted">— Joseph P.</small>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="feedback-card p-4 shadow-sm rounded-4">
+          <p class="fw-semibold">“Friendly staff and easy-to-use online system. Highly recommended!”</p>
+          <small class="text-muted">— Liza R.</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="regulations-section py-5" id="regulations"> <!-- reliable features-->
+  <div class="container text-center">
+    <h2 class="fw-bold mb-4">Pattern of Regulations</h2>
+    <p class="text-muted mb-5">
+      These regulations ensure smooth, secure, and transparent operations within our eBarangay system.
+    </p>
+
+    <div class="row g-4 justify-content-center">
+      <div class="col-md-4">
+        <div class="reg-card p-4 shadow-sm rounded-4 h-100">
+          <i class="bi bi-shield-lock text-primary fs-1 mb-3"></i>
+          <h5 class="fw-bold mb-2">Privacy & Data Protection</h5>
+          <p class="text-muted">All personal information is strictly confidential and used only for official barangay transactions.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="reg-card p-4 shadow-sm rounded-4 h-100">
+          <i class="bi bi-people-fill text-success fs-1 mb-3"></i>
+          <h5 class="fw-bold mb-2">Resident Accountability</h5>
+          <p class="text-muted">Residents must provide accurate details for document requests to ensure validity and authenticity.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="reg-card p-4 shadow-sm rounded-4 h-100">
+          <i class="bi bi-clipboard-check text-danger fs-1 mb-3"></i>
+          <h5 class="fw-bold mb-2">Compliance with Ordinances</h5>
+          <p class="text-muted">All services are processed in alignment with barangay and municipal regulations.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="reg-card p-4 shadow-sm rounded-4 h-100">
+          <i class="bi bi-exclamation-triangle text-warning fs-1 mb-3"></i>
+          <h5 class="fw-bold mb-2">Proper Conduct</h5>
+          <p class="text-muted">Falsification, harassment, or misuse of the system will result in penalties or legal actions.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="reg-card p-4 shadow-sm rounded-4 h-100">
+          <i class="bi bi-clock-history text-info fs-1 mb-3"></i>
+          <h5 class="fw-bold mb-2">Timely Processing</h5>
+          <p class="text-muted">Requests are handled on a first-come, first-served basis. Processing times may vary during peak days.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="reg-card p-4 shadow-sm rounded-4 h-100">
+          <i class="bi bi-chat-square-quote text-secondary fs-1 mb-3"></i>
+          <h5 class="fw-bold mb-2">Respectful Communication</h5>
+          <p class="text-muted">Maintain courtesy when communicating with barangay staff through any channel.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer text-white py-5" style="background-color: #1f2c73;"> <!-- footer -->
+  <div class="container">
+    <div class="row gy-4">
+      
+      <!-- eBarangay System -->
+      <div class="col-md-3">
+        <h5 class="fw-bold">eBarangay System</h5>
+        <p>Digital document request and management system for Pulong Buhangin residents.</p>
+        <ul class="list-unstyled mt-3">
+            <li><a href="AboutUs.html"><i class="bi bi-info-circle me-2"></i>About Us</a></li>
+          </ul>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="col-md-3">
+        <h5 class="fw-bold">Quick Links</h5>
+        <ul class="list-unstyled">
+          <li><a href="#documents" class="text-white text-decoration-none">Request Documents</a></li>
+          <li><a href="#payment" class="text-white text-decoration-none">Payment Info</a></li>
+          <li><a href="#regulations" class="text-white text-decoration-none">Regulations</a></li>
+          <li><a href="#" class="text-white text-decoration-none" data-bs-toggle="modal" data-bs-target="#privacyModal">Privacy Policy</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact Us -->
+      <div class="col-md-6">
+        <h5 class="fw-bold">Contact Us</h5>
+        <ul class="list-unstyled">
+          <li><i class="bi bi-geo-alt me-2"></i>Pulong Buhangin Barangay Hall, Sta. Maria, Bulacan</li>
+          <li><i class="bi bi-telephone me-2"></i>(044) 123-4567</li>
+          <li><i class="bi bi-phone me-2"></i>+63 912 345 6789</li>
+          <li><i class="bi bi-envelope me-2"></i>support@ebarangay.gov.ph</li>
+          <li><i class="bi bi-envelope me-2"></i>ebarangaypulongbuhangin@gmail.com</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <hr class="my-4" style="border-color: rgba(255,255,255,0.2);">
+
+    <div class="text-center small">
+      <p class="mb-0">&copy; 2025 eBarangay Pulong Buhangin. All Rights Reserved.</p>
+      <p class="mb-0">Serving our community with modern, efficient digital services.</p>
+      
+    </div>
+    
+  </div>
+</footer>
+
+ <!-- Privacy Policy Modal -->
+  <div class="modal fade" id="privacyModal" tabindex="-1" aria-labelledby="privacyModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content rounded-4">
+        <div class="modal-header bg-light">
+          <h5 class="modal-title" id="privacyModalLabel">Privacy Policy</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="max-height: 60vh; overflow-y: auto;">
+          <p><strong>Introduction:</strong> This Privacy Policy explains how eBarangay collects, uses, and protects your personal information.</p>
+          <p><strong>Information Collection:</strong> We may collect your name, email, address, phone number, and other information necessary to provide our services.</p>
+          <p><strong>Use of Information:</strong> Your information will be used to process barangay documents, send notifications, and improve our services.</p>
+          <p><strong>Data Protection:</strong> We implement reasonable administrative, physical, and technical safeguards to protect your information in accordance with the Data Privacy Act of 2025.</p>
+          <p><strong>Sharing Information:</strong> We do not sell or share your personal information with third parties except as required by law or for official barangay services.</p>
+          <p><strong>Cookies:</strong> We may use cookies to enhance user experience and track usage patterns.</p>
+          <p><strong>Changes to Policy:</strong> We may update this policy from time to time. The updated version will be posted on this page.</p>
+          <p><strong>Contact:</strong> For questions regarding this policy, contact us via the Contact modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- ✅ FAQs Chatbot Integration -->
+  <section id="faqs">
+<!-- 🌟 Chatbot Floating Button -->
+<button id="chatToggleBtn"
+  class="position-fixed bottom-0 end-0 m-4 rounded-circle shadow-lg border-0"
+  style="width: 60px; height: 60px; background-color: #007bff; color: white; font-size: 28px; z-index: 2000; transition: transform 0.2s;">
+  💬
+</button>
+
+<!-- 💡 Chatbot Window -->
+<div id="chatWindow"
+  class="card shadow-lg position-fixed bottom-0 end-0 m-4"
+  style="width: 380px; max-width: calc(100vw - 2rem); display: none; border-radius: 16px; overflow: hidden; z-index: 2001; animation: slideUp 0.3s ease;">
+  
+  <div class="card-header text-white d-flex justify-content-between align-items-center"
+       style="background: linear-gradient(90deg, #2440a6, #a956e1); padding: 14px 18px;">
+    <span class="fw-bold d-flex align-items-center" style="font-size: 16px;">
+      <i class="bi bi-chat-dots me-2"></i> e-Azmo🤖
+    </span>
+    <button id="closeChat" class="btn-close btn-close-white"></button>
+  </div>
+
+  <div class="card-body" id="chatBody"
+       style="height: 320px; overflow-y: auto; background-color: #f8f9fa; display: flex; flex-direction: column; padding: 14px;">
+    <div class="bot-msg mb-2">
+      👋 Hi there! I'm your eBarangay Assistant. Tap a question below or type your own!
+      <span id="initialTime" class="msg-time" aria-hidden="true"></span>
+    </div>
+  </div>
+
+  <!-- 🟦 Suggestion Buttons -->
+  <div class="card-footer bg-white border-top" id="chatOptions"
+       style="display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; padding: 12px 14px;">
+    <button class="faq-btn" data-key="request">📄 Request document</button>
+    <button class="faq-btn" data-key="ready">✅ Check if ready</button>
+    <button class="faq-btn" data-key="track">🔍 Track request</button>
+    <button class="faq-btn" data-key="payment">💰 Verify payment</button>
+    <button class="faq-btn" data-key="contact">📞 Contact us</button>
+  </div>
+
+  <!-- 💬 Text Input Area -->
+  <div class="card-footer bg-white border-top" style="padding: 12px 14px;">
+    <div class="input-group">
+      <input type="text" id="chatInput" class="form-control" placeholder="Type your question..." 
+             style="border-radius: 18px 0 0 18px; border: 1px solid #d1d5db; font-size: 14px; padding: 10px 14px;">
+      <button id="sendBtn" class="btn btn-primary" style="border-radius: 0 18px 18px 0; padding: 10px 18px;">
+        <i class="bi bi-send-fill"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- ✨ Styles -->
+<style>
+  @keyframes slideUp {
+    from { transform: translateY(100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  #chatToggleBtn:hover {
+    transform: scale(1.05);
+    background-color: #8b5cf6;
+  }
+
+  /* Chat window layout */
+  #chatBody {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* spacing between messages */
+    padding: 12px;
+  }
+
+  .user-msg, .bot-msg {
+    max-width: 80%;
+    padding: 10px 14px;
+    border-radius: 12px;
+    line-height: 1.5;
+    font-size: 14px;
+    animation: fadeIn 0.18s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    word-break: break-word;
+  }
+
+  /* user messages align right with a brighter accent */
+  .user-msg {
+    background: linear-gradient(90deg,#4f46e5,#7c3aed);
+    color: #fff;
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+  }
+
+  /* bot messages align left and look lighter */
+  .bot-msg {
+    background-color: #ffffff;
+    color: #1f2937;
+    align-self: flex-start;
+    border: 1px solid #e5e7eb;
+    border-bottom-left-radius: 4px;
+  }
+
+  /* Timestamp styling */
+  .msg-time {
+    display: block;
+    margin-top: 6px;
+    font-size: 11px;
+    color: rgba(0,0,0,0.45);
+    font-style: italic;
+  }
+
+  /* Suggestion / quick-reply buttons */
+  .faq-btn {
+    background-color: #fff;
+    border: 1px solid #d1d5db;
+    border-radius: 20px;
+    padding: 7px 12px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    white-space: nowrap;
+  }
+
+  .faq-btn:hover {
+    background-color: #6d28d9;
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(109,40,217,0.3);
+  }
+
+  /* Scrollbar styling for the chat body */
+  #chatBody::-webkit-scrollbar { width: 8px; }
+  #chatBody::-webkit-scrollbar-thumb { background-color: #c7d2fe; border-radius: 10px; }
+
+  @keyframes fadeIn { from { opacity: 0; transform: scale(0.98);} to { opacity:1; transform:scale(1);} }
+</style>
+
+<!-- ⚙️ Script -->
+<script>
+  const chatToggleBtn = document.getElementById("chatToggleBtn");
+  const chatWindow = document.getElementById("chatWindow");
+  const closeChat = document.getElementById("closeChat");
+  const chatBody = document.getElementById("chatBody");
+  const faqButtons = document.querySelectorAll(".faq-btn");
+
+  const responses = {
+    request: "📄 To request a barangay document, you need to <strong>login first</strong>. Once logged in, visit the 'Request Documents' page, fill out the form, and upload the needed requirements.",
+    ready: "✅ You'll receive a notification once your document is ready for pickup at the barangay office.",
+    track: "🔍 You can track your document's progress in the 'My Requests' section of the eBarangay system.",
+    payment: "💰 Make sure the GCash reference number on your transaction matches your request record. This ensures your payment is confirmed.",
+    contact: "📞 You can contact the barangay through our hotline or email us at ebarangaypulongbuhangin@gmail.com We're here to help!"
+  };
+
+  chatToggleBtn.addEventListener("click", () => {
+    chatWindow.style.display = "block";
+    chatToggleBtn.style.display = "none";
+    
+    // Set initial time when chat opens
+    const initialTime = document.getElementById('initialTime');
+    if (initialTime && !initialTime.textContent) {
+      const now = new Date();
+      initialTime.textContent = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    }
+  });
+
+  closeChat.addEventListener("click", () => {
+    chatWindow.style.display = "none";
+    chatToggleBtn.style.display = "block";
+  });
+
+  faqButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const key = btn.dataset.key;
+      const question = btn.textContent;
+      appendMessage("user", question);
+      setTimeout(() => appendMessage("bot", responses[key] || "Sorry, I don't have an answer for that yet."), 600);
+    });
+  });
+
+  // Handle text input
+  const chatInput = document.getElementById("chatInput");
+  const sendBtn = document.getElementById("sendBtn");
+
+  function handleUserInput() {
+    const userText = chatInput.value.trim();
+    if (!userText) return;
+
+    appendMessage("user", userText);
+    chatInput.value = "";
+
+    // Simple keyword matching for open-ended questions
+    setTimeout(() => {
+      const lowerText = userText.toLowerCase();
+      let response = null;
+
+      // Match keywords to existing responses
+      if (lowerText.includes("request") || lowerText.includes("apply") || lowerText.includes("document")) {
+        response = responses.request;
+      } else if (lowerText.includes("ready") || lowerText.includes("pickup") || lowerText.includes("claim")) {
+        response = responses.ready;
+      } else if (lowerText.includes("track") || lowerText.includes("status") || lowerText.includes("progress")) {
+        response = responses.track;
+      } else if (lowerText.includes("payment") || lowerText.includes("gcash") || lowerText.includes("pay")) {
+        response = responses.payment;
+      } else if (lowerText.includes("contact") || lowerText.includes("call") || lowerText.includes("email") || lowerText.includes("phone")) {
+        response = responses.contact;
+      } else if (lowerText.includes("hello") || lowerText.includes("hi") || lowerText.includes("hey")) {
+        response = "👋 Hello! How can I help you today? You can ask about document requests, tracking, payments, or contact information.";
+      } else if (lowerText.includes("thanks") || lowerText.includes("thank you") || lowerText.includes("salamat")) {
+        response = "You're welcome! 😊 Feel free to ask if you need anything else.";
+      } else {
+        response = "I'm not sure about that. Try asking about:<br>• Document requests<br>• Tracking your request<br>• Payment verification<br>• Contact information<br><br>Or tap one of the quick options above!";
+      }
+
+      appendMessage("bot", response);
+    }, 600);
+  }
+
+  sendBtn.addEventListener("click", handleUserInput);
+  chatInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      handleUserInput();
+    }
+  });
+
+  function appendMessage(sender, text) {
+    const div = document.createElement("div");
+    div.classList.add(sender === "user" ? "user-msg" : "bot-msg");
+    div.style.marginBottom = '10px';
+    // allow simple HTML (emoji/icons) but escape dangerous tags - here we trust the canned responses & buttons
+    div.innerHTML = text.replace(/\n/g, '<br>');
+
+    chatBody.appendChild(div);
+    chatBody.scrollTop = chatBody.scrollHeight;
+  }
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const feedbacks = document.querySelectorAll("#feedbackContainer .feedback-card");
+    const feedbackCount = document.getElementById("feedbackCount");
+    feedbackCount.textContent = feedbacks.length;
+  });
+</script>
+
+<!-- Chart.js for demographics -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  // Load and display resident demographics on public index page
+  async function loadPublicDemographics() {
+    try {
+      const response = await fetch('get_resident_stats.php', { method: 'GET', cache: 'no-store' });
+      const data = await response.json();
+      
+      if (data && data.success && data.demographics && data.total) {
+        // Update total residents display
+        document.getElementById('totalResidents').textContent = data.total;
+        document.getElementById('totalResidentsChange').textContent = '✓ Current data';
+        
+        // Prepare chart data
+        const categories = ['Children', 'Teens', 'Adults', 'Seniors'];
+        const colors = ['#0d6efd', '#198754', '#ffc107', '#dc3545'];
+        const values = [
+          data.demographics.children || 0,
+          data.demographics.teens || 0,
+          data.demographics.adults || 0,
+          data.demographics.seniors || 0
+        ];
+        
+        // Initialize bar chart
+        const ctx = document.getElementById('indexDemographicsChart');
+        if (ctx) {
+          new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: categories,
+              datasets: [{
+                label: 'Population',
+                data: values,
+                backgroundColor: colors,
+                borderRadius: 4
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: { display: false }
+              },
+              scales: {
+                y: { beginAtZero: true, ticks: { stepSize: 10 } }
+              }
+            }
+          });
+        }
+        
+        // Display summary cards
+        const summaryContainer = document.getElementById('demographicsSummaryCards');
+        if (summaryContainer) {
+          summaryContainer.innerHTML = '';
+          categories.forEach((cat, i) => {
+            const count = values[i];
+            const card = document.createElement('div');
+            card.className = 'p-3 rounded-3 border text-center';
+            card.style.flex = '1 1 120px';
+            card.innerHTML = `
+              <div style="width:8px;height:20px;border-radius:3px;background:${colors[i]};margin:0 auto 8px;"></div>
+              <div class="small text-muted">${cat}</div>
+              <div class="fw-semibold" style="font-size:18px;">${count}</div>
+            `;
+            summaryContainer.appendChild(card);
+          });
+        }
+        
+        console.log('Public demographics loaded:', data);
+      }
+    } catch (error) {
+      console.error('Failed to load public demographics:', error);
+      document.getElementById('totalResidents').textContent = '—';
+      document.getElementById('totalResidentsChange').textContent = 'Data unavailable';
+    }
+  }
+  
+  // Load demographics when page loads
+  document.addEventListener('DOMContentLoaded', loadPublicDemographics);
+</script>

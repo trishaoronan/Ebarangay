@@ -1,0 +1,270 @@
+2025-12-27 18:23:59 - Request received
+2025-12-27 18:23:59 - Resident ID: 10
+2025-12-27 18:23:59 - POST: {"firstName":"Sophia","middleName":"","lastName":"Laforteza","suffix":"","dateOfBirth":"2000-12-03","gender":"Male","civilStatus":"Married","placeOfBirth":"scadasd","citizenship":"Filipino","yearsInBarangay":"5 years","completeAddress":"XDSADCADASDC","contactNumber":"0912-345-6789","email":"ana@gmail.com","emergencyContactPerson":"rsacffe","emergencyContactNumber":"0936-276-3723","emergencyRelationship":"Relative","modeOfRelease":"Pickup"}
+2025-12-27 18:23:59 - FILES: ["idPicture","proofOfResidency"]
+2025-12-27 18:23:59 - All required fields present
+2025-12-27 18:23:59 - Files validated
+2025-12-27 18:23:59 - ID picture uploaded: uploads/barangay_id_pictures/id_10_1766856239.jpeg
+2025-12-27 18:23:59 - Proof uploaded: uploads/barangay_id_proofs/proof_10_1766856239.jpeg
+2025-12-27 18:23:59 - Table ready
+2025-12-27 18:23:59 - Request created: ID 66
+2025-12-27 18:23:59 - SUCCESS! Request ID: 66
+2025-12-27 18:27:01 - Request received
+2025-12-27 18:27:01 - Resident ID: 10
+2025-12-27 18:27:01 - POST: {"firstName":"Sophia","middleName":"","lastName":"Laforteza","suffix":"","dateOfBirth":"2000-12-03","gender":"Female","civilStatus":"Single","placeOfBirth":"ewewqewq","citizenship":"Filipino","yearsInBarangay":"5 years","completeAddress":"846 Bagbaguin","contactNumber":"0912-345-6789","email":"ana@gmail.com","emergencyContactPerson":"rsacffe","emergencyContactNumber":"0936-276-3723","emergencyRelationship":"Guardian","modeOfRelease":"Download"}
+2025-12-27 18:27:01 - FILES: ["idPicture","proofOfResidency"]
+2025-12-27 18:27:01 - All required fields present
+2025-12-27 18:27:01 - Files validated
+2025-12-27 18:27:01 - ID picture uploaded: uploads/barangay_id_pictures/id_10_1766856421.jpeg
+2025-12-27 18:27:01 - Proof uploaded: uploads/barangay_id_proofs/proof_10_1766856421.jpeg
+2025-12-27 18:27:01 - Table ready
+2025-12-27 18:27:01 - Request created: ID 67
+2025-12-27 18:27:01 - SUCCESS! Request ID: 67
+2025-12-27 18:28:26 - Request received
+2025-12-27 18:28:26 - Resident ID: 10
+2025-12-27 18:28:26 - POST: {"firstName":"Sophia","middleName":"","lastName":"Laforteza","suffix":"","dateOfBirth":"2000-12-03","gender":"Male","civilStatus":"Single","placeOfBirth":"dbjsbdabsdsd","citizenship":"Filipino","yearsInBarangay":"5 years","completeAddress":"katseye, 123","contactNumber":"0912-345-6789","email":"ana@gmail.com","emergencyContactPerson":"rsacffe","emergencyContactNumber":"0936-276-3723","emergencyRelationship":"Friend","modeOfRelease":"Download"}
+2025-12-27 18:28:26 - FILES: ["idPicture","proofOfResidency"]
+2025-12-27 18:28:26 - All required fields present
+2025-12-27 18:28:26 - Files validated
+2025-12-27 18:28:26 - ID picture uploaded: uploads/barangay_id_pictures/id_10_1766856506.jpeg
+2025-12-27 18:28:26 - Proof uploaded: uploads/barangay_id_proofs/proof_10_1766856506.jpeg
+2025-12-27 18:28:26 - Table ready
+2025-12-27 18:28:26 - Request created: ID 68
+2025-12-27 18:28:26 - SUCCESS! Request ID: 68
+2025-12-27 18:33:14 - Request received
+2025-12-27 18:33:14 - Resident ID: 10
+2025-12-27 18:33:14 - POST: {"firstName":"Sophia","middleName":"","lastName":"Laforteza","suffix":"","dateOfBirth":"2000-12-03","gender":"Female","civilStatus":"Single","placeOfBirth":"dbjsbdabsdsd","citizenship":"Filipino","yearsInBarangay":"5 years","completeAddress":"marvel, 123","contactNumber":"0912-345-6789","email":"sophia@gmail.com","emergencyContactPerson":"rsacffe","emergencyContactNumber":"0936-276-3723","emergencyRelationship":"Parent","modeOfRelease":"Download"}
+2025-12-27 18:33:14 - FILES: ["idPicture","proofOfResidency"]
+2025-12-27 18:33:14 - All required fields present
+2025-12-27 18:33:14 - Files validated
+2025-12-27 18:33:14 - ID picture uploaded: uploads/barangay_id_pictures/id_10_1766856794.jpeg
+2025-12-27 18:33:14 - Proof uploaded: uploads/barangay_id_proofs/proof_10_1766856794.jpeg
+2025-12-27 18:33:14 - Table ready
+2025-12-27 18:33:14 - Request created: ID 69
+2025-12-27 18:33:14 - SUCCESS! Request ID: 69
+2025-12-27 18:34:15 - Request received
+2025-12-27 18:34:15 - Resident ID: 10
+2025-12-27 18:34:15 - POST: {"firstName":"Sophia","middleName":"","lastName":"Laforteza","suffix":"","dateOfBirth":"2000-12-03","gender":"Female","civilStatus":"Married","placeOfBirth":"dbjsbdabsdsd","citizenship":"Filipino","yearsInBarangay":"5 years","completeAddress":"katseye, 123","contactNumber":"0912-345-6789","email":"sophia@gmail.com","emergencyContactPerson":"rsacffe","emergencyContactNumber":"0936-276-3723","emergencyRelationship":"Spouse","modeOfRelease":"Download"}
+2025-12-27 18:34:15 - FILES: ["idPicture","proofOfResidency"]
+2025-12-27 18:34:15 - All required fields present
+2025-12-27 18:34:15 - Files validated
+2025-12-27 18:34:15 - ID picture uploaded: uploads/barangay_id_pictures/id_10_1766856855.jpeg
+2025-12-27 18:34:15 - Proof uploaded: uploads/barangay_id_proofs/proof_10_1766856855.jpeg
+2025-12-27 18:34:15 - Table ready
+2025-12-27 18:34:15 - Request created: ID 70
+2025-12-27 18:34:15 - SUCCESS! Request ID: 70
+2025-12-27 18:36:41 - Request received
+2025-12-27 18:36:41 - Resident ID: 10
+2025-12-27 18:36:41 - POST: {"firstName":"Sophia","middleName":"","lastName":"Laforteza","suffix":"","dateOfBirth":"2000-12-03","gender":"Female","civilStatus":"Married","placeOfBirth":"ewewqewq","citizenship":"Filipino","yearsInBarangay":"5 years","completeAddress":"marvel, 123","contactNumber":"0912-345-6789","email":"sophia@gmail.com","emergencyContactPerson":"rsacffe","emergencyContactNumber":"0936-276-3723","emergencyRelationship":"Parent","modeOfRelease":"Download"}
+2025-12-27 18:36:41 - FILES: ["idPicture","proofOfResidency"]
+2025-12-27 18:36:41 - All required fields present
+2025-12-27 18:36:41 - Files validated
+2025-12-27 18:36:41 - ID picture uploaded: uploads/barangay_id_pictures/id_10_1766857001.jpeg
+2025-12-27 18:36:41 - Proof uploaded: uploads/barangay_id_proofs/proof_10_1766857001.jpeg
+2025-12-27 18:36:41 - Table ready
+2025-12-27 18:36:41 - Request created: ID 74
+2025-12-27 18:36:41 - SUCCESS! Request ID: 74
+2025-12-27 18:37:43 - Request received
+2025-12-27 18:37:43 - Resident ID: 10
+2025-12-27 18:37:43 - POST: {"firstName":"Sophia","middleName":"","lastName":"Laforteza","suffix":"","dateOfBirth":"2000-12-03","gender":"Female","civilStatus":"Single","placeOfBirth":"ewewqewq","citizenship":"Filipino","yearsInBarangay":"5 years","completeAddress":"katseye, 123","contactNumber":"0912-345-6789","email":"sophia@gmail.com","emergencyContactPerson":"rsacffe","emergencyContactNumber":"0936-276-3723","emergencyRelationship":"Parent","modeOfRelease":"Download"}
+2025-12-27 18:37:43 - FILES: ["idPicture","proofOfResidency"]
+2025-12-27 18:37:43 - All required fields present
+2025-12-27 18:37:43 - Files validated
+2025-12-27 18:37:43 - ID picture uploaded: uploads/barangay_id_pictures/id_10_1766857063.jpeg
+2025-12-27 18:37:43 - Proof uploaded: uploads/barangay_id_proofs/proof_10_1766857063.jpeg
+2025-12-27 18:37:43 - Table ready
+2025-12-27 18:37:43 - Request created: ID 76
+2025-12-27 18:37:43 - SUCCESS! Request ID: 76
+2025-12-27 18:56:57 - Request received
+2025-12-27 18:56:57 - Resident ID: 1
+2025-12-27 18:56:57 - POST: {"firstName":"Theo","middleName":"","lastName":"James","suffix":"","dateOfBirth":"1987-05-06","gender":"Male","civilStatus":"Married","placeOfBirth":"ewewqewq","citizenship":"Filipino","yearsInBarangay":"5 years","completeAddress":"divergent, 123","contactNumber":"0912-345-6789","email":"theo@gmail.com","emergencyContactPerson":"rsacffe","emergencyContactNumber":"0936-276-3723","emergencyRelationship":"Parent","modeOfRelease":"Pickup"}
+2025-12-27 18:56:57 - FILES: ["idPicture","proofOfResidency"]
+2025-12-27 18:56:57 - All required fields present
+2025-12-27 18:56:57 - Files validated
+2025-12-27 18:56:57 - ID picture uploaded: uploads/barangay_id_pictures/id_1_1766858217.jpeg
+2025-12-27 18:56:57 - Proof uploaded: uploads/barangay_id_proofs/proof_1_1766858217.jpeg
+2025-12-27 18:56:57 - Table ready
+2025-12-27 18:56:57 - Request created: ID 83
+2025-12-27 18:56:57 - SUCCESS! Request ID: 83
+2026-01-01 05:33:22 - Request received
+2026-01-01 05:33:22 - Resident ID: 17
+2026-01-01 05:33:22 - POST: {"firstName":"Kocho","middleName":"Shinobu","lastName":"Giyuu","suffix":"","dateOfBirth":"2000-01-02","gender":"Female","civilStatus":"Married","placeOfBirth":"Pulong Buhangin","citizenship":"Filipino","yearsInBarangay":"4 years","completeAddress":"#123 Km. 37, Garden","contactNumber":"0987-654-3211","email":"shinobu@gmail.com","emergencyContactPerson":"ghjhgjhjghjgj","emergencyContactNumber":"0967-765-7657","emergencyRelationship":"Parent","modeOfRelease":"Pickup","modeOfPayment":"Cash"}
+2026-01-01 05:33:22 - FILES: ["idPicture","proofOfResidency"]
+2026-01-01 05:33:22 - All required fields present
+2026-01-01 05:33:22 - Files validated
+2026-01-01 05:33:22 - ID picture uploaded: uploads/barangay_id_pictures/id_17_1767242002.png
+2026-01-01 05:33:22 - Proof uploaded: uploads/barangay_id_proofs/proof_17_1767242002.pdf
+2026-01-01 05:33:22 - Table ready
+2026-01-01 05:33:22 - Request created: ID 118
+2026-01-01 05:33:22 - SUCCESS! Request ID: 118
+2026-01-02 15:59:25 - Request received
+2026-01-02 15:59:25 - Resident ID: 18
+2026-01-02 15:59:25 - POST: {"firstName":"Tanjiro","middleName":"","lastName":"Kamado","suffix":"","dateOfBirth":"2000-04-02","gender":"Male","civilStatus":"Married","placeOfBirth":"Pulong Buhangin","citizenship":"Filipino","yearsInBarangay":"4 years","completeAddress":"Oiiai st. Balasing","contactNumber":"0965-721-4742","email":"tanjiro@gmail.com","emergencyContactPerson":"ghjhgjhjghjgj","emergencyContactNumber":"0967-765-7657","emergencyRelationship":"Parent","modeOfRelease":"Pickup","modeOfPayment":"Cash"}
+2026-01-02 15:59:25 - FILES: ["idPicture","proofOfResidency"]
+2026-01-02 15:59:25 - All required fields present
+2026-01-02 15:59:25 - Files validated
+2026-01-02 15:59:25 - ID picture uploaded: uploads/barangay_id_pictures/id_18_1767365965.png
+2026-01-02 15:59:25 - Proof uploaded: uploads/barangay_id_proofs/proof_18_1767365965.png
+2026-01-02 15:59:25 - Table ready
+2026-01-02 15:59:25 - Request created: ID 122
+2026-01-02 15:59:25 - SUCCESS! Request ID: 122
+2026-01-03 14:42:23 - Request received
+2026-01-03 14:42:23 - Resident ID: 2
+2026-01-03 14:42:23 - POST: {"firstName":"Ericka","middleName":"Agustin","lastName":"Orbasido","suffix":"","dateOfBirth":"2004-08-01","gender":"Female","civilStatus":"Single","placeOfBirth":"Pulong Buhangin","citizenship":"Filipino","yearsInBarangay":"4 years","completeAddress":"Saturn st. #99 Muscoka Village","contactNumber":"0965-721-4742","email":"orbasido@gmail.com","emergencyContactPerson":"Meret Manon","emergencyContactNumber":"0967-765-7657","emergencyRelationship":"Friend","modeOfRelease":"Download","modeOfPayment":"GCash"}
+2026-01-03 14:42:23 - FILES: ["validId","idPicture","proofOfResidency"]
+2026-01-03 14:42:23 - All required fields present
+2026-01-03 14:42:23 - Files validated
+2026-01-03 14:42:23 - Valid ID uploaded: uploads/valid_ids/valid_2_1767447743.jfif
+2026-01-03 14:42:23 - ID picture uploaded: uploads/barangay_id_pictures/id_2_1767447743.JPG
+2026-01-03 14:42:23 - Proof uploaded: uploads/barangay_id_proofs/proof_2_1767447743.pdf
+2026-01-03 14:42:23 - Table ready
+2026-01-03 14:42:23 - Request created: ID 128
+2026-01-03 14:42:23 - ERROR: Unknown column 'valid_id_path' in 'field list'
+2026-01-03 14:42:23 - Request received
+2026-01-03 14:42:23 - Resident ID: 2
+2026-01-03 14:42:23 - POST: {"firstName":"Ericka","middleName":"Agustin","lastName":"Orbasido","suffix":"","dateOfBirth":"2004-08-01","gender":"Female","civilStatus":"Single","placeOfBirth":"Pulong Buhangin","citizenship":"Filipino","yearsInBarangay":"4 years","completeAddress":"Saturn st. #99 Muscoka Village","contactNumber":"0965-721-4742","email":"orbasido@gmail.com","emergencyContactPerson":"Meret Manon","emergencyContactNumber":"0967-765-7657","emergencyRelationship":"Friend","modeOfRelease":"Download","modeOfPayment":"GCash"}
+2026-01-03 14:42:23 - FILES: ["validId","idPicture","proofOfResidency"]
+2026-01-03 14:42:23 - All required fields present
+2026-01-03 14:42:23 - Files validated
+2026-01-03 14:42:23 - Valid ID uploaded: uploads/valid_ids/valid_2_1767447743.jfif
+2026-01-03 14:42:23 - ID picture uploaded: uploads/barangay_id_pictures/id_2_1767447743.JPG
+2026-01-03 14:42:23 - Proof uploaded: uploads/barangay_id_proofs/proof_2_1767447743.pdf
+2026-01-03 14:42:23 - Table ready
+2026-01-03 14:42:23 - Request created: ID 129
+2026-01-03 14:42:23 - ERROR: Unknown column 'valid_id_path' in 'field list'
+2026-01-03 14:42:46 - Request received
+2026-01-03 14:42:46 - Resident ID: 2
+2026-01-03 14:42:46 - POST: {"firstName":"Ericka","middleName":"Agustin","lastName":"Orbasido","suffix":"","dateOfBirth":"2004-08-01","gender":"Female","civilStatus":"Single","placeOfBirth":"Pulong Buhangin","citizenship":"Filipino","yearsInBarangay":"4 years","completeAddress":"Saturn st. #99 Muscoka Village","contactNumber":"0965-721-4742","email":"orbasido@gmail.com","emergencyContactPerson":"Meret Manon","emergencyContactNumber":"0967-765-7657","emergencyRelationship":"Friend","modeOfRelease":"Download","modeOfPayment":"GCash"}
+2026-01-03 14:42:46 - FILES: ["validId","idPicture","proofOfResidency"]
+2026-01-03 14:42:46 - All required fields present
+2026-01-03 14:42:46 - Files validated
+2026-01-03 14:42:46 - Valid ID uploaded: uploads/valid_ids/valid_2_1767447766.png
+2026-01-03 14:42:46 - ID picture uploaded: uploads/barangay_id_pictures/id_2_1767447766.JPG
+2026-01-03 14:42:46 - Proof uploaded: uploads/barangay_id_proofs/proof_2_1767447766.pdf
+2026-01-03 14:42:46 - Table ready
+2026-01-03 14:42:46 - Request created: ID 130
+2026-01-03 14:42:46 - ERROR: Unknown column 'valid_id_path' in 'field list'
+2026-01-03 14:42:46 - Request received
+2026-01-03 14:42:46 - Resident ID: 2
+2026-01-03 14:42:46 - POST: {"firstName":"Ericka","middleName":"Agustin","lastName":"Orbasido","suffix":"","dateOfBirth":"2004-08-01","gender":"Female","civilStatus":"Single","placeOfBirth":"Pulong Buhangin","citizenship":"Filipino","yearsInBarangay":"4 years","completeAddress":"Saturn st. #99 Muscoka Village","contactNumber":"0965-721-4742","email":"orbasido@gmail.com","emergencyContactPerson":"Meret Manon","emergencyContactNumber":"0967-765-7657","emergencyRelationship":"Friend","modeOfRelease":"Download","modeOfPayment":"GCash"}
+2026-01-03 14:42:46 - FILES: ["validId","idPicture","proofOfResidency"]
+2026-01-03 14:42:46 - All required fields present
+2026-01-03 14:42:46 - Files validated
+2026-01-03 14:42:46 - Valid ID uploaded: uploads/valid_ids/valid_2_1767447766.png
+2026-01-03 14:42:46 - ID picture uploaded: uploads/barangay_id_pictures/id_2_1767447766.JPG
+2026-01-03 14:42:46 - Proof uploaded: uploads/barangay_id_proofs/proof_2_1767447766.pdf
+2026-01-03 14:42:46 - Table ready
+2026-01-03 14:42:46 - Request created: ID 131
+2026-01-03 14:42:46 - ERROR: Unknown column 'valid_id_path' in 'field list'
+2026-01-03 14:58:26 - Request received
+2026-01-03 14:58:26 - Resident ID: 2
+2026-01-03 14:58:26 - POST: {"firstName":"Ericka","middleName":"Agustin","lastName":"Orbasido","suffix":"","dateOfBirth":"2004-08-01","gender":"Female","civilStatus":"Single","placeOfBirth":"Pulong Buhangin","citizenship":"Filipino","yearsInBarangay":"4 years","completeAddress":"Saturn st. #99 Muscoka Village","contactNumber":"0965-721-4742","email":"orbasido@gmail.com","emergencyContactPerson":"Meret Manon","emergencyContactNumber":"0967-765-7657","emergencyRelationship":"Friend","modeOfRelease":"Download","modeOfPayment":"GCash"}
+2026-01-03 14:58:26 - FILES: ["validId","idPicture","proofOfResidency"]
+2026-01-03 14:58:26 - All required fields present
+2026-01-03 14:58:26 - Files validated
+2026-01-03 14:58:26 - Valid ID uploaded: uploads/valid_ids/valid_2_1767448706.jfif
+2026-01-03 14:58:26 - ERROR: Invalid ID picture. Must be JPG/PNG, max 2MB.
+2026-01-03 14:58:26 - Request received
+2026-01-03 14:58:26 - Resident ID: 2
+2026-01-03 14:58:26 - POST: {"firstName":"Ericka","middleName":"Agustin","lastName":"Orbasido","suffix":"","dateOfBirth":"2004-08-01","gender":"Female","civilStatus":"Single","placeOfBirth":"Pulong Buhangin","citizenship":"Filipino","yearsInBarangay":"4 years","completeAddress":"Saturn st. #99 Muscoka Village","contactNumber":"0965-721-4742","email":"orbasido@gmail.com","emergencyContactPerson":"Meret Manon","emergencyContactNumber":"0967-765-7657","emergencyRelationship":"Friend","modeOfRelease":"Download","modeOfPayment":"GCash"}
+2026-01-03 14:58:26 - FILES: ["validId","idPicture","proofOfResidency"]
+2026-01-03 14:58:26 - All required fields present
+2026-01-03 14:58:26 - Files validated
+2026-01-03 14:58:26 - Valid ID uploaded: uploads/valid_ids/valid_2_1767448706.jfif
+2026-01-03 14:58:26 - ERROR: Invalid ID picture. Must be JPG/PNG, max 2MB.
+2026-01-03 14:58:37 - Request received
+2026-01-03 14:58:37 - Resident ID: 2
+2026-01-03 14:58:37 - POST: {"firstName":"Ericka","middleName":"Agustin","lastName":"Orbasido","suffix":"","dateOfBirth":"2004-08-01","gender":"Female","civilStatus":"Single","placeOfBirth":"Pulong Buhangin","citizenship":"Filipino","yearsInBarangay":"4 years","completeAddress":"Saturn st. #99 Muscoka Village","contactNumber":"0965-721-4742","email":"orbasido@gmail.com","emergencyContactPerson":"Meret Manon","emergencyContactNumber":"0967-765-7657","emergencyRelationship":"Friend","modeOfRelease":"Download","modeOfPayment":"GCash"}
+2026-01-03 14:58:37 - FILES: ["validId","idPicture","proofOfResidency"]
+2026-01-03 14:58:37 - All required fields present
+2026-01-03 14:58:37 - Files validated
+2026-01-03 14:58:37 - Valid ID uploaded: uploads/valid_ids/valid_2_1767448717.png
+2026-01-03 14:58:37 - ERROR: Invalid ID picture. Must be JPG/PNG, max 2MB.
+2026-01-03 14:58:37 - Request received
+2026-01-03 14:58:37 - Resident ID: 2
+2026-01-03 14:58:37 - POST: {"firstName":"Ericka","middleName":"Agustin","lastName":"Orbasido","suffix":"","dateOfBirth":"2004-08-01","gender":"Female","civilStatus":"Single","placeOfBirth":"Pulong Buhangin","citizenship":"Filipino","yearsInBarangay":"4 years","completeAddress":"Saturn st. #99 Muscoka Village","contactNumber":"0965-721-4742","email":"orbasido@gmail.com","emergencyContactPerson":"Meret Manon","emergencyContactNumber":"0967-765-7657","emergencyRelationship":"Friend","modeOfRelease":"Download","modeOfPayment":"GCash"}
+2026-01-03 14:58:37 - FILES: ["validId","idPicture","proofOfResidency"]
+2026-01-03 14:58:37 - All required fields present
+2026-01-03 14:58:37 - Files validated
+2026-01-03 14:58:37 - Valid ID uploaded: uploads/valid_ids/valid_2_1767448717.png
+2026-01-03 14:58:37 - ERROR: Invalid ID picture. Must be JPG/PNG, max 2MB.
+2026-01-03 14:58:50 - Request received
+2026-01-03 14:58:50 - Resident ID: 2
+2026-01-03 14:58:50 - POST: {"firstName":"Ericka","middleName":"Agustin","lastName":"Orbasido","suffix":"","dateOfBirth":"2004-08-01","gender":"Female","civilStatus":"Single","placeOfBirth":"Pulong Buhangin","citizenship":"Filipino","yearsInBarangay":"4 years","completeAddress":"Saturn st. #99 Muscoka Village","contactNumber":"0965-721-4742","email":"orbasido@gmail.com","emergencyContactPerson":"Meret Manon","emergencyContactNumber":"0967-765-7657","emergencyRelationship":"Friend","modeOfRelease":"Download","modeOfPayment":"GCash"}
+2026-01-03 14:58:50 - FILES: ["validId","idPicture","proofOfResidency"]
+2026-01-03 14:58:50 - All required fields present
+2026-01-03 14:58:50 - Files validated
+2026-01-03 14:58:50 - Valid ID uploaded: uploads/valid_ids/valid_2_1767448730.png
+2026-01-03 14:58:50 - ERROR: Invalid ID picture. Must be JPG/PNG, max 2MB.
+2026-01-03 14:58:50 - Request received
+2026-01-03 14:58:50 - Resident ID: 2
+2026-01-03 14:58:50 - POST: {"firstName":"Ericka","middleName":"Agustin","lastName":"Orbasido","suffix":"","dateOfBirth":"2004-08-01","gender":"Female","civilStatus":"Single","placeOfBirth":"Pulong Buhangin","citizenship":"Filipino","yearsInBarangay":"4 years","completeAddress":"Saturn st. #99 Muscoka Village","contactNumber":"0965-721-4742","email":"orbasido@gmail.com","emergencyContactPerson":"Meret Manon","emergencyContactNumber":"0967-765-7657","emergencyRelationship":"Friend","modeOfRelease":"Download","modeOfPayment":"GCash"}
+2026-01-03 14:58:50 - FILES: ["validId","idPicture","proofOfResidency"]
+2026-01-03 14:58:50 - All required fields present
+2026-01-03 14:58:50 - Files validated
+2026-01-03 14:58:50 - Valid ID uploaded: uploads/valid_ids/valid_2_1767448730.png
+2026-01-03 14:58:50 - ERROR: Invalid ID picture. Must be JPG/PNG, max 2MB.
+2026-01-03 14:59:39 - Request received
+2026-01-03 14:59:39 - Resident ID: 2
+2026-01-03 14:59:39 - POST: {"firstName":"Ericka","middleName":"Agustin","lastName":"Orbasido","suffix":"","dateOfBirth":"2004-08-01","gender":"Female","civilStatus":"Single","placeOfBirth":"Pulong Buhangin","citizenship":"Filipino","yearsInBarangay":"4 years","completeAddress":"Saturn st. #99 Muscoka Village","contactNumber":"0965-721-4742","email":"orbasido@gmail.com","emergencyContactPerson":"Meret Manon","emergencyContactNumber":"0967-765-7657","emergencyRelationship":"Friend","modeOfRelease":"Download","modeOfPayment":"GCash"}
+2026-01-03 14:59:39 - FILES: ["validId","idPicture","proofOfResidency"]
+2026-01-03 14:59:39 - All required fields present
+2026-01-03 14:59:39 - Files validated
+2026-01-03 14:59:39 - Valid ID uploaded: uploads/valid_ids/valid_2_1767448779.jpg
+2026-01-03 14:59:39 - ERROR: Invalid ID picture. Must be JPG/PNG, max 2MB.
+2026-01-03 14:59:39 - Request received
+2026-01-03 14:59:39 - Resident ID: 2
+2026-01-03 14:59:39 - POST: {"firstName":"Ericka","middleName":"Agustin","lastName":"Orbasido","suffix":"","dateOfBirth":"2004-08-01","gender":"Female","civilStatus":"Single","placeOfBirth":"Pulong Buhangin","citizenship":"Filipino","yearsInBarangay":"4 years","completeAddress":"Saturn st. #99 Muscoka Village","contactNumber":"0965-721-4742","email":"orbasido@gmail.com","emergencyContactPerson":"Meret Manon","emergencyContactNumber":"0967-765-7657","emergencyRelationship":"Friend","modeOfRelease":"Download","modeOfPayment":"GCash"}
+2026-01-03 14:59:39 - FILES: ["validId","idPicture","proofOfResidency"]
+2026-01-03 14:59:39 - All required fields present
+2026-01-03 14:59:39 - Files validated
+2026-01-03 14:59:39 - Valid ID uploaded: uploads/valid_ids/valid_2_1767448779.jpg
+2026-01-03 14:59:39 - ERROR: Invalid ID picture. Must be JPG/PNG, max 2MB.
+2026-01-03 14:59:50 - Request received
+2026-01-03 14:59:50 - Resident ID: 2
+2026-01-03 14:59:50 - POST: {"firstName":"Ericka","middleName":"Agustin","lastName":"Orbasido","suffix":"","dateOfBirth":"2004-08-01","gender":"Female","civilStatus":"Single","placeOfBirth":"Pulong Buhangin","citizenship":"Filipino","yearsInBarangay":"4 years","completeAddress":"Saturn st. #99 Muscoka Village","contactNumber":"0965-721-4742","email":"orbasido@gmail.com","emergencyContactPerson":"Meret Manon","emergencyContactNumber":"0967-765-7657","emergencyRelationship":"Friend","modeOfRelease":"Download","modeOfPayment":"GCash"}
+2026-01-03 14:59:50 - FILES: ["validId","idPicture","proofOfResidency"]
+2026-01-03 14:59:50 - All required fields present
+2026-01-03 14:59:50 - Files validated
+2026-01-03 14:59:50 - Valid ID uploaded: uploads/valid_ids/valid_2_1767448790.jpg
+2026-01-03 14:59:50 - ID picture uploaded: uploads/barangay_id_pictures/id_2_1767448790.jpg
+2026-01-03 14:59:50 - Proof uploaded: uploads/barangay_id_proofs/proof_2_1767448790.pdf
+2026-01-03 14:59:50 - Table ready
+2026-01-03 14:59:50 - Request created: ID 132
+2026-01-03 14:59:50 - ERROR: Unknown column 'valid_id_path' in 'field list'
+2026-01-03 14:59:50 - Request received
+2026-01-03 14:59:50 - Resident ID: 2
+2026-01-03 14:59:50 - POST: {"firstName":"Ericka","middleName":"Agustin","lastName":"Orbasido","suffix":"","dateOfBirth":"2004-08-01","gender":"Female","civilStatus":"Single","placeOfBirth":"Pulong Buhangin","citizenship":"Filipino","yearsInBarangay":"4 years","completeAddress":"Saturn st. #99 Muscoka Village","contactNumber":"0965-721-4742","email":"orbasido@gmail.com","emergencyContactPerson":"Meret Manon","emergencyContactNumber":"0967-765-7657","emergencyRelationship":"Friend","modeOfRelease":"Download","modeOfPayment":"GCash"}
+2026-01-03 14:59:50 - FILES: ["validId","idPicture","proofOfResidency"]
+2026-01-03 14:59:50 - All required fields present
+2026-01-03 14:59:50 - Files validated
+2026-01-03 14:59:50 - Valid ID uploaded: uploads/valid_ids/valid_2_1767448790.jpg
+2026-01-03 14:59:50 - ID picture uploaded: uploads/barangay_id_pictures/id_2_1767448790.jpg
+2026-01-03 14:59:50 - Proof uploaded: uploads/barangay_id_proofs/proof_2_1767448790.pdf
+2026-01-03 14:59:50 - Table ready
+2026-01-03 14:59:50 - Request created: ID 133
+2026-01-03 14:59:50 - ERROR: Unknown column 'valid_id_path' in 'field list'
+2026-01-03 15:31:08 - Request received
+2026-01-03 15:31:08 - Resident ID: 2
+2026-01-03 15:31:08 - POST: {"firstName":"Ericka","middleName":"Agustin","lastName":"Orbasido","suffix":"","dateOfBirth":"2004-08-01","gender":"Female","civilStatus":"Single","placeOfBirth":"Pulong Buhangin","citizenship":"Filipino","yearsInBarangay":"4 years","completeAddress":"Saturn st. #99 Muscoka Village","contactNumber":"0965-721-4742","email":"orbasido@gmail.com","emergencyContactPerson":"Meret Manon","emergencyContactNumber":"0967-765-7657","emergencyRelationship":"Friend","modeOfRelease":"Download","modeOfPayment":"GCash"}
+2026-01-03 15:31:08 - FILES: ["validId","idPicture","proofOfResidency"]
+2026-01-03 15:31:08 - All required fields present
+2026-01-03 15:31:08 - Files validated
+2026-01-03 15:31:08 - Valid ID uploaded: uploads/valid_ids/valid_2_1767450668.jpg
+2026-01-03 15:31:08 - ID picture uploaded: uploads/barangay_id_pictures/id_2_1767450668.jpg
+2026-01-03 15:31:08 - Proof uploaded: uploads/barangay_id_proofs/proof_2_1767450668.pdf
+2026-01-03 15:31:08 - Table ready
+2026-01-03 15:31:08 - Request created: ID 134
+2026-01-03 15:31:08 - SUCCESS! Request ID: 134
+2026-01-03 15:31:08 - Request received
+2026-01-03 15:31:08 - Resident ID: 2
+2026-01-03 15:31:08 - POST: {"firstName":"Ericka","middleName":"Agustin","lastName":"Orbasido","suffix":"","dateOfBirth":"2004-08-01","gender":"Female","civilStatus":"Single","placeOfBirth":"Pulong Buhangin","citizenship":"Filipino","yearsInBarangay":"4 years","completeAddress":"Saturn st. #99 Muscoka Village","contactNumber":"0965-721-4742","email":"orbasido@gmail.com","emergencyContactPerson":"Meret Manon","emergencyContactNumber":"0967-765-7657","emergencyRelationship":"Friend","modeOfRelease":"Download","modeOfPayment":"GCash"}
+2026-01-03 15:31:08 - FILES: ["validId","idPicture","proofOfResidency"]
+2026-01-03 15:31:08 - All required fields present
+2026-01-03 15:31:08 - Files validated
+2026-01-03 15:31:08 - Valid ID uploaded: uploads/valid_ids/valid_2_1767450668.jpg
+2026-01-03 15:31:08 - ID picture uploaded: uploads/barangay_id_pictures/id_2_1767450668.jpg
+2026-01-03 15:31:08 - Proof uploaded: uploads/barangay_id_proofs/proof_2_1767450668.pdf
+2026-01-03 15:31:08 - Table ready
+2026-01-03 15:31:08 - Request created: ID 135
+2026-01-03 15:31:08 - SUCCESS! Request ID: 135

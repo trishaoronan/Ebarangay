@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login/Register | eBarangay</title>
+  <link rel="icon" type="image/jpeg" href="pics/eb-logo.jpg">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"/>
+  <link rel="stylesheet" href="style.css"/>
+
+  <!-- Styles moved to style.css -->
+  <style>
+    /* Form transition styles */
+    .form-transition {
+      opacity: 0;
+      transition: opacity 0.2s ease-in-out;
+    }
+    .form-visible {
+      opacity: 1;
+    }
+    .form-hidden {
+      opacity: 0;
+    }
+    
+    /* Tab transition styles */
+    .login-tab {
+      position: relative;
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+    .login-tab::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: #0d6efd;
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+    }
+    .login-tab.active::after {
+      width: 100%;
+    }
+    .login-tab:hover {
+      transform: translateY(-1px);
+    }
+    /* Keep password toggle (eye) visible inside inputs and avoid overlap with browser validation icon */
+    .password-wrapper { position: relative; }
+    .password-wrapper .form-control { padding-right: 64px; }
+    .password-wrapper .toggle-password { position: absolute; top: 50%; right: 18px; transform: translateY(-50%); z-index: 6; background: transparent; border: none; width:34px; height:34px; display:inline-flex; align-items:center; justify-content:center; }
+    .password-wrapper .toggle-password i { font-size: 1.05rem; transform: translateY(1px); }
+  </style>
+</head>
+
+<body>
+  <div id="loadingScreen">
+    <div class="text-center">
+      <img src="pics/eb-logo.jpg" alt="eBarangay Logo" style="max-width: 100px; height: auto; margin-bottom: 1.5rem;">
+      <p class="small" style="color: rgba(255,255,255,0.9);">Please wait...</p>
+    </div>
+  </div>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light shadow-sm" style="margin-top: -8px; padding-top: 8px;">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <img src="pics/eb-logo.jpg" alt="eBarangay Logo" class="me-2" style="height:40px; width:auto;">
+        <span class="fw-bold">eBarangay</span>
+        <span class="ms-2 text-light small">ONLINE SERVICES</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </nav>
+
+  <main>
+    <section class="py-5 login-section">
+
+      <!-- App Message Modal (used for errors and info instead of alert()) -->
+      <div class="modal fade" id="appMessageModal" tabindex="-1" aria-labelledby="appMessageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content rounded-4">
+            <div class="modal-header bg-light">
+              <h5 class="modal-title" id="appMessageModalLabel">Message</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="appMessageModalBody"></div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="appMessageModalClose">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row justify-content-center g-4">
+
+          <!-- Info Card -->
+          <div class="col-lg-5">
+            <div class="card p-4 border-0 shadow-sm login-info-card">
+              <span class="badge bg-light text-dark mb-3 px-3 py-2 shadow-sm">Resident Account</span>
+              <h2 class="fw-bold mb-3">Access Barangay Connect</h2>
+              <p class="mb-3 text-muted">
+                Track your barangay documents, receive notifications, and download your clearances anytime.
+              </p>
+              <ul class="list-unstyled text-muted">
+                <li class="mb-2">• Paperless processing with real-time status tracking</li>
+                <li class="mb-2">• Upload requirements securely from your device</li>
+                <li class="mb-2">• Receive reminders via email</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Form Card -->
+          <div class="col-lg-7">
+            <div class="card p-4 border-0 shadow-sm login-form-card">
+
+              <!-- Single-card header: show a simple title (we'll show Register by default) -->
+              <div class="mb-4">
+                <h4 class="mb-0">Register</h4>
+                <p class="small text-muted">Create an account to access barangay services.</p>
+              </div>
+
+              <!-- Login Form -->
+              <form id="loginForm" novalidate>
+                <div class="mb-3">
+                  <label for="loginEmail" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="loginEmail" placeholder="Enter your email" required>
+                      <div class="invalid-feedback" id="loginEmailError" style="display:none;">Please enter a valid email address (for example: name@example.com).</div>
+                </div>
+                <div class="mb-3">
+                  <label for="loginPassword" class="form-label">Password</label>
+                  <div class="password-wrapper">
+                    <input type="password" class="form-control" id="loginPassword" placeholder="Enter your password" required>
+                    <button type="button" class="toggle-password"><i class="bi bi-eye-slash"></i></button>
+                  </div>
+                  <div class="mt-2 text-end">
+                    <a href="#" class="small text-primary text-decoration-underline" style="cursor:pointer; font-weight:400;" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">Forgot password?</a>
+                  </div>
+                </div>
+
+                <button type="submit" class="btn w-100 login-btn">LOGIN</button>
+                <div class="mt-3 text-center">
+                  <span class="small text-muted">Don't have an account?</span>
+                  <a href="#" id="toRegisterLink" class="ms-1 text-primary text-decoration-underline" style="cursor:pointer; font-weight:400;">Register</a>
+                </div>
+              </form>
+
+              <!-- Forgot Password Modal -->
+              <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content rounded-4 shadow-sm">
+                    <div class="modal-header reset-password-header rounded-top-4">
+                      <h5 class="modal-title" id="forgotPasswordModalLabel" style="font-weight:400;">Reset Password</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <form id="resetPasswordForm" novalidate>
+                        <label for="resetEmail" class="form-label" style="font-weight:400;">Email address</label>
+                        <input type="email" class="form-control mb-3" id="resetEmail" placeholder="Enter your email" required>
+                        <div class="invalid-feedback" id="resetEmailError" style="display:none;">Please enter a valid email address (for example: name@example.com).</div>
+                        
+                        <button type="submit" class="btn w-100 reset-link-btn">Send Reset Link</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Register Form -->
+              <form id="registerForm" style="display:none;" novalidate>
+  <div class="row g-2">
+    <div class="col-md-4 mb-3">
+      <label for="registerFirstName" class="form-label">First Name <span class="text-danger">*</span></label>
+      <input type="text" class="form-control" id="registerFirstName" placeholder="Juan" required>
+      <div class="invalid-feedback" id="registerFirstNameError">First name must contain only letters and spaces.</div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <label for="registerMiddleName" class="form-label">Middle Name</label>
+      <input type="text" class="form-control" id="registerMiddleName" placeholder="Ponce">
+
+    </div>
+    <div class="col-md-4 mb-3">
+      <label for="registerLastName" class="form-label">Last Name <span class="text-danger">*</span></label>
+      <input type="text" class="form-control" id="registerLastName" placeholder="Dela Cruz" required>
+      <div class="invalid-feedback" id="registerLastNameError">Last name must contain only letters and spaces.</div>
+    </div>
+  </div>
+  <div class="row g-2">
+    <div class="col-md-6 mb-3">
+      <label for="registerGender" class="form-label">Gender</label>
+      <select id="registerGender" class="form-select">
+        <option value="">Select gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+        <option value="Prefer not to say">Prefer not to say</option>
+      </select>
+    </div>
+    <div class="col-md-6 mb-3">
+      <label for="registerCivilStatus" class="form-label">Civil Status</label>
+      <select id="registerCivilStatus" class="form-select">
+        <option value="">Select civil status</option>
+        <option value="Single">Single</option>
+        <option value="Married">Married</option>
+        <option value="Widowed">Widowed</option>
+        <option value="Divorced">Divorced</option>
+      </select>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="registerEmail" class="form-label">Email <span class="text-danger">*</span></label>
+    <input type="email" class="form-control" id="registerEmail" placeholder="name@example.com" required>
+  <div class="invalid-feedback" id="registerEmailError" style="display:none;">Please enter a valid email address.</div>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Complete Address <span class="text-danger">*</span></label>
+    <div class="row g-2">
+      <div class="col-md-6">
+        <label for="registerMunicipality" class="form-label small text-muted">Municipality/City</label>
+        <input type="text" class="form-control" id="registerMunicipality" value="Santa Maria" readonly style="background-color: #f8f9fa; cursor: not-allowed;">
+      </div>
+      <div class="col-md-6">
+        <label for="registerBarangay" class="form-label small text-muted">Barangay</label>
+        <input type="text" class="form-control" id="registerBarangay" value="Pulong Buhangin" readonly style="background-color: #f8f9fa; cursor: not-allowed;">
+      </div>
+    </div>
+    <div class="mt-2">
+      <label for="registerStreet" class="form-label small text-muted">Street, House/Building Number, Unit</label>
+      <input type="text" class="form-control" id="registerStreet" placeholder="Enter your street and house number" required>
+      <div class="invalid-feedback" id="registerStreetError">Please enter your street and house number.</div>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="registerMobile" class="form-label">Contact Number <span class="text-danger">*</span></label>
+  <input type="tel" class="form-control" id="registerMobile" placeholder="09XX-XXX-XXXX" inputmode="numeric" pattern="[0-9]*" autocomplete="tel" required>
+    <div class="invalid-feedback" id="registerMobileError" style="display:none;">Enter a valid 11-digit number starting with 09 (digits only).</div>
+  </div>
+  <div class="row g-2">
+    <div class="col-md-6 mb-3">
+      <label for="registerBirthday" class="form-label">Birthday</label>
+      <input type="date" class="form-control" id="registerBirthday" placeholder="YYYY-MM-DD">
+      <div class="form-text small text-muted">Enter your date of birth.</div>
+    </div>
+    <div class="col-md-6 mb-3">
+      <label for="registerAge" class="form-label">Age</label>
+      <input type="number" class="form-control" id="registerAge" min="0" max="130" readonly>
+      <div class="form-text small text-muted">Age is auto-calculated from birthday but you may update later in profile.</div>
+    </div>
+  </div>
+  <div class="row g-2">
+    <div class="col-md-6 mb-3">
+      <label for="registerPassword" class="form-label">Password <span class="text-danger">*</span></label>
+      <div class="password-wrapper">
+        <input type="password" class="form-control" id="registerPassword" placeholder="Enter your password" required>
+        <button type="button" class="toggle-password"><i class="bi bi-eye-slash"></i></button>
+      </div>
+      <div class="invalid-feedback" id="registerPasswordError" style="display:none;"></div>
+    </div>
+    <div class="col-md-6 mb-3">
+      <label for="registerConfirmPassword" class="form-label">Confirm Password <span class="text-danger">*</span></label>
+      <div class="password-wrapper">
+        <input type="password" class="form-control" id="registerConfirmPassword" placeholder="Confirm your password" required>
+        <button type="button" class="toggle-password"><i class="bi bi-eye-slash"></i></button>
+      </div>
+      <div class="invalid-feedback" id="registerConfirmPasswordError" style="display:none;"></div>
+    </div>
+  </div>
+
+  <div class="form-check mb-3">
+    <input class="form-check-input" type="checkbox" id="registerAgreeDPA" required>
+    <label class="form-check-label" for="registerAgreeDPA">
+      I acknowledge and consent to the collection and processing of my personal data under the <strong>Data Privacy Act (DPA) of 2025</strong>. 
+      <a href="#" class="text-primary text-decoration-underline" data-bs-toggle="modal" data-bs-target="#dpaModal" style="cursor:pointer;">Read full policy</a>
+    </label>
+  </div>
+ 
+  <button type="submit" class="btn w-100 login-btn">REGISTER</button>
+  <div class="mt-3 text-center">
+    <span class="small text-muted">Already have an account?</span>
+    <a href="#" id="toLoginLink" class="ms-1 text-primary text-decoration-underline" style="cursor:pointer; font-weight:400;">Login</a>
+  </div>
+</form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer border-top py-3 bg-dark text-white mt-5">
+    <div class="container">
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+        <div class="d-flex align-items-center mb-2 mb-md-0">
+          <img src="pics/eb-logo.jpg" alt="eBarangay Logo" class="me-2" style="max-width: 40px; height: auto;">
+          <span class="fw-bold text-white">eBarangay</span>
+          <span class="ms-2 text-white small">RESIDENT PORTAL</span>
+        </div>
+        <div class="small mb-2 mb-md-0" style="color: #070202 !important;">&copy; 2025 eBarangay. All rights reserved.</div>
+        <div>
+          <a href="#" class="text-decoration-none me-2 footer-link-dark" data-bs-toggle="modal" data-bs-target="#privacyModal">Privacy Policy</a>
+          <a href="#" class="text-decoration-none footer-link-dark" data-bs-toggle="modal" data-bs-target="#contactModal">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Privacy Policy Modal -->
+  <div class="modal fade" id="privacyModal" tabindex="-1" aria-labelledby="privacyModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content rounded-4">
+        <div class="modal-header bg-light">
+          <h5 class="modal-title" id="privacyModalLabel">Privacy Policy</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="max-height: 60vh; overflow-y: auto;">
+          <p><strong>Introduction:</strong> This Privacy Policy explains how eBarangay collects, uses, and protects your personal information.</p>
+          <p><strong>Information Collection:</strong> We may collect your name, email, address, phone number, and other information necessary to provide our services.</p>
+          <p><strong>Use of Information:</strong> Your information will be used to process barangay documents, send notifications, and improve our services.</p>
+          <p><strong>Data Protection:</strong> We implement reasonable administrative, physical, and technical safeguards to protect your information in accordance with the Data Privacy Act of 2025.</p>
+          <p><strong>Sharing Information:</strong> We do not sell or share your personal information with third parties except as required by law or for official barangay services.</p>
+          <p><strong>Cookies:</strong> We may use cookies to enhance user experience and track usage patterns.</p>
+          <p><strong>Changes to Policy:</strong> We may update this policy from time to time. The updated version will be posted on this page.</p>
+          <p><strong>Contact:</strong> For questions regarding this policy, contact us via the Contact modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-close-gradient" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Data Privacy Act Modal -->
+  <div class="modal fade" id="dpaModal" tabindex="-1" aria-labelledby="dpaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header border-0 pb-0">
+          <h5 class="modal-title fw-normal" id="dpaModalLabel">Privacy Policy</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="max-height: 65vh; overflow-y: auto; line-height: 1.8; padding: 1.5rem 2rem;">
+          
+          <!-- Introduction -->
+          <p class="mb-3">
+            <strong>Introduction:</strong> This Data Privacy Policy outlines how <strong>eBarangay</strong> collects, uses, stores, and protects your personal information 
+            in compliance with the <strong>Data Privacy Act (DPA) of 2025</strong> and other applicable laws of the Republic of the Philippines. 
+            By registering and using our services, you acknowledge that you have read, understood, and consent to the practices described in this policy.
+          </p>
+
+          <!-- Information We Collect -->
+          <p class="mb-2"><strong>Information Collection:</strong> We may collect the following types of personal information:</p>
+          <ul class="mb-3">
+            <li><strong>Personal Identification:</strong> Full name, date of birth, gender, civil status, nationality</li>
+            <li><strong>Contact Information:</strong> Email address, contact number, residential address</li>
+            <li><strong>Government IDs:</strong> Valid identification documents required for barangay clearance and document processing</li>
+            <li><strong>Demographic Data:</strong> Age, occupation, educational background (if required for specific services)</li>
+            <li><strong>Uploaded Documents:</strong> Supporting files such as IDs, certificates, photos, and other barangay-related requirements</li>
+            <li><strong>Technical Data:</strong> IP address, browser type, device information, cookies, and usage logs for system security and improvement</li>
+          </ul>
+
+          <!-- Purpose of Data Collection -->
+          <p class="mb-2"><strong>Use of Information:</strong> Your personal data is collected for the following lawful purposes:</p>
+          <ul class="mb-3">
+            <li>Processing barangay clearances, certificates, permits, and other official documents</li>
+            <li>Verifying resident identity and eligibility for barangay programs and services</li>
+            <li>Sending service notifications, updates, and reminders via email or SMS</li>
+            <li>Maintaining accurate records for barangay administration and governance</li>
+            <li>Complying with legal obligations, court orders, and government regulations</li>
+            <li>Improving system functionality, user experience, and service delivery</li>
+            <li>Generating reports and analytics for barangay planning and decision-making (anonymized where possible)</li>
+          </ul>
+
+          <!-- Data Storage and Security -->
+          <p class="mb-2">
+            <strong>Data Protection:</strong> We implement industry-standard <strong>administrative, technical, and physical safeguards</strong> to protect your personal data from 
+            unauthorized access, disclosure, alteration, or destruction. These measures include:
+          </p>
+          <ul class="mb-3">
+            <li>Encrypted data transmission using SSL/TLS protocols</li>
+            <li>Secure cloud storage with restricted access controls</li>
+            <li>Regular security audits and vulnerability assessments</li>
+            <li>Staff training on data privacy and confidentiality</li>
+            <li>Backup and disaster recovery procedures</li>
+          </ul>
+          <p class="mb-3">
+            Despite our best efforts, no method of electronic transmission or storage is 100% secure. We cannot guarantee absolute security but 
+            are committed to protecting your data to the fullest extent possible.
+          </p>
+
+          <!-- Data Sharing and Disclosure -->
+          <p class="mb-2">
+            <strong>Sharing Information:</strong> <strong>We do not sell, rent, or trade your personal information to third parties.</strong> However, we may share your data under the following circumstances:
+          </p>
+          <ul class="mb-3">
+            <li><strong>With Government Agencies:</strong> When required by law, regulation, or court order (e.g., PNP, NBI, LGU offices)</li>
+            <li><strong>For Barangay Services:</strong> With authorized barangay officials and staff for document processing and service delivery</li>
+            <li><strong>With Service Providers:</strong> Trusted third-party vendors who assist in system operations (e.g., cloud hosting, SMS providers) under strict confidentiality agreements</li>
+            <li><strong>In Legal Proceedings:</strong> To defend legal claims, enforce our terms of service, or protect the rights and safety of the barangay and its constituents</li>
+          </ul>
+
+          <!-- Your Data Privacy Rights -->
+          <p class="mb-2"><strong>Your Data Privacy Rights:</strong> Under the Data Privacy Act of 2025, you have the following rights:</p>
+          <ul class="mb-3">
+            <li><strong>Right to Information:</strong> Be informed about how your data is collected and used</li>
+            <li><strong>Right to Access:</strong> Request a copy of your personal data held by eBarangay</li>
+            <li><strong>Right to Correction:</strong> Update or correct inaccurate or incomplete data</li>
+            <li><strong>Right to Erasure:</strong> Request deletion of your data (subject to legal retention requirements)</li>
+            <li><strong>Right to Data Portability:</strong> Obtain your data in a structured, machine-readable format</li>
+            <li><strong>Right to Object:</strong> Object to certain processing activities (e.g., direct marketing, if applicable)</li>
+            <li><strong>Right to Withdraw Consent:</strong> Revoke consent for data processing at any time (may affect service availability)</li>
+          </ul>
+          <p class="mb-3">
+            To exercise your rights, please contact our Data Protection Officer at <strong>dpo@ebarangay.com</strong> or visit the barangay office during business hours.
+          </p>
+
+          <!-- Retention of Data -->
+          <p class="mb-2">
+            <strong>Retention of Data:</strong> We retain your personal data only for as long as necessary to fulfill the purposes for which it was collected, comply with legal obligations, 
+            resolve disputes, and enforce our agreements. Retention periods vary by data type:
+          </p>
+          <ul class="mb-3">
+            <li><strong>Active Accounts:</strong> Data is retained while your account is active</li>
+            <li><strong>Inactive Accounts:</strong> Accounts inactive for more than 2 years may be archived or anonymized</li>
+            <li><strong>Processed Documents:</strong> Barangay clearances and certificates are retained per local government record-keeping requirements</li>
+            <li><strong>Legal Requirements:</strong> Some data may be retained longer if required by law or regulation</li>
+          </ul>
+
+          <!-- Cookies and Tracking Technologies -->
+          <p class="mb-3">
+            <strong>Cookies:</strong> Our website may use cookies and similar tracking technologies to enhance your experience, analyze usage patterns, and maintain session security. 
+            You can control cookie preferences through your browser settings, though disabling cookies may affect certain features.
+          </p>
+
+          <!-- Minors and Parental Consent -->
+          <p class="mb-3">
+            <strong>Minors and Parental Consent:</strong> eBarangay is intended for use by residents aged 18 and above. If you are under 18, you must obtain parental or guardian consent before 
+            registering or providing any personal information. Parents/guardians may contact us to access, correct, or delete a minor's data.
+          </p>
+
+          <!-- Changes to This Policy -->
+          <p class="mb-3">
+            <strong>Changes to Policy:</strong> We may update this Data Privacy Policy from time to time to reflect changes in our practices, legal requirements, or system enhancements. 
+            The updated policy will be posted on this page with a revised effective date. We encourage you to review this policy periodically. 
+            Continued use of our services after changes constitutes acceptance of the updated policy.
+          </p>
+
+          <!-- Contact Information -->
+          <p class="mb-2">
+            <strong>Contact:</strong> If you have questions, concerns, or requests regarding this Data Privacy Policy or the handling of your personal information, please contact:
+          </p>
+          <div class="bg-light p-3 rounded mb-3">
+            <p class="mb-1"><strong>Data Protection Officer (DPO)</strong></p>
+            <p class="mb-1">Email: dpo@ebarangay.com</p>
+            <p class="mb-1">Phone: +63 912 345 6789</p>
+            <p class="mb-0">Address: Km. 39, Pulong Buhangin, Santa Maria, Bulacan</p>
+          </div>
+
+          <!-- Effective Date -->
+          <div class="text-center pt-3 border-top">
+            <p class="small mb-0"><strong>Effective Date:</strong> January 1, 2025</p>
+            <p class="small mb-0"><strong>Last Updated:</strong> October 27, 2025</p>
+          </div>
+
+        </div>
+        <div class="modal-footer border-0 pt-0 justify-content-end">
+          <button type="button" class="btn btn-success px-4" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Modal -->
+  <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+      <div class="modal-content rounded-4">
+        <div class="modal-header bg-light">
+          <h5 class="modal-title" id="contactModalLabel">Contact Us</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="max-height: 50vh; overflow-y: auto;">
+          <p><strong>Barangay eBarangay Office</strong></p>
+          <p>Pulong Buhangin Barangay Hall, Santa Maria, 3022 Bulacan</p>
+          <p><strong>Email:</strong> <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ebarangaypulongbuhangin@gmail.com&su=eBarangay%20Support%20Request" target="_blank" rel="noopener">ebarangaypulongbuhangin@gmail.com</a></p>
+          <p><strong>Phone:</strong> +63 901 854 1783</p>
+          <p><strong>Office Hours:</strong> Monday to Friday, 8:00 AM – 5:00 PM</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-close-gradient" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Loading splash used in staff-login.html — reused here so resident login shows same splash
+    const loadingScreen = document.getElementById('loadingScreen');
+    function showLoadingAndRedirect(url, delay = 1500) {
+      if (loadingScreen) loadingScreen.classList.add('show');
+      setTimeout(() => {
+        if (url) window.location.href = url;
+      }, delay);
+    }
+
+    // Utility: show a reusable Bootstrap modal for errors/info instead of alert()
+    function showAppModal(title, message, focusId) {
+      const modalEl = document.getElementById('appMessageModal');
+      if (!modalEl) {
+        // fallback to alert if modal missing
+        try { alert(message); } catch (e) {}
+        if (focusId) { const el = document.getElementById(focusId); if (el) try{el.focus();}catch(_){} }
+        return;
+      }
+      const titleEl = document.getElementById('appMessageModalLabel');
+      const bodyEl = document.getElementById('appMessageModalBody');
+      titleEl.textContent = title || 'Message';
+      // allow HTML safe-ish content (we'll set textContent to avoid XSS risks)
+      bodyEl.textContent = message || '';
+
+      // store focus target and show
+      modalEl._focusAfterHide = focusId || null;
+      const modal = new bootstrap.Modal(modalEl);
+      modal.show();
+
+      // Once hidden, move focus to requested element if provided
+      function onHidden() {
+        const f = modalEl._focusAfterHide;
+        if (f) {
+          const el = document.getElementById(f);
+          if (el) try { el.focus(); } catch (e) {}
+        }
+        modalEl.removeEventListener('hidden.bs.modal', onHidden);
+      }
+      modalEl.addEventListener('hidden.bs.modal', onHidden);
+    }
+
+    // Show/hide helpers: switch between Login and Register forms using a single-card layout
+    const loginForm = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
+
+    // Add transition classes
+    loginForm.classList.add('form-transition');
+    registerForm.classList.add('form-transition');
+
+    // Helper functions to show/hide forms with the same fade effect
+    function showLogin() {
+      // update heading text if present
+      const heading = document.querySelector('.login-form-card h4');
+      if (heading) heading.textContent = 'Login';
+
+      // Fade out register form
+      registerForm.classList.remove('form-visible');
+      registerForm.classList.add('form-hidden');
+
+      setTimeout(() => {
+        registerForm.style.display = 'none';
+        loginForm.style.display = 'block';
+        setTimeout(() => {
+          loginForm.classList.add('form-visible');
+          loginForm.classList.remove('form-hidden');
+        }, 50);
+      }, 200);
+    }
+
+    function showRegister() {
+      const heading = document.querySelector('.login-form-card h4');
+      if (heading) heading.textContent = 'Register';
+
+      // Fade out login form
+      loginForm.classList.remove('form-visible');
+      loginForm.classList.add('form-hidden');
+
+      setTimeout(() => {
+        loginForm.style.display = 'none';
+        registerForm.style.display = 'block';
+        setTimeout(() => {
+          registerForm.classList.add('form-visible');
+          registerForm.classList.remove('form-hidden');
+        }, 50);
+      }, 200);
+    }
+
+    // Decide default view: show Register by default but respect URL hash
+    if (location.hash === '#login') {
+      showLogin();
+    } else {
+      showRegister();
+    }
+
+    // Wire inline links (small text links inside forms) to toggle views
+    const toLoginLink = document.getElementById('toLoginLink');
+    const toRegisterLink = document.getElementById('toRegisterLink');
+    if (toLoginLink) {
+      toLoginLink.addEventListener('click', function (e) {
+        e.preventDefault();
+        showLogin();
+        try { location.hash = '#login'; } catch (err) {}
+      });
+    }
+    if (toRegisterLink) {
+      toRegisterLink.addEventListener('click', function (e) {
+        e.preventDefault();
+        showRegister();
+        try { location.hash = '#register'; } catch (err) {}
+      });
+    }
+
+    // Helper: simple email must contain a dot (.) in the domain
+    function emailHasDot(email) {
+      return typeof email === 'string' && email.toLowerCase().includes('.');
+    }
+
+    // Rule: require '@' and at least one '.' (case-insensitive)
+    function emailMeetsRequestedRule(email) {
+      if (typeof email !== 'string') return false;
+      const v = email.toLowerCase();
+      return v.includes('@') && v.includes('.');
+    }
+
+    // Allow-list for email providers (match Staff Login behavior)
+    const ALLOWED_EMAIL_DOMAINS = [
+      'gmail.com',
+      'yahoo.com',
+      'outlook.com',
+      'hotmail.com',
+      'icloud.com',
+      'protonmail.com',
+      'aol.com'
+    ];
+
+    function getEmailDomain(email) {
+      if (typeof email !== 'string') return '';
+      const at = email.indexOf('@');
+      if (at === -1) return '';
+      return email.slice(at + 1).trim().toLowerCase();
+    }
+
+    function isAllowedEmailDomain(email) {
+      const d = getEmailDomain(email);
+      if (!d) return false;
+      return ALLOWED_EMAIL_DOMAINS.includes(d);
+    }
+    // Shared helper: return missing required parts for email (used by inline validation and submit handlers)
+    function getMissingEmailPartsGlobal(val) {
+      const missing = [];
+      const v = (val || '').toLowerCase();
+      if (!v.includes('@')) missing.push('@');
+      if (!v.includes('.')) missing.push('.');
+      return missing;
+    }
+
+    // Format a professional error message based on which parts are missing
+    function formatEmailErrorMessage(missing) {
+      if (!Array.isArray(missing) || missing.length === 0) return '';
+      // single missing parts get a specific friendly message
+      if (missing.length === 1) {
+        const m = missing[0];
+        if (m === '@' || m === '"@"') return 'The email address must contain the "@" character.';
+      }
+      // two or more missing items — general guidance
+      return 'Please enter a valid email address.';
+    }
+
+    function formatEmailDomainError() {
+      return 'Please use a supported email provider.';
+    }
+
+    // Inline validation handlers for email fields (show error immediately on input/blur)
+    function wireInlineEmailValidation(inputId, errorId) {
+      const input = document.getElementById(inputId);
+      const err = document.getElementById(errorId);
+      if (!input || !err) return;
+
+      function validate() {
+        const val = input.value.trim();
+        if (val === '') {
+          // empty -> hide inline message
+          err.style.display = 'none';
+          input.classList.remove('is-invalid');
+          return true;
+        }
+
+        const missing = getMissingEmailPartsGlobal(val);
+        if (missing.length === 0) {
+          // if format looks fine, also verify allowed domain
+          if (!isAllowedEmailDomain(val)) {
+            err.textContent = formatEmailDomainError();
+            err.style.display = 'block';
+            input.classList.add('is-invalid');
+            return false;
+          }
+          err.style.display = 'none';
+          input.classList.remove('is-invalid');
+          return true;
+        }
+
+        // show professional dynamic message listing missing parts
+        err.textContent = formatEmailErrorMessage(missing);
+        err.style.display = 'block';
+        input.classList.add('is-invalid');
+        return false;
+      }
+
+      // validate while typing (less aggressive) and when leaving the field
+      input.addEventListener('input', function () {
+        const val = input.value.trim();
+        if (!val) {
+          err.style.display = 'none';
+          input.classList.remove('is-invalid');
+          return;
+        }
+
+        if (val.includes('@') && val.length >= 5) {
+          const missing = getMissingEmailPartsGlobal(val);
+          if (missing.length === 0) {
+            // no missing parts; check domain allow-list while typing
+            if (!isAllowedEmailDomain(val)) {
+              err.textContent = formatEmailDomainError();
+              err.style.display = 'block';
+              input.classList.add('is-invalid');
+            } else {
+              err.style.display = 'none';
+              input.classList.remove('is-invalid');
+            }
+          } else {
+            err.textContent = formatEmailErrorMessage(missing);
+            err.style.display = 'block';
+            input.classList.add('is-invalid');
+          }
+        } else {
+          err.style.display = 'none';
+          input.classList.remove('is-invalid');
+        }
+      });
+      input.addEventListener('blur', validate);
+      input.addEventListener('focusout', validate);
+      input.addEventListener('keydown', function (e) {
+        const isTab = (e.key === 'Tab' || e.keyCode === 9);
+        const isEnter = (e.key === 'Enter' || e.keyCode === 13);
+        if (!isTab && !isEnter) return;
+        validate();
+      });
+      input.addEventListener('focusout', validate);
+    }
+
+    wireInlineEmailValidation('loginEmail', 'loginEmailError');
+    wireInlineEmailValidation('resetEmail', 'resetEmailError');
+    wireInlineEmailValidation('registerEmail', 'registerEmailError');
+
+    // Helpers for contact numbers (match Super Admin rules)
+    function sanitizeDigits(val) { return String(val || '').replace(/\D+/g, ''); }
+    function isValidPHMobile(val) { return /^09\d{9}$/.test(val); }
+
+    // Digits-only enforcement for contact numbers (with optional PH mobile rule)
+    function wireDigitsOnly(inputId, errorId, options = {}) {
+      const enforcePHMobile = !!options.enforcePHMobile;
+      const input = document.getElementById(inputId);
+      const err = document.getElementById(errorId);
+      if (!input || !err) return;
+
+      let hideTimer = null;
+      function showTransientError(msg) {
+        if (hideTimer) clearTimeout(hideTimer);
+        err.textContent = msg || 'Digits only (0-9).';
+        err.style.display = 'block';
+        input.classList.add('is-invalid');
+        hideTimer = setTimeout(() => {
+          err.style.display = 'none';
+          input.classList.remove('is-invalid');
+        }, 1200);
+      }
+
+      // format digits into 09XX-XXX-XXXX (groups 4-3-4)
+      function formatPH(digits) {
+        if (!digits) return '';
+        const parts = [];
+        const d = digits;
+        if (d.length <= 4) {
+          parts.push(d);
+        } else if (d.length <= 7) {
+          parts.push(d.slice(0,4));
+          parts.push(d.slice(4));
+        } else {
+          parts.push(d.slice(0,4));
+          parts.push(d.slice(4,7));
+          parts.push(d.slice(7,11));
+        }
+        return parts.join('-');
+      }
+
+      function sanitize() {
+        const before = input.value;
+        const cleanedRaw = sanitizeDigits(before);
+        // limit to 11 digits (PH mobile)
+        const cleaned = cleanedRaw.slice(0, 11);
+        const formatted = formatPH(cleaned);
+        if (before !== formatted) {
+          input.value = formatted;
+          // If non-digit characters were present, show a transient message
+          if (cleanedRaw !== sanitizeDigits(before)) {
+            showTransientError('Digits only (0-9).');
+          }
+        }
+      }
+
+      // Sanitize/format on input and paste
+      input.addEventListener('input', sanitize);
+      input.addEventListener('paste', function () {
+        setTimeout(sanitize, 0);
+      });
+
+      // On blur, keep it formatted and validate if requested
+      input.addEventListener('blur', function () {
+        sanitize();
+        const v = sanitizeDigits(input.value);
+        // keep formatted display
+        input.value = formatPH(v);
+        if (v && enforcePHMobile && !isValidPHMobile(v)) {
+          err.textContent = 'Enter a valid 11-digit number starting with 09.';
+          err.style.display = 'block';
+          input.classList.add('is-invalid');
+        } else {
+          err.style.display = 'none';
+          input.classList.remove('is-invalid');
+        }
+      });
+    }
+
+    wireDigitsOnly('registerMobile', 'registerMobileError', { enforcePHMobile: true });
+
+    // Name validation for register form (letters and spaces only)
+    function isLettersAndSpacesOnly(value) {
+      return /^[A-Za-z\s]*$/.test(value);
+    }
+
+    function wireNameValidation(inputId, errorId) {
+      const input = document.getElementById(inputId);
+      const err = document.getElementById(errorId);
+      if (!input || !err) return;
+
+      function validate() {
+        const value = input.value;
+        
+        // If field is empty, remove error (let required validation handle it)
+        if (!value) {
+          input.classList.remove('is-invalid');
+          if (err) err.style.display = 'none';
+          return true;
+        }
+
+        // Check if value contains only letters and spaces
+        const isValid = isLettersAndSpacesOnly(value);
+        
+        if (!isValid) {
+          input.classList.add('is-invalid');
+          if (err) err.style.display = 'block';
+          return false;
+        } else {
+          input.classList.remove('is-invalid');
+          if (err) err.style.display = 'none';
+          return true;
+        }
+      }
+
+      // Validate on input (real-time)
+      input.addEventListener('input', validate);
+      
+      // Validate on blur
+      input.addEventListener('blur', validate);
+      
+      return validate;
+    }
+
+    // Wire validation for first name and last name
+    const validateFirstName = wireNameValidation('registerFirstName', 'registerFirstNameError');
+    const validateLastName = wireNameValidation('registerLastName', 'registerLastNameError');
+
+    // Password validation rules and inline wiring for register form
+    function passwordRules(password, opts) {
+      opts = opts || {};
+      const messages = [];
+      if (!password || password.length < 8) messages.push('At least 8 characters');
+      if (!/[a-z]/.test(password)) messages.push('A lowercase letter');
+      if (!/[A-Z]/.test(password)) messages.push('An uppercase letter');
+      if (!/[0-9]/.test(password)) messages.push('A number');
+      // simple special char check
+      if (!/[!@#$%^&*(),.?":{}|<>_\-\\\[\];'`~+=\/]/.test(password)) messages.push('A special character');
+
+      // avoid including easily guessed personal info
+      const lower = String(password || '').toLowerCase();
+      if (opts.fname && opts.fname.trim() && lower.includes(opts.fname.trim().toLowerCase())) messages.push('Must not contain your first name');
+      if (opts.lname && opts.lname.trim() && lower.includes(opts.lname.trim().toLowerCase())) messages.push('Must not contain your last name');
+      if (opts.email && opts.email.indexOf('@') !== -1) {
+        const local = opts.email.split('@')[0].toLowerCase();
+        if (local && lower.includes(local)) messages.push('Must not contain your email username');
+      }
+
+      return { valid: messages.length === 0, messages };
+    }
+
+    // Wire live validation for password and confirm fields in register form
+    function wireRegisterPasswordValidation() {
+      const pwd = document.getElementById('registerPassword');
+      const confirm = document.getElementById('registerConfirmPassword');
+      const help = document.getElementById('registerPasswordHelp');
+      const err = document.getElementById('registerPasswordError');
+      const cerr = document.getElementById('registerConfirmPasswordError');
+      if (!pwd) return;
+
+      function currentOpts() {
+        return {
+          fname: (document.getElementById('registerFirstName') || {}).value || '',
+          lname: (document.getElementById('registerLastName') || {}).value || '',
+          email: (document.getElementById('registerEmail') || {}).value || ''
+        };
+      }
+
+      function validatePwd() {
+        const val = pwd.value || '';
+        const res = passwordRules(val, currentOpts());
+        if (!val) {
+          if (help) help.textContent = 'Use at least 8 characters, including uppercase, lowercase, number and special character.';
+          if (err) { err.style.display = 'none'; err.textContent = ''; }
+          pwd.classList.remove('is-invalid');
+          return res;
+        }
+
+        if (!res.valid) {
+          if (err) { err.textContent = 'Password must include: ' + res.messages.join(', '); err.style.display = 'block'; }
+          pwd.classList.add('is-invalid');
+        } else {
+          if (err) { err.style.display = 'none'; err.textContent = ''; }
+          pwd.classList.remove('is-invalid');
+        }
+
+        return res;
+      }
+
+      pwd.addEventListener('input', function () {
+        validatePwd();
+
+        // update confirm validity as user types
+        if (confirm) {
+          if (confirm.value && confirm.value !== pwd.value) {
+            if (cerr) { cerr.textContent = 'Passwords do not match.'; cerr.style.display = 'block'; }
+            confirm.classList.add('is-invalid');
+          } else {
+            if (cerr) { cerr.style.display = 'none'; cerr.textContent = ''; }
+            confirm.classList.remove('is-invalid');
+          }
+        }
+      });
+
+      // Validate again on blur so users who leave the field see errors
+      pwd.addEventListener('blur', function () {
+        validatePwd();
+      });
+
+      if (confirm) {
+        confirm.addEventListener('input', function () {
+          if (confirm.value !== pwd.value) {
+            if (cerr) { cerr.textContent = 'Passwords do not match.'; cerr.style.display = 'block'; }
+            confirm.classList.add('is-invalid');
+          } else {
+            if (cerr) { cerr.style.display = 'none'; cerr.textContent = ''; }
+            confirm.classList.remove('is-invalid');
+          }
+        });
+
+        // also validate on blur for confirm
+        confirm.addEventListener('blur', function () {
+          if (confirm.value !== pwd.value) {
+            if (cerr) { cerr.textContent = 'Passwords do not match.'; cerr.style.display = 'block'; }
+            confirm.classList.add('is-invalid');
+          } else {
+            if (cerr) { cerr.style.display = 'none'; cerr.textContent = ''; }
+            confirm.classList.remove('is-invalid');
+          }
+        });
+      }
+    }
+
+    // enable password validation wiring
+    wireRegisterPasswordValidation();
+
+    // Login form validation and server authentication
+    loginForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value.trim();
+      const botChecked = document.getElementById('loginBotCheck') ? document.getElementById('loginBotCheck').checked : true;
+
+      if (!email || !password) {
+        showAppModal('Error', 'Please fill in both Email and Password.', 'loginEmail');
+        return;
+      }
+      if (!emailMeetsRequestedRule(email)) {
+        showAppModal('Error', 'Please enter a valid email address.', 'loginEmail');
+        return;
+      }
+      if (!isAllowedEmailDomain(email)) {
+        showAppModal('Error', formatEmailDomainError(), 'loginEmail');
+        return;
+      }
+      if (!botChecked) {
+        showAppModal('Error', 'Please confirm you are not a robot.');
+        return;
+      }
+
+      // best-effort: notify server about login (non-blocking)
+      (function(){
+        try {
+          fetch('http://localhost:3001/notify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ event: 'User Login', email })
+          }).catch(err => console.warn('Notify failed', err));
+        } catch (err) { console.warn(err); }
+      })();
+
+      // Call resident_login.php
+      fetch('resident_login.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email, password: password })
+      }).then(res => res.json()).then(json => {
+        if (json && json.success) {
+          const redirect = (json.data && json.data.redirect) ? json.data.redirect : 'resident-dashboard.html';
+          showLoadingAndRedirect(redirect);
+        } else {
+          const msg = (json && json.message) ? json.message : 'Login failed. Please try again.';
+          showAppModal('Error', msg, 'loginEmail');
+        }
+      }).catch(err => {
+        console.error('Login request failed', err);
+        showAppModal('Error', 'Unable to contact server. Please try again later.');
+      });
+    });
+
+    // Forgot Password form handling
+    const resetPasswordForm = document.getElementById('resetPasswordForm');
+    resetPasswordForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('resetEmail').value.trim();
+      const botChecked = document.getElementById('resetBotCheck') ? document.getElementById('resetBotCheck').checked : true;
+      if (!email) {
+        showAppModal('Error', 'Please enter your email address.', 'resetEmail');
+        return;
+      }
+      if (!emailMeetsRequestedRule(email)) {
+        showAppModal('Error', 'Please enter a valid email address.', 'resetEmail');
+        return;
+      }
+      if (!isAllowedEmailDomain(email)) {
+        showAppModal('Error', formatEmailDomainError(), 'resetEmail');
+        return;
+      }
+      if (!botChecked) {
+        showAppModal('Error', 'Please confirm you are not a robot.');
+        return;
+      }
+      showAppModal('Success', 'If an account exists for ' + email + ', you will receive password reset instructions.', 'loginEmail');
+      const modal = bootstrap.Modal.getInstance(document.getElementById('forgotPasswordModal'));
+      modal.hide();
+      resetPasswordForm.reset();
+    });
+
+    // Register form validation
+    registerForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const fname = document.getElementById('registerFirstName').value.trim();
+      const lname = document.getElementById('registerLastName').value.trim();
+      const email = document.getElementById('registerEmail').value.trim();
+      const municipality = document.getElementById('registerMunicipality').value.trim();
+      const barangay = document.getElementById('registerBarangay').value.trim();
+      const street = document.getElementById('registerStreet').value.trim();
+      const mobileRaw = document.getElementById('registerMobile').value.trim();
+      const mobile = sanitizeDigits(mobileRaw);
+      const password = document.getElementById('registerPassword').value.trim();
+      const confirmPassword = document.getElementById('registerConfirmPassword').value.trim();
+      const agreeDPA = document.getElementById('registerAgreeDPA') ? document.getElementById('registerAgreeDPA').checked : false;
+      const botChecked = document.getElementById('registerBotCheck') ? document.getElementById('registerBotCheck').checked : true;
+
+      // Validate first name and last name
+      if (fname && !isLettersAndSpacesOnly(fname)) {
+        const fnameInput = document.getElementById('registerFirstName');
+        const fnameErr = document.getElementById('registerFirstNameError');
+        if (fnameInput) fnameInput.classList.add('is-invalid');
+        if (fnameErr) fnameErr.style.display = 'block';
+        try { fnameInput.focus(); } catch(_) {}
+        return;
+      }
+
+      if (lname && !isLettersAndSpacesOnly(lname)) {
+        const lnameInput = document.getElementById('registerLastName');
+        const lnameErr = document.getElementById('registerLastNameError');
+        if (lnameInput) lnameInput.classList.add('is-invalid');
+        if (lnameErr) lnameErr.style.display = 'block';
+        try { lnameInput.focus(); } catch(_) {}
+        return;
+      }
+
+      // If the email is missing required parts, show inline message and focus the email field.
+      function inlineValidateAndFocusEmail(inputId, errorId) {
+        const input = document.getElementById(inputId);
+        const err = document.getElementById(errorId);
+        if (!input || !err) return true;
+        const val = input.value.trim();
+        if (!val) {
+          err.style.display = 'none';
+          input.classList.remove('is-invalid');
+          return true;
+        }
+        const missing = getMissingEmailPartsGlobal(val);
+        if (missing.length === 0) {
+          err.style.display = 'none';
+          input.classList.remove('is-invalid');
+          return true;
+        }
+        err.textContent = formatEmailErrorMessage(missing);
+        err.style.display = 'block';
+        input.classList.add('is-invalid');
+        // focus so user sees the inline error immediately
+        try { input.focus(); } catch (errFocus) {}
+        return false;
+      }
+
+      if (!inlineValidateAndFocusEmail('registerEmail', 'registerEmailError')) {
+        return;
+      }
+
+      if (!fname || !lname || !email || !street || !mobile || !password || !confirmPassword) {
+        showAppModal('Error', 'Please fill in all required fields.', 'registerFirstName');
+        return;
+      }
+      // Validate password strength against rules
+      const pwdCheck = passwordRules(password, { fname: fname, lname: lname, email: email });
+      if (!pwdCheck.valid) {
+        const err = document.getElementById('registerPasswordError');
+        if (err) {
+          err.textContent = 'Password issue: ' + pwdCheck.messages.join(', ');
+          err.style.display = 'block';
+        }
+        const pwdInput = document.getElementById('registerPassword');
+        if (pwdInput) {
+          try { pwdInput.focus(); } catch (_) {}
+          pwdInput.classList.add('is-invalid');
+        }
+        return;
+      }
+      if (!emailMeetsRequestedRule(email)) {
+        showAppModal('Error', 'Please enter a valid email address that includes "@" and a dot (.).', 'registerEmail');
+        return;
+      }
+      if (!isAllowedEmailDomain(email)) {
+        showAppModal('Error', formatEmailDomainError(), 'registerEmail');
+        return;
+      }
+      // Validate PH mobile number: 11 digits starting with 09
+      if (!isValidPHMobile(mobile)) {
+        const input = document.getElementById('registerMobile');
+        const err = document.getElementById('registerMobileError');
+        if (input) input.value = mobile; // ensure sanitized value stays
+        if (err) {
+          err.textContent = 'Enter a valid 11-digit number starting with 09.';
+          err.style.display = 'block';
+        }
+        if (input) { input.classList.add('is-invalid'); try { input.focus(); } catch(_) {} }
+        return;
+      }
+      if (password !== confirmPassword) {
+        const cerr = document.getElementById('registerConfirmPasswordError');
+        const confirmInput = document.getElementById('registerConfirmPassword');
+        if (cerr) { cerr.textContent = 'Passwords do not match.'; cerr.style.display = 'block'; }
+        if (confirmInput) { confirmInput.classList.add('is-invalid'); try { confirmInput.focus(); } catch(_) {} }
+        return;
+      }
+      if (!agreeDPA) {
+        showAppModal('Error', 'You must acknowledge and consent to the Data Privacy Act (DPA) of 2025 to register.', 'registerAgreeDPA');
+        return;
+      }
+      if (!botChecked) {
+        showAppModal('Error', 'Please confirm you are not a robot.');
+        return;
+      }
+
+      // best-effort: notify server about registration (non-blocking)
+      (function(){
+        const name = (document.getElementById('registerFirstName').value || '') + ' ' + (document.getElementById('registerLastName').value || '');
+        try {
+          fetch('http://localhost:3001/notify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ event: 'User Register', email, name: name.trim() })
+          }).catch(err => console.warn('Notify failed', err));
+        } catch (err) { console.warn(err); }
+      })();
+
+      // Submit registration to server
+      const payload = {
+        firstName: fname,
+        middleName: (document.getElementById('registerMiddleName') || {}).value || '',
+        lastName: lname,
+        email: email,
+        password: password,
+        mobile: mobile,
+        street: street,
+        municipality: municipality,
+        barangay: barangay
+      };
+
+      // include birthday & age if present
+      try {
+        const b = (document.getElementById('registerBirthday') && document.getElementById('registerBirthday').value) ? document.getElementById('registerBirthday').value : null;
+        const a = (document.getElementById('registerAge') && document.getElementById('registerAge').value) ? parseInt(document.getElementById('registerAge').value) : null;
+        const g = (document.getElementById('registerGender') && document.getElementById('registerGender').value) ? document.getElementById('registerGender').value : null;
+        const cs = (document.getElementById('registerCivilStatus') && document.getElementById('registerCivilStatus').value) ? document.getElementById('registerCivilStatus').value : null;
+        if (b) payload.birthday = b;
+        if (a || a === 0) payload.age = a;
+        if (g) payload.gender = g;
+        if (cs) payload.civil_status = cs;
+      } catch (e) {}
+
+      fetch('resident_register.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(res => res.json()).then(json => {
+        if (json && json.success) {
+          // server may auto-login and provide redirect
+          const redirect = (json.data && json.data.redirect) ? json.data.redirect : null;
+          if (redirect) {
+            showLoadingAndRedirect(redirect);
+          } else {
+            showAppModal('Success', json.message || 'Registration successful! You can now log in.', 'loginEmail');
+            registerForm.reset();
+            try { showLogin(); location.hash = '#login'; } catch(e) {}
+          }
+        } else {
+          const msg = (json && json.message) ? json.message : 'Registration failed. Please try again.';
+          showAppModal('Error', msg, 'registerFirstName');
+        }
+      }).catch(err => {
+        console.error('Registration request failed', err);
+        showAppModal('Error', 'Unable to contact server. Please try again later.');
+      });
+    });
+
+    // Unified password toggle: show/hide password with error-state handling
+    (function () {
+      const passwordInputs = Array.from(document.querySelectorAll('.password-wrapper input'));
+      
+      // Toggle show/hide password on button click
+      document.querySelectorAll('.toggle-password').forEach(btn => {
+        btn.addEventListener('click', function () {
+          const input = this.previousElementSibling;
+          const icon = this.querySelector('i');
+
+          if (input.type === 'password') {
+            input.type = 'text';
+            icon.classList.replace('bi-eye-slash', 'bi-eye');
+          } else {
+            input.type = 'password';
+            icon.classList.replace('bi-eye', 'bi-eye-slash');
+          }
+        });
+      });
+
+      // Hide toggle button when validation errors appear
+      function updatePasswordToggleVisibility(input) {
+        if (!input) return;
+        const wrapper = input.closest('.password-wrapper');
+        if (!wrapper) return;
+        const toggle = wrapper.querySelector('.toggle-password');
+        if (!toggle) return;
+
+        // Keep the toggle visible even when validation warnings appear.
+        // We only hide it if the input element is removed or missing for some reason.
+        toggle.style.display = '';
+      }
+
+      // Attach listeners to update toggle visibility
+      passwordInputs.forEach(input => {
+        updatePasswordToggleVisibility(input);
+        input.addEventListener('input', () => updatePasswordToggleVisibility(input));
+        input.addEventListener('blur', () => updatePasswordToggleVisibility(input));
+        const mo = new MutationObserver(() => updatePasswordToggleVisibility(input));
+        mo.observe(input, { attributes: true, attributeFilter: ['class', 'value'] });
+      });
+    })();
+    // Birthday -> compute age for register form
+    (function(){
+      function computeAgeFromBirthday(birth) {
+        if (!birth) return null;
+        try {
+          const bd = new Date(birth + 'T00:00:00');
+          if (isNaN(bd)) return null;
+          const today = new Date();
+          let age = today.getFullYear() - bd.getFullYear();
+          const m = today.getMonth() - bd.getMonth();
+          if (m < 0 || (m === 0 && today.getDate() < bd.getDate())) age--;
+          return age >= 0 ? age : null;
+        } catch (e) { return null; }
+      }
+
+      const regBday = document.getElementById('registerBirthday');
+      const regAge = document.getElementById('registerAge');
+      if (regBday && regAge) {
+        regBday.addEventListener('change', function(){
+          const a = computeAgeFromBirthday(this.value);
+          regAge.value = (a === null) ? '' : String(a);
+        });
+        if (regBday.value) {
+          const a = computeAgeFromBirthday(regBday.value);
+          regAge.value = (a === null) ? '' : String(a);
+        }
+      }
+    })();
+  </script>
+</body>
+</html>
+

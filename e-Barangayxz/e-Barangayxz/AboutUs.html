@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | eBarangay</title>
+  <link rel="icon" type="image/jpeg" href="pics/eb-logo.jpg">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow-x: hidden;
+      background: linear-gradient(135deg, #c5202f, #222c8e, #6a0dad);
+      background-attachment: fixed;
+    }
+
+    /* Navbar styling */
+    .navbar {
+      background: linear-gradient(135deg, #c5202f, #222c8e, #6a0dad) !important;
+    }
+
+    .navbar-brand {
+      white-space: normal;
+      line-height: 1.2;
+    }
+
+    .navbar-brand img {
+      height: 55px;
+      width: auto;
+    }
+
+    .nav-link {
+      color: white !important;
+      font-weight: 500;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: #ffd700 !important;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      background: transparent;
+      color: white;
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .hero-section h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .hero-section p {
+      font-size: 1.1rem;
+      font-weight: 300;
+    }
+
+    /* About Section - Light background instead of gradient */
+    .about-section {
+      background: transparent;
+      padding: 50px 0;
+    }
+
+    .about-card {
+      background: white;
+      border-radius: 16px;
+      padding: 35px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      margin-bottom: 30px;
+    }
+
+    .about-card h2 {
+      color: #2c3e50;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .about-card h3 {
+      color: #2c3e50;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .about-card p {
+      color: #555;
+      line-height: 1.7;
+      text-align: justify;
+    }
+
+    .section-icon {
+      color: #c5202f;
+      margin-right: 10px;
+      font-size: 1.5rem;
+    }
+
+    .section-icon-large {
+      color: #c5202f;
+      font-size: 3rem;
+    }
+
+    .core-values {
+      color: #2c3e50;
+      font-weight: 500;
+      font-size: 1rem;
+      text-align: center !important;
+      display: block;
+      width: 100%;
+    }
+
+    .tech-badge {
+      display: inline-block;
+      margin: 5px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    /* Additional sections - White background */
+    .ebarangay-section,
+    .purpose-section {
+      background: transparent;
+      padding: 50px 0;
+    }
+
+    .info-box {
+      background: white;
+      border-radius: 16px;
+      padding: 35px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      height: 100%;
+    }
+
+    .info-box h2 {
+      color: #2c3e50;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .info-box p {
+      color: #555;
+      line-height: 1.7;
+      text-align: justify;
+    }
+
+    /* Journey Section - Lighter purple variant */
+    .journey-section {
+      background: transparent;
+      padding: 50px 0;
+    }
+
+    .journey-card {
+      background: white;
+      border-radius: 16px;
+      padding: 35px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      text-align: center;
+    }
+
+    .journey-card h2 {
+      color: #2c3e50;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .journey-card p {
+      color: #555;
+      line-height: 1.7;
+    }
+
+    .rocket-icon {
+      color: #c5202f;
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+
+    /* Team Section - Very light background */
+    .team-section {
+      background: transparent;
+      padding: 50px 0;
+    }
+
+    .team-container-card {
+      background: white;
+      border-radius: 20px;
+      padding: 40px 30px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .team-header {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 40px;
+    }
+
+    .team-header h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .developer-card {
+      background: white;
+      border-radius: 16px;
+      padding: 30px 20px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      height: 100%;
+      margin-bottom: 20px;
+    }
+
+    .developer-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .developer-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #c5202f, #6a0dad);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      color: white;
+      font-size: 2rem;
+    }
+
+    .developer-card h3 {
+      color: #2c3e50;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .developer-role {
+      color: #c5202f;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .developer-card p {
+      color: #666;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .developer-icon {
+      width: 120px;
+      height: 120px;
+      background: linear-gradient(135deg, #c5202f, #6a0dad);
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      overflow: hidden;
+      padding: 4px;
+    }
+
+    .developer-icon img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    /* Future Plans Section - Theme blue-purple gradient */
+    .future-section {
+      background: transparent;
+      padding: 50px 0;
+      text-align: center;
+    }
+
+    .future-card {
+      background: white;
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      margin: 0 auto;
+    }
+
+    .future-section h2 {
+      color: #2c3e50;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .future-section p {
+      color: #555;
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+
+    /* Acknowledgment Section - Red-purple gradient variant */
+    .acknowledgment-section {
+      background: transparent;
+      padding: 50px 0;
+    }
+
+    .acknowledgment-card {
+      background: white;
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .acknowledgment-card h2 {
+      color: #2c3e50;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .adviser-photo-container {
+      margin: 20px auto 15px;
+      width: 150px;
+      height: 150px;
+    }
+
+    .adviser-photo {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid #c5202f;
+      box-shadow: 0 4px 15px rgba(197, 32, 47, 0.3);
+      margin: 0 auto;
+      display: block;
+    }
+
+    .adviser-name {
+      color: #2c3e50;
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-top: 15px;
+      margin-bottom: 5px;
+    }
+
+    .adviser-title {
+      color: #c5202f;
+      font-size: 1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+
+    .acknowledgment-card p {
+      color: #555;
+      line-height: 1.8;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #1f2c73;
+      color: white;
+      padding: 50px 0 20px 0;
+    }
+
+    footer h5 {
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    footer a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    footer a:hover {
+      color: #ffd700;
+    }
+
+    footer ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    footer ul li {
+      margin-bottom: 8px;
+    }
+
+    footer hr {
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    .text-small {
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero-section h1 {
+        font-size: 1.8rem;
+      }
+
+      .about-card h2,
+      .info-box h2,
+      .journey-card h2,
+      .acknowledgment-card h2 {
+        font-size: 1.5rem;
+      }
+
+      .team-header h2 {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow-sm">
+    <div class="container-fluid px-3 px-md-4">
+      <a class="navbar-brand d-flex align-items-center fw-bold text-white" href="index.html">
+        <img src="pics/eb-logo.jpg" alt="eBarangay Logo" class="me-2">
+        Pulong Buhangin eBarangay: Online Document Request and Management System
+      </a>
+
+      <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item">
+            <a class="nav-link fw-medium" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-medium active" href="AboutUs.html">About Us</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section" style="margin-top: 70px;">
+    <div class="container">
+      <h1>About eBarangay Development Team</h1>
+      <p>Building innovative digital solutions for better community service</p>
+    </div>
+  </section>
+
+  <!-- About Our Group Section -->
+  <section class="about-section">
+    <div class="container">
+      <!-- Intro Card - Full Width -->
+      <div class="about-card mb-4">
+        <h2 class="text-center">About Our Group</h2>
+        <p class="text-center" style="max-width: 800px; margin: 0 auto;">
+          We are a dedicated team of <b>Bachelor of Science in Information Technology (BSIT)</b> students from <b>Polytechnic University of the Philippines 
+            – Sta. Maria Campus</b>, committed to transforming barangay services through innovative technology. Our project, <b>eBarangay</b> for <b>Pulong Buhangin Sta. Maria Bulacan</b> , is a digital platform 
+          committed to transforming barangay services through innovative technology. Guided by our passion for community service and innovation, 
+           we aim to make barangay operations more efficient, transparent, and accessible—bridging the gap between people and technology for a smarter local governance system.
+        </p>
+      </div>
+
+      <!-- 2x2 Grid for Mission, Vision, Core Values, Technologies -->
+      <div class="row g-4">
+        <!-- Mission Card -->
+        <div class="col-md-6">
+          <div class="about-card h-100 text-center">
+            <i class="bi bi-bullseye section-icon-large d-block mx-auto mb-3"></i>
+            <h3>Our Mission</h3>
+            <p> Our mission is to develop a secure and user-friendly digital platform that simplifies barangay 
+              operations and improves access to government services for the residents of <b>Pulong Buhangin</b>. Through eBarangay,
+               we aim to promote efficiency, reduce manual processes, and empower citizens with a more transparent and responsive local administration.
+              </p>
+          </div>
+        </div>
+
+        <!-- Vision Card -->
+        <div class="col-md-6">
+          <div class="about-card h-100 text-center">
+            <i class="bi bi-eye section-icon-large d-block mx-auto mb-3"></i>
+            <h3>Our Vision</h3>
+            <p>
+              We envision a <b>digitally empowered Philippines</b> where every barangay embraces technology for smarter, faster, 
+              and more citizen-centered governance. eBarangay strives to be a model of innovation and transparency, inspiring
+               collaboration among students, developers, and local leaders to bring government services closer to the people.
+            </p>
+          </div>
+        </div>
+
+        <!-- Core Values Card -->
+        <div class="col-md-6">
+          <div class="about-card h-100 text-center">
+            <i class="bi bi-heart section-icon-large d-block mx-auto mb-3"></i>
+            <h3>Core Values</h3>
+            <p class="core-values">
+              Innovation • Excellence • Transparency<br>Community Service • Collaboration
+            </p>
+          </div>
+        </div>
+
+        <!-- Technologies Card -->
+        <div class="col-md-6">
+          <div class="about-card h-100 text-center">
+            <i class="bi bi-code-slash section-icon-large d-block mx-auto mb-3"></i>
+            <h3>Technologies</h3>
+            <div style="margin-top: 15px;">
+              <span class="tech-badge" style="background-color: #e34c26; color: white;">HTML5</span>
+              <span class="tech-badge" style="background-color: #1572b6; color: white;">CSS3</span>
+              <span class="tech-badge" style="background-color: #f7df1e; color: black;">JavaScript</span>
+              <span class="tech-badge" style="background-color: #7952b3; color: white;">Bootstrap 5</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About eBarangay and Our Purpose -->
+  <section class="ebarangay-section">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="info-box">
+            <h2>About eBarangay</h2>
+            <p>
+              <b>eBarangay</b> is an innovative web-based system designed to digitize and streamline barangay operations. It allows residents to conveniently request documents, track approvals, and access essential barangay services online. Our goal is to promote transparency, efficiency, and accessibility in local governance through technology.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="info-box">
+            <h2>Our Purpose</h2>
+            <p>
+              We created <b>eBarangay</b> to address the common challenges faced by barangay residents and staff, such as long waiting times, manual paperwork, and lack of service tracking. By introducing an online platform, we aim to make barangay services faster, more reliable, and easier for everyone.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Development Journey -->
+  <section class="journey-section">
+    <div class="container">
+      <div class="journey-card">
+        <i class="bi bi-rocket-takeoff rocket-icon"></i>
+        <h2>Our Development Journey</h2>
+        <p>
+          The eBarangay System was developed as part of our BSIT program project. From brainstorming to coding, our team collaborated to bring a system that reflects our passion for community service and innovation. Each member contributed their technical expertise and creativity to ensure a smooth, user-friendly experience.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Development Team -->
+  <section class="team-section">
+    <div class="container">
+      <div class="team-container-card">
+        <div class="team-header">
+          <h2>Our Development Team</h2>
+        </div>
+
+        <div class="row g-4">
+        <!-- Stephanie Dulay -->
+        <div class="col-md-4">
+          <div class="developer-card">
+            <div class="developer-icon">
+              <img src="pics/steph.jpg" alt="Stephanie Dulay">
+            </div>
+            <h3>Stephanie Dulay</h3>
+            <span class="developer-role">Project Leader</span>
+            <p>Leads project vision, coordinates team efforts, and ensures alignment with community needs.</p>
+            <p class="mb-0"><i class="bi bi-linkedin text-primary me-2"></i><i class="bi bi-envelope-fill text-danger me-2"></i><a href="mailto:stephaniedulay37@gmail.com" class="text-decoration-none">stephaniedulay37@gmail.com</a></p>
+
+          </div>
+        </div>
+
+        <!-- Patricia Mariz Bantog -->
+        <div class="col-md-4">
+          <div class="developer-card">
+            <div class="developer-icon">
+              <img src="pics/pat.png" alt="Patricia Mariz Bantog">
+            </div>
+            <h3>Patricia Mariz Bantog</h3>
+            <span class="developer-role">Front-End Developer</span>
+            <p>Designs and implements user interface components and user experience flows.</p>
+            <p class="mb-0"><i class="bi bi-linkedin text-primary me-2"></i><i class="bi bi-envelope-fill text-danger me-2"></i><a href="mailto:patriciamarizbantog@iskolarngbayan.pup.edu.ph" class="text-decoration-none">patriciamarizbantog@iskolarngbayan.pup.edu.ph</a></p>
+          </div>
+        </div>
+
+        <!-- Trisha Marie Oronan -->
+        <div class="col-md-4">
+          <div class="developer-card">
+            <div class="developer-icon">
+              <img src="pics/trisha.jpg" alt="Trisha Marie Oronan">
+            </div>
+            <h3>Trisha Marie Oronan</h3>
+            <span class="developer-role">Front-End Developer</span>
+            <p>Develops responsive layouts and interactive features for seamless user interaction.</p>
+            <p class="mb-0"><i class="bi bi-linkedin text-primary me-2"></i><i class="bi bi-envelope-fill text-danger me-2"></i><a href="mailto:trishamarietoronan@iskolarngbayan.pup.edu.ph" class="text-decoration-none">trishamarietoronan@iskolarngbayan.pup.edu.ph</a></p>
+          </div>
+        </div>
+
+        <!-- Ericka Orbasido -->
+        <div class="col-md-4">
+          <div class="developer-card">
+            <div class="developer-icon">
+              <img src="pics/ericka.jpg" alt="Ericka Orbasido">
+            </div>
+            <h3>Ericka Orbasido</h3>
+            <span class="developer-role">Back-End Developer</span>
+            <p>Builds server-side logic, database architecture, and API integrations.</p>
+            <p class="mb-0"><i class="bi bi-linkedin text-primary me-2"></i><i class="bi bi-envelope-fill text-danger me-2"></i><a href="mailto:erickaorbasido@iskolarngbayan.pup.edu.ph" class="text-decoration-none">erickaorbasido@iskolarngbayan.pup.edu.ph</a></p>
+          </div>
+        </div>
+
+        <!-- Shaznay Einallem Eubra -->
+        <div class="col-md-4">
+          <div class="developer-card">
+            <div class="developer-icon">
+              <img src="pics/shaz.jpg" alt="Shaznay Einallem Eubra">
+            </div>
+            <h3>Shaznay Einallem Eubra</h3>
+            <span class="developer-role">Back-End Developer</span>
+            <p>Implements data processing, security features, and system optimization.</p>
+            <p class="mb-0"><i class="bi bi-linkedin text-primary me-2"></i><i class="bi bi-envelope-fill text-danger me-2"></i><a href="mailto:shaznayeinallemfeubra@iskolarngbayan.pup.edu.ph" class="text-decoration-none">shaznayeinallemfeubra@iskolarngbayan.pup.edu.ph</a></p>
+          </div>
+        </div>
+
+        <!-- Angelyn Panesa -->
+        <div class="col-md-4">
+          <div class="developer-card">
+            <div class="developer-icon">
+              <img src="pics/angelyn.jpg" alt="Angelyn Panesa">
+            </div>
+            <h3>Angelyn Panesa</h3>
+            <span class="developer-role">QA / Tester</span>
+            <p>Ensures quality through rigorous testing, bug tracking, and validation processes.</p>
+            <p class="mb-0"><i class="bi bi-linkedin text-primary me-2"></i><i class="bi bi-envelope-fill text-danger me-2"></i><a href="mailto:panesaangelyn13@gmail.com" class="text-decoration-none">panesaangelyn13@gmail.com</a></p>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Future Plans -->
+  <section class="future-section">
+    <div class="container">
+      <div class="future-card">
+      <h2>Future Plans</h2>
+      <p>
+        We plan to expand eBarangay by integrating more features such as resident feedback forms, enhanced mobile responsiveness, and analytics for barangay officials to improve decision-making. Our vision includes implementing real-time notifications, digital payment integration, and multi-language support to serve our diverse community better.
+      </p>
+    </div>
+    </div>
+  </section>
+
+  <!-- Acknowledgment -->
+  <section class="acknowledgment-section">
+    <div class="container">
+      <div class="acknowledgment-card">
+        <h2>Acknowledgment</h2>
+        
+        <!-- Adviser Photo -->
+        <div class="adviser-photo-container">
+          <img src="pics/sir philip.jpg" alt="Mr. Philip Lorenz Sarmiento" class="adviser-photo">
+        </div>
+        
+        <h4 class="adviser-name">Mr. Philip Lorenz Sarmiento</h4>
+        <p class="adviser-title">Project Adviser</p>
+        
+        <p>
+          We would like to thank our project adviser, Mr. Philip Lorenz Sarmiento, for his guidance and support throughout the development of eBarangay. His expertise and mentorship have been invaluable in bringing this vision to life.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer text-white">
+    <div class="container">
+      <div class="row gy-4">
+        
+        <!-- eBarangay System -->
+        <div class="col-md-3">
+          <h5 class="fw-bold">eBarangay System</h5>
+          <p>Digital document request and management system for Pulong Buhangin residents.</p>
+          <ul class="list-unstyled mt-3">
+            <li><a href="AboutUs.html"><i class="bi bi-info-circle me-2"></i>About Us</a></li>
+          </ul>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="col-md-3">
+          <h5 class="fw-bold">Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="index.html#documents">Request Documents</a></li>
+            <li><a href="index.html#payment">Payment Info</a></li>
+            <li><a href="index.html#regulations">Regulations</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact Us -->
+        <div class="col-md-6">
+          <h5 class="fw-bold">Contact Us</h5>
+          <ul class="list-unstyled">
+            <li><i class="bi bi-geo-alt me-2"></i>Pulong Buhangin Barangay Hall, Sta. Maria, Bulacan</li>
+            <li><i class="bi bi-telephone me-2"></i>(044) 123-4567</li>
+            <li><i class="bi bi-phone me-2"></i>+63 912 345 6789</li>
+            <li><i class="bi bi-envelope me-2"></i>support@ebarangay.gov.ph</li>
+            <li><i class="bi bi-envelope me-2"></i>ebarangaypulongbuhangin@gmail.com</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <hr class="my-4">
+
+      <div class="text-center text-small">
+        <p class="mb-0">&copy; 2025 eBarangay Pulong Buhangin. All Rights Reserved.</p>
+        <p class="mb-0">Serving our community with modern, efficient digital services.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+

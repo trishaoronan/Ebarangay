@@ -1,0 +1,1842 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Super Admin - Staff Management | eBarangay</title>
+  <link rel="icon" type="image/jpeg" href="pics/eb-logo.jpg"> <!--FAVICON-->
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Sticky footer layout: let main take remaining space */
+    html, body { height: 100%; }
+    body { display: flex; flex-direction: column; min-height: 100vh; }
+    main { flex: 1 0 auto; }
+    footer { flex-shrink: 0; }
+    @media (max-width: 576px) {
+      footer .row { text-align: center; }
+    }
+    /* Remove default anchor underline/focus ring inside navbar */
+    .navbar .nav-link {
+      text-decoration: none !important;
+      -webkit-text-decoration-color: transparent !important;
+      text-decoration-color: transparent !important;
+      outline: none !important;
+      box-shadow: none !important;
+    }
+    .navbar .nav-link:focus,
+    .navbar .nav-link:active,
+    .navbar .nav-link.active {
+      text-decoration: none !important;
+      outline: none !important;
+      box-shadow: none !important;
+    }
+    /* Activity log styles */
+    .activity-item {
+      transition: background-color 0.2s ease;
+    }
+    .activity-item:hover {
+      background-color: #f8f9fa;
+    }
+    #panelActivityList {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    .badge.rounded-circle {
+      width: 18px;
+      height: 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      padding: 0 !important;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow-sm" style="top: 0; margin-top: -8px; padding-top: 8px;">
+    <div class="container-fluid px-3 px-md-4">
+      <a class="navbar-brand d-flex align-items-center fw-bold text-white" href="super-admin.html">
+        <img src="pics/eb-logo.jpg" alt="eBarangay Logo" class="me-2" style="height: 45px; width: auto;">
+        eBarangay Super Admin
+      </a>
+      <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item">
+            <button onclick="logLogout()" class="btn btn-outline-light btn-sm fw-bold px-3">Logout</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container-fluid px-4" style="max-width: 1400px; padding-top: 60px; padding-bottom: 3rem;">
+    <!-- Page Header -->
+    <div class="mb-4">
+      <h1 class="h3 fw-bold mb-2" style="color: #222c8e;">
+        <i class="bi bi-speedometer2 me-2" style="color: #6a0dad;"></i>Super Admin Dashboard
+      </h1>
+      <p class="text-muted mb-0">Manage staff accounts, monitor activity, and oversee system operations</p>
+    </div>
+
+    <!-- Dashboard Summary Cards -->
+    <section class="mb-5">
+      <div class="row g-4 justify-content-center">
+        <!-- Total Staff Card -->
+        <div class="col-xl-3 col-md-6">
+          <div class="card card-summary p-4">
+            <div class="d-flex justify-content-between align-items-start">
+              <div class="flex-grow-1">
+                <div class="d-flex align-items-center mb-2">
+                  <div class="rounded-circle p-2 me-2" style="background: linear-gradient(135deg, #6a0dad, #9333ea); width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
+                    <i class="bi bi-people-fill text-white" style="font-size: 24px;"></i>
+                  </div>
+                  <h6 class="mb-0 text-muted text-uppercase" style="font-size: 0.75rem; letter-spacing: 0.5px;">Total Staff</h6>
+                </div>
+                <h2 id="totalStaff" class="mb-1 fw-bold">0</h2>
+                <p class="small-muted mb-0">All registered accounts</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Active Staff Card -->
+        <div class="col-xl-3 col-md-6">
+          <div class="card card-summary p-4">
+            <div class="d-flex justify-content-between align-items-start">
+              <div class="flex-grow-1">
+                <div class="d-flex align-items-center mb-2">
+                  <div class="rounded-circle p-2 me-2" style="background: linear-gradient(135deg, #1e6f5c, #10b981); width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
+                    <i class="bi bi-check-circle-fill text-white" style="font-size: 24px;"></i>
+                  </div>
+                  <h6 class="mb-0 text-muted text-uppercase" style="font-size: 0.75rem; letter-spacing: 0.5px;">Active</h6>
+                </div>
+                <h2 id="activeCount" class="mb-1 fw-bold" style="color: #1e6f5c;">0</h2>
+                <p class="small-muted mb-0">Currently active accounts</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Inactive Staff Card -->
+        <div class="col-xl-3 col-md-6">
+          <div class="card card-summary p-4">
+            <div class="d-flex justify-content-between align-items-start">
+              <div class="flex-grow-1">
+                <div class="d-flex align-items-center mb-2">
+                  <div class="rounded-circle p-2 me-2" style="background: linear-gradient(135deg, #6c757d, #495057); width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
+                    <i class="bi bi-x-circle-fill text-white" style="font-size: 24px;"></i>
+                  </div>
+                  <h6 class="mb-0 text-muted text-uppercase" style="font-size: 0.75rem; letter-spacing: 0.5px;">Inactive</h6>
+                </div>
+                <h2 id="inactiveCount" class="mb-1 fw-bold" style="color: #6c757d;">0</h2>
+                <p class="small-muted mb-0">Deactivated accounts</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content Area -->
+    <div id="view-accounts">
+      <div class="row g-4">
+      <!-- Staff Management with inline tabs: Accounts / Activity -->
+      <div class="col-12" id="staffSection">
+        <div class="card mb-4">
+          <div class="card-header d-flex align-items-center py-3 px-4">
+            <div class="me-auto">
+              <ul class="nav nav-tabs card-header-tabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="tab-accounts" data-bs-toggle="tab" data-bs-target="#tab-accounts-panel" type="button" role="tab" aria-controls="tab-accounts-panel" aria-selected="true">Accounts</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="tab-activity" data-bs-toggle="tab" data-bs-target="#tab-activity-panel" type="button" role="tab" aria-controls="tab-activity-panel" aria-selected="false">Activity</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="tab-barangay-info" data-bs-toggle="tab" data-bs-target="#tab-barangay-info-panel" type="button" role="tab" aria-controls="tab-barangay-info-panel" aria-selected="false">Barangay Info</button>
+                </li>
+              </ul>
+            </div>
+            <div class="mx-auto text-center" style="position: absolute; left: 50%; transform: translateX(-50%);">
+              <h5 class="mb-0 fw-bold" id="cardHeaderTitle">
+                <i class="bi bi-people-fill me-2" style="color: #6a0dad;" id="cardHeaderIcon"></i><span id="cardHeaderText">Account Management</span>
+              </h5>
+              <div class="small text-muted" id="cardHeaderDesc">Manage staff accounts, roles, and permissions</div>
+            </div>
+            <div class="ms-auto" id="addStaffButtonContainer">
+              <button id="btnAddNew" class="btn btn-sm text-white" style="background: linear-gradient(135deg, #c5202f, #222c8e, #6a0dad); border: none;">
+                <i class="bi bi-plus-lg me-1"></i> Add Staff
+              </button>
+            </div>
+          </div>
+          <div class="card-body p-0 tab-content">
+            <div class="tab-pane fade show active" id="tab-accounts-panel" role="tabpanel" aria-labelledby="tab-accounts">
+              <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                  <thead>
+                    <tr>
+                      <th class="ps-4 py-3">Full Name</th>
+                      <th class="py-3">Contact Number</th>
+                      <th class="py-3">Email</th>
+                      <th class="py-3">Status</th>
+                      <th class="py-3">Date Created</th>
+                      <th class="text-end pe-4 py-3">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="staffTableBody">
+                    <!-- JS will populate -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="tab-activity-panel" role="tabpanel" aria-labelledby="tab-activity">
+              <div class="p-3">
+                <div class="mb-3 d-flex align-items-end gap-2 flex-wrap">
+                  <div class="flex-grow-1">
+                    <label class="form-label small mb-1">Filter by staff</label>
+                    <select id="panelStaffSelect" class="form-select form-select-sm">
+                      <option value="">All Staff</option>
+                    </select>
+                  </div>
+                  <div class="pb-1">
+                    <button id="activityRefreshBtn" class="btn btn-sm btn-outline-secondary">
+                      <i class="bi bi-arrow-clockwise"></i> Refresh
+                    </button>
+                  </div>
+                </div>
+                <div id="panelActivityList"></div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="tab-barangay-info-panel" role="tabpanel" aria-labelledby="tab-barangay-info">
+              <div class="p-4">
+                <h5 class="mb-4 fw-bold">Barangay Information</h5>
+                <div id="barangayInfoDisplay">
+                  <div class="mb-3">
+                    <label class="form-label fw-semibold text-muted small">Province</label>
+                    <p id="province" class="fs-5 mb-0">Bulacan</p>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label fw-semibold text-muted small">Municipality / City</label>
+                    <p id="municipalityCity" class="fs-5 mb-0">Santa Maria</p>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label fw-semibold text-muted small">Barangay</label>
+                    <p id="barangayName" class="fs-5 mb-0">Pulong Buhangin</p>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label fw-semibold text-muted small">Address / Exact Location</label>
+                    <p id="barangayAddress" class="fs-5 mb-0">Santa Maria, 3022 Bulacan</p>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label fw-semibold text-muted small">Barangay Captain</label>
+                    <p id="barangayCaptain" class="fs-5 mb-0">Kap. Ricky Buenaventura</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer bg-white border-top px-4 py-3">
+            <div class="d-flex justify-content-between align-items-center">
+              <small class="text-muted" id="cardFooterLeft">
+                <i class="bi bi-info-circle me-1"></i> Showing all staff members
+              </small>
+              <small class="text-muted" id="cardFooterRight">
+                Total: <span id="totalCount" class="fw-bold text-dark">0</span> staff
+              </small>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+  </main>
+
+    <!-- Footer -->
+    <footer class="mt-5 pt-4 border-top">
+      <div class="container" style="max-width:1400px;">
+        <div class="row">
+          <div class="col-md-6">
+            <p class="text-muted small mb-2">
+              <i class="bi bi-shield-check me-1"></i> eBarangay Super Admin Panel
+            </p>
+            <p class="text-muted small">&copy; 2025 eBarangay. All rights reserved.</p>
+          </div>
+          <div class="col-md-6 text-md-end">
+            <p class="text-muted small mb-0">Version 1.0.0</p>
+            <p class="text-muted small">Logged in as: <span class="fw-semibold">Super Administrator</span></p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Hidden templates / Modals -->
+    <!-- Add / Edit Staff Modal -->
+    <div class="modal fade" id="staffModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 12px; overflow: hidden;">
+          <div class="modal-header" style="background: linear-gradient(135deg, #c5202f, #222c8e, #6a0dad);">
+            <h5 id="staffModalTitle" class="modal-title text-white">Add New Staff</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body p-4">
+            <form id="staffForm">
+              <input type="hidden" id="staffId">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label fw-semibold">First Name *</label>
+                  <input type="text" id="firstName" class="form-control" placeholder="Enter first name" required>
+                  <div class="invalid-feedback" id="firstNameError" style="display:none;">First name is required.</div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label fw-semibold">Last Name *</label>
+                  <input type="text" id="lastName" class="form-control" placeholder="Enter last name" required>
+                  <div class="invalid-feedback" id="lastNameError" style="display:none;">Last name is required.</div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-8 mb-3">
+                  <label class="form-label fw-semibold">Middle Name</label>
+                  <input type="text" id="middleName" class="form-control" placeholder="Enter middle name (optional)">
+                  <div class="invalid-feedback" id="middleNameError" style="display:none;">Middle name must contain letters and spaces only.</div>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label class="form-label fw-semibold">Suffix</label>
+                  <input type="text" id="suffix" class="form-control" placeholder="Jr, Sr, III">
+                  <div class="invalid-feedback" id="suffixError" style="display:none;">Suffix must contain letters and spaces only.</div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label fw-semibold">Gender</label>
+                  <select id="gender" class="form-select">
+                    <option value="">Select gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                    <option value="Prefer not to say">Prefer not to say</option>
+                  </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label fw-semibold">Civil Status</label>
+                  <select id="civilStatus" class="form-select">
+                    <option value="">Select civil status</option>
+                    <option value="Single">Single</option>
+                    <option value="Married">Married</option>
+                    <option value="Widowed">Widowed</option>
+                    <option value="Divorced">Divorced</option>
+                  </select>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Contact Number *</label>
+                <input type="tel" id="contactNumber" class="form-control" placeholder="09XX-XXX-XXXX" inputmode="numeric" pattern="^0\d{3}-\d{3}-\d{4}$" inputmode="numeric" title="Please enter a valid 10-11 digit phone number (e.g., 09123456789)" required />
+                <div class="invalid-feedback" id="contactNumberError" style="display:none;">Enter a valid 11-digit number starting with 09 (digits only).</div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Email *</label>
+                <input type="email" id="email" class="form-control" placeholder="email@example.com" required>
+                <div class="invalid-feedback" id="emailError" style="display:none;">Please enter a valid email address (e.g., name@example.com).</div>
+              </div>
+              <div class="text-end mt-4">
+                  <button type="submit" class="btn text-white" style="background: linear-gradient(135deg, #c5202f, #222c8e, #6a0dad); border: none; box-shadow: 0 6px 14px rgba(75,0,130,0.12);"><i class="bi me-1"></i> Add</button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reset Password Modal -->
+    <div class="modal fade" id="resetModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 12px; overflow: hidden;">
+          <div class="modal-header" style="background: linear-gradient(135deg, #c5202f, #222c8e, #6a0dad);">
+            <h5 class="modal-title"><i class="bi bi-key-fill me-2"></i>Reset Password</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body p-4">
+            <p class="mb-3">Reset password for <strong id="resetName">name</strong> to default?</p>
+            <div class="text-end">
+              <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancel</button>
+              <button id="confirmResetBtn" class="btn btn-warning"><i class="bi bi-arrow-clockwise me-1"></i> Reset Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Confirm Delete Modal -->
+    <div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 12px; overflow: hidden;">
+          <div class="modal-header" style="background: linear-gradient(135deg, #c5202f, #222c8e, #6a0dad);">
+            <h5 class="modal-title"><i class="bi bi-exclamation-triangle-fill me-2"></i>Confirm Action</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body p-4">
+            <p id="confirmMessage" class="mb-4">Are you sure?</p>
+            <div class="text-end">
+              <button id="confirmYesBtn" class="btn btn-danger"><i class="bi bi-check-circle me-1"></i> Yes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- All Activities Modal -->
+    <div class="modal fade" id="allActivitiesModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+        <div class="modal-content" style="border-radius: 12px; overflow: hidden;">
+          <div class="modal-header text-white" style="background: linear-gradient(135deg, #c5202f, #222c8e, #6a0dad);">
+            <h5 class="modal-title"><i class="bi bi-clock-history me-2"></i>All Activity Logs</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" id="allActivitiesModalBody" style="max-height: 70vh; overflow-y: auto;">
+            <p class="text-muted">Loading activities...</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- View Staff Details Modal -->
+    <div class="modal fade" id="viewModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 12px; overflow: hidden;">
+          <div class="modal-header" style="background: linear-gradient(135deg, #c5202f, #222c8e, #6a0dad);">
+            <h5 class="modal-title"><i class="bi bi-person-badge me-2"></i>Staff Details</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body p-4">
+            <div class="row g-3">
+              <div class="col-12">
+                <div class="text-muted small">ID</div>
+                <div class="fw-semibold" id="viewId">—</div>
+              </div>
+              <div class="col-12">
+                <div class="text-muted small">Full Name</div>
+                <div class="fw-semibold" id="viewFullName">—</div>
+              </div>
+              <div class="col-md-6">
+                <div class="text-muted small">Role</div>
+                <div class="fw-semibold" id="viewRole">—</div>
+              </div>
+              <div class="col-md-6">
+                <div class="text-muted small">Status</div>
+                <div><span id="viewStatus" class="badge bg-secondary">—</span></div>
+              </div>
+              <div class="col-md-6">
+                <div class="text-muted small">Contact Number</div>
+                <div class="fw-semibold" id="viewContact">—</div>
+              </div>
+              <div class="col-md-6">
+                <div class="text-muted small">Email</div>
+                <div class="fw-semibold" id="viewEmail">—</div>
+              </div>
+              <div class="col-12">
+                <div class="text-muted small">Date Created</div>
+                <div class="fw-semibold" id="viewCreatedAt">—</div>
+              </div>
+            </div>
+            <!--<footer dismiss button removed to keep only header close; primary actions remain in other modals>-->
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Sample data (will persist in localStorage)
+    const SAMPLE_KEY = 'superadmin_staff_v1';
+    const ACT_KEY = 'superadmin_activity_v1';
+    const BRGY_INFO_KEY = 'superadmin_barangay_info_v1';
+
+    function nowISO() {
+      return new Date().toISOString();
+    }
+
+    // Barangay Info functions
+    function loadBarangayInfo() {
+      const raw = localStorage.getItem(BRGY_INFO_KEY);
+      if (!raw) {
+        return {
+          province: 'Bulacan',
+          municipalityCity: 'Santa Maria',
+          barangayName: 'Pulong Buhangin',
+          barangayAddress: 'Santa Maria, 3022 Bulacan',
+          barangayCaptain: 'Kap. Ricky Buenaventura'
+        };
+      }
+      try {
+        return JSON.parse(raw);
+      } catch (e) {
+        return {
+          province: '',
+          municipalityCity: '',
+          barangayName: '',
+          barangayAddress: '',
+          barangayCaptain: ''
+        };
+      }
+    }
+
+    function saveBarangayInfo(info) {
+      localStorage.setItem(BRGY_INFO_KEY, JSON.stringify(info));
+      localStorage.setItem(BRGY_INFO_KEY + '_updated', new Date().toISOString());
+    }
+
+    function populateBarangayInfoForm() {
+      const info = loadBarangayInfo();
+      const provinceEl = document.getElementById('province');
+      const municipalityCityEl = document.getElementById('municipalityCity');
+      const barangayNameEl = document.getElementById('barangayName');
+      const barangayAddressEl = document.getElementById('barangayAddress');
+      const barangayCaptainEl = document.getElementById('barangayCaptain');
+
+      if (provinceEl) provinceEl.textContent = info.province || 'Bulacan';
+      if (municipalityCityEl) municipalityCityEl.textContent = info.municipalityCity || 'Santa Maria';
+      if (barangayNameEl) barangayNameEl.textContent = info.barangayName || 'Pulong Buhangin';
+      if (barangayAddressEl) barangayAddressEl.textContent = info.barangayAddress || 'Santa Maria, 3022 Bulacan';
+      if (barangayCaptainEl) barangayCaptainEl.textContent = info.barangayCaptain || 'Kap. Ricky Buenaventura';
+    }
+
+    // Initialize sample staff if none exists
+    function defaultStaff() {
+      return [
+        { id: 1, fullName: 'Ana Santos', role: 'Administrator', email: 'ana.santos@example.com', contactNumber: '0917-123-4567', address: '123 Mabini St., Pulong Buhangin', avatar: 'eb-logo.jpg', status: 'active', createdAt: '2025-01-15T09:20:00Z' },
+        { id: 2, fullName: 'Miguel Cruz', role: 'Administrator', email: 'miguel.cruz@example.com', contactNumber: '0998-123-4567', address: '45 Rizal Ave., West District', avatar: 'eb-logo.jpg', status: 'active', createdAt: '2025-06-03T11:10:00Z' },
+        { id: 3, fullName: 'Liza Reyes', role: 'Administrator', email: 'liza.reyes@example.com', contactNumber: '0928-123-4567', address: '78 Del Pilar St., East District', avatar: 'eb-logo.jpg', status: 'inactive', createdAt: '2025-07-22T14:30:00Z' },
+        { id: 4, fullName: 'John Doe', role: 'Administrator', email: 'john.doe@example.com', contactNumber: '0918-123-4567', address: 'Unit 5, Muscoka Village', avatar: 'eb-logo.jpg', status: 'active', createdAt: '2025-10-01T08:00:00Z' }
+      ];
+    }
+
+    let staffCache = [];
+    let activityCache = [];
+
+    function loadData() {
+      // Return cached staff if already fetched
+      return staffCache || [];
+    }
+    
+    // Fetch staff from database
+    async function fetchStaffFromDB() {
+      try {
+        // Add cache-busting to prevent browser caching
+        const response = await fetch('get_staff.php?t=' + Date.now(), {
+          cache: 'no-store'
+        });
+        if (!response.ok) throw new Error('Failed to fetch staff');
+        const result = await response.json();
+        if (result.success) {
+          staffCache = result.data || [];
+          return staffCache;
+        }
+        staffCache = [];
+        return staffCache;
+      } catch (error) {
+        console.error('Error fetching staff:', error);
+        return [];
+      }
+    }
+
+    function saveData(arr) {
+      localStorage.setItem(SAMPLE_KEY, JSON.stringify(arr));
+    }
+
+    // Fetch activities from database
+    async function fetchActivitiesFromDB() {
+      try {
+        // Add cache-busting parameter to prevent browser caching
+        const response = await fetch('get_activities.php?t=' + Date.now(), {
+          cache: 'no-store'
+        });
+        const result = await response.json();
+        
+        if (result.success && result.data) {
+          console.log('Activities fetched from DB:', result.data.length, result.data);
+          return result.data;
+        }
+        console.error('Failed to fetch activities:', result.message);
+        return [];
+      } catch (error) {
+        console.error('Error fetching activities:', error);
+        return [];
+      }
+    }
+
+    // Activities are now stored in database only
+    // No longer using localStorage for activity logs
+
+    // Play a short notification sound using Web Audio API (no external file required)
+    function playNotificationSound() {
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return; // not supported
+        const ctx = new AudioCtx();
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.type = 'sine';
+        o.frequency.setValueAtTime(880, ctx.currentTime); // A5
+        g.gain.setValueAtTime(0, ctx.currentTime);
+        g.gain.linearRampToValueAtTime(0.12, ctx.currentTime + 0.01);
+        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+        o.connect(g);
+        g.connect(ctx.destination);
+        o.start();
+        o.stop(ctx.currentTime + 0.36);
+        setTimeout(()=>{ try{ ctx.close(); }catch(e){} }, 800);
+      } catch (e) {
+        const el = document.getElementById('notifSound');
+        if (el && typeof el.play === 'function') { el.play().catch(()=>{}); }
+      }
+    }
+
+    // Render functions
+    function renderDashboard(staff) {
+      console.log('renderDashboard called with staff:', staff, 'length:', staff ? staff.length : 'null');
+      const total = staff ? staff.length : 0;
+      const active = staff ? staff.filter(s => s.status === 'active').length : 0;
+      const inactive = total - active;
+      
+      const totalEl = document.getElementById('totalStaff');
+      const activeEl = document.getElementById('activeCount');
+      const inactiveEl = document.getElementById('inactiveCount');
+      
+      if (totalEl) totalEl.textContent = total;
+      if (activeEl) activeEl.textContent = active;
+      if (inactiveEl) inactiveEl.textContent = inactive;
+      
+      console.log('Dashboard updated - Total:', total, 'Active:', active, 'Inactive:', inactive);
+
+      // Gracefully handle when the 'recently added' card has been removed
+      const recentEl = document.getElementById('recentAdded');
+      if (recentEl) {
+        const recent = staff
+          .slice()
+          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+          .slice(0, 3);
+        recentEl.innerHTML = '';
+        if (recent.length === 0) {
+          recentEl.innerHTML = '<p class="text-muted small mb-0 text-center py-2">No recent additions</p>';
+        } else {
+          recent.forEach((r, index) => {
+            const li = document.createElement('li');
+            li.style.animationDelay = `${index * 0.1}s`;
+            const timeAgo = getTimeAgo(new Date(r.createdAt));
+            li.innerHTML = `
+              <div class="d-flex align-items-center">
+                <div class="flex-shrink-0 me-2">
+                  <div class="rounded-circle bg-light" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;">
+                    <i class="bi bi-person-fill" style="font-size: 14px; color: #6a0dad;"></i>
+                  </div>
+                </div>
+                <div class="flex-grow-1">
+                  <p class="mb-0 small fw-semibold">${r.fullName}</p>
+                  <p class="mb-0 small-muted">${r.role} • ${timeAgo}</p>
+                </div>
+              </div>
+            `;
+            recentEl.appendChild(li);
+          });
+        }
+      }
+    }
+
+    function renderStaffTable(staff) {
+      const tbody = document.getElementById('staffTableBody');
+      tbody.innerHTML = '';
+      
+      // Update total count
+      const totalCountEl = document.getElementById('totalCount');
+      if (totalCountEl) totalCountEl.textContent = staff.length;
+      
+      // Check if empty
+      if (staff.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6" class="text-center py-5">
+              <i class="bi bi-inbox" style="font-size: 48px; color: #ccc;"></i>
+              <p class="text-muted mt-3 mb-0">No staff records</p>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+      
+      staff.sort((a,b)=> new Date(b.createdAt) - new Date(a.createdAt)).forEach(s => {
+        const tr = document.createElement('tr');
+        const statusClass = s.status === 'active' ? 'status-badge active badge rounded-pill' : 'status-badge inactive badge rounded-pill';
+        tr.innerHTML = `
+          <td class="ps-4"><strong>${s.fullName}</strong></td>
+          <td><small>${s.contactNumber || 'N/A'}</small></td>
+          <td><small>${s.email}</small></td>
+          <td><span class="${statusClass}">${s.status.charAt(0).toUpperCase()+s.status.slice(1)}</span></td>
+          <td><small class="text-muted">${new Date(s.createdAt).toLocaleDateString()}</small></td>
+          <td class="text-center table-actions pe-4">
+            <div class="d-flex justify-content-end gap-1">
+              <!-- View changed to hover popover; header set to a generic label and icon size unchanged -->
+              <button class="btn btn-sm btn-outline-info" data-bs-toggle="popover" data-id="${s.id}" data-profile-pic="${s.profile_pic || ''}" title="Staff info" aria-label="View staff info"><i class="bi bi-info-circle"></i></button>
+              <button class="btn btn-sm btn-outline-warning" data-action="reset" data-id="${s.id}" title="Reset Password"><i class="bi bi-key"></i></button>
+              <button class="btn btn-sm btn-outline-secondary" data-action="toggle" data-id="${s.id}" title="Toggle Status"><i class="bi bi-power"></i></button>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      // Initialize popovers for view buttons (hover to show staff info)
+      document.querySelectorAll('[data-bs-toggle="popover"]').forEach(el => {
+        // Dispose existing instance if present
+        try { if (el._popover instanceof bootstrap.Popover) el._popover.dispose(); } catch (e) { }
+        const id = Number(el.getAttribute('data-id'));
+        const profilePic = el.getAttribute('data-profile-pic') || '';
+        const pop = new bootstrap.Popover(el, {
+          trigger: 'hover focus',
+          html: true,
+          container: 'body',
+          sanitize: false,
+          content: function() {
+            // Get staff data from the current table row since loadData is now async
+            const row = el.closest('tr');
+            if (!row) return '<div class="small-muted">No information</div>';
+            
+            const cells = row.querySelectorAll('td');
+            const fullName = cells[0]?.textContent?.trim() || 'Unknown';
+            const contactNumber = cells[1]?.textContent?.trim() || 'N/A';
+            const email = cells[2]?.textContent?.trim() || 'N/A';
+            const statusBadge = cells[3]?.querySelector('.badge');
+            const statusRaw = statusBadge ? statusBadge.textContent.trim() : 'Unknown';
+            
+            // Create a pseudo staff object
+            const s = { id, fullName, contactNumber, email, status: statusRaw.toLowerCase(), profile_pic: profilePic };
+            if (!s) return '<div class="small-muted">No information</div>';
+            const status = s.status ? s.status.charAt(0).toUpperCase() + s.status.slice(1) : '—';
+            // Use profile picture from database or fallback to placeholder
+            const avatarSrc = s.profile_pic ? escapeHtml(s.profile_pic) + '?t=' + Date.now() : "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><rect width='100%' height='100%' fill='%23f1f3f5'/><text x='50%' y='54%' dominant-baseline='middle' text-anchor='middle' font-size='14' fill='%23999'>STAFF</text></svg>";
+            // Always show the role as 'Administration' in the popover (per UI request)
+            const displayRole = 'Administration';
+            // If contact number missing in data, try to read it from the table row (second cell)
+            let contact = s.contactNumber || '';
+            try {
+              const row = el.closest('tr');
+              if ((!contact || contact === 'N/A') && row) {
+                const cells = row.querySelectorAll('td');
+                if (cells && cells.length > 1) {
+                  const cellText = (cells[1].textContent || '').trim();
+                  if (cellText) contact = cellText;
+                }
+              }
+            } catch (e) { /* ignore DOM read errors */ }
+            if (!contact) contact = 'N/A';
+            return `
+              <div style="min-width:280px; display:flex; gap:12px; align-items:flex-start;">
+                <div style="flex-shrink:0;">
+                  <img src="${avatarSrc}" alt="Avatar" style="width:64px; height:64px; object-fit:cover; border-radius:50%; border:1px solid rgba(0,0,0,0.06);"/>
+                </div>
+                <div style="flex:1;">
+                  <div><strong>${escapeHtml(s.fullName)}</strong></div>
+                  <div class="small-muted">${escapeHtml(displayRole)} • ${escapeHtml(status)}</div>
+                  <div class="mt-2 small"><i class="bi bi-telephone me-1"></i>${escapeHtml(formatPHMobile(contact) || 'N/A')}</div>
+                  <div class="small"><i class="bi bi-envelope me-1"></i>${escapeHtml(s.email || 'N/A')}</div>
+                  <div class="mt-1 small text-truncate"><i class="bi bi-geo-alt me-1"></i>${escapeHtml(s.address || '—')}</div>
+                </div>
+              </div>
+            `;
+          }
+        });
+        el._popover = pop;
+      });
+    }
+
+    async function renderActivityLog() {
+      const panelList = document.getElementById('panelActivityList');
+      const selectedStaff = document.getElementById('panelStaffSelect')?.value || '';
+      if (!panelList) return;
+
+      // Show loading state
+      panelList.innerHTML = '<p class="text-muted small mb-0"><i class="bi bi-hourglass-split"></i> Loading activities...</p>';
+
+      activityCache = await fetchActivitiesFromDB();
+      console.log('Activity cache loaded:', activityCache.length, 'items');
+      console.log('Selected staff filter:', selectedStaff);
+
+      // Filter by selected staff
+      let filtered = activityCache.filter(a => {
+        if (!selectedStaff) return true;
+        if (!a.staffName) return false;
+        return a.staffName.toLowerCase() === selectedStaff.toLowerCase();
+      });
+      
+      console.log('Filtered activities:', filtered.length, 'items');
+
+      // Filter for today's events only
+      const today = new Date().toDateString();
+      const todayEvents = filtered.filter(a => {
+        const actDate = new Date(a.timestamp).toDateString();
+        return actDate === today;
+      });
+
+      // Render today's activities in panel
+      if (!todayEvents.length) {
+        const filterMsg = selectedStaff ? ` for ${selectedStaff}` : '';
+        panelList.innerHTML = `<p class="text-muted small mb-0"><i class="bi bi-info-circle"></i> No activities today${filterMsg}.</p>`;
+      } else {
+        panelList.innerHTML = todayEvents.map(a => {
+          const date = new Date(a.timestamp || Date.now());
+          const timeAgo = getTimeAgo(date);
+          const icon = a.icon || 'bi-activity';
+          const badgeClass = a.badgeClass || 'bg-secondary';
+          const staffName = a.staffName || 'Unknown Staff';
+          
+          return `<div class="py-2 border-bottom activity-item">
+            <div class="d-flex align-items-start">
+              <div class="me-2 mt-1">
+                <span class="badge ${badgeClass} rounded-circle">
+                  <i class="${icon}"></i>
+                </span>
+              </div>
+              <div class="flex-grow-1">
+                <div class="d-flex justify-content-between align-items-start mb-1">
+                  <div class="fw-bold" style="font-size: 0.813rem; color: #232347;">${escapeHtml(a.action)}</div>
+                  <small class="text-muted" style="font-size: 0.7rem; white-space: nowrap; margin-left: 8px;">${timeAgo}</small>
+                </div>
+                <div class="text-muted" style="font-size: 0.75rem; line-height: 1.4;">${escapeHtml(a.details || '')}</div>
+                <div class="text-muted" style="font-size: 0.7rem; margin-top: 2px;">
+                  <i class="bi bi-person" style="font-size: 0.65rem;"></i> ${escapeHtml(staffName)}
+                </div>
+              </div>
+            </div>
+          </div>`;
+        }).join('');
+      }
+    }
+
+    // Render all activities in modal organized by date
+    function renderAllActivitiesModal() {
+      const modalBody = document.getElementById('allActivitiesModalBody');
+      if (!modalBody || !activityCache.length) {
+        if (modalBody) modalBody.innerHTML = '<p class="text-muted">No activities found.</p>';
+        return;
+      }
+
+      // Group activities by date
+      const grouped = {};
+      activityCache.forEach(a => {
+        const date = new Date(a.timestamp);
+        const dateKey = date.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        if (!grouped[dateKey]) grouped[dateKey] = [];
+        grouped[dateKey].push(a);
+      });
+
+      // Build HTML
+      let html = '';
+      Object.keys(grouped).forEach(dateKey => {
+        html += `<div class="mb-4">
+          <h6 class="fw-bold text-primary border-bottom pb-2 mb-3"><i class="bi bi-calendar3 me-2"></i>${dateKey}</h6>
+          <div class="ps-2">`;
+        
+        grouped[dateKey].forEach(a => {
+          const time = new Date(a.timestamp).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+          const icon = a.icon || 'bi-activity';
+          const badgeClass = a.badgeClass || 'bg-secondary';
+          const staffName = a.staffName || 'Unknown Staff';
+          
+          html += `<div class="d-flex align-items-start py-2 border-bottom">
+            <div class="me-2 mt-1">
+              <span class="badge ${badgeClass} rounded-circle"><i class="${icon}"></i></span>
+            </div>
+            <div class="flex-grow-1">
+              <div class="d-flex justify-content-between align-items-start mb-1">
+                <div class="fw-bold" style="font-size: 0.813rem; color: #232347;">${escapeHtml(a.action)}</div>
+                <small class="text-muted" style="font-size: 0.7rem; white-space: nowrap; margin-left: 8px;">${time}</small>
+              </div>
+              <div class="text-muted" style="font-size: 0.75rem; line-height: 1.4;">${escapeHtml(a.details || '')}</div>
+              <div class="text-muted" style="font-size: 0.7rem; margin-top: 2px;">
+                <i class="bi bi-person" style="font-size: 0.65rem;"></i> ${escapeHtml(staffName)}
+              </div>
+            </div>
+          </div>`;
+        });
+        
+        html += '</div></div>';
+      });
+
+      modalBody.innerHTML = html;
+    }
+    
+    // Populate staff selector used in the activity panel
+    async function populateStaffSelect() {
+      const sel = document.getElementById('panelStaffSelect');
+      if (!sel) return;
+      const current = sel.value;
+      sel.innerHTML = '<option value="">All Staff</option>';
+      
+      // Add Super Admin option first
+      const superAdminOpt = document.createElement('option');
+      superAdminOpt.value = 'Super Admin';
+      superAdminOpt.text = 'Super Admin';
+      sel.appendChild(superAdminOpt);
+      
+      // Add all staff members
+      const staff = staffCache && staffCache.length ? staffCache : await fetchStaffFromDB();
+      staff.forEach(s => {
+        const o = document.createElement('option');
+        o.value = s.fullName;
+        o.text = s.fullName;
+        sel.appendChild(o);
+      });
+      if (current && Array.from(sel.options).some(opt => opt.value === current)) {
+        sel.value = current;
+      } else {
+        sel.value = '';
+      }
+    }
+
+    function getTimeAgo(date) {
+      const seconds = Math.floor((new Date() - date) / 1000);
+      let interval = seconds / 31536000;
+      if (interval > 1) return Math.floor(interval) + " years ago";
+      interval = seconds / 2592000;
+      if (interval > 1) return Math.floor(interval) + " months ago";
+      interval = seconds / 86400;
+      if (interval > 1) return Math.floor(interval) + " days ago";
+      interval = seconds / 3600;
+      if (interval > 1) return Math.floor(interval) + " hours ago";
+      interval = seconds / 60;
+      if (interval > 1) return Math.floor(interval) + " minutes ago";
+      return Math.floor(seconds) + " seconds ago";
+    }
+
+    // Validation helpers
+    function sanitizeDigits(val) { return String(val || '').replace(/\D+/g, ''); }
+    function isValidPHMobile(val) {
+      // Accept only 11 digits starting with 09 (e.g., 09XXXXXXXXX)
+      return /^09\d{9}$/.test(val);
+    }
+
+    // Email validation helper
+    function isValidEmail(email) {
+      if (!email || typeof email !== 'string') return false;
+      const trimmed = email.trim();
+      // Check basic email format: something@something.extension
+      // Must have @ and at least one dot after @
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(trimmed)) return false;
+      
+      // Additional check: domain must have valid extension (.com, .net, .org, etc.)
+      const parts = trimmed.split('@');
+      if (parts.length !== 2) return false;
+      
+      const domain = parts[1];
+      // Domain must have at least one dot and the part after the last dot must be 2+ chars
+      const domainParts = domain.split('.');
+      if (domainParts.length < 2) return false;
+      
+      const extension = domainParts[domainParts.length - 1];
+      return extension.length >= 2; // Extension must be at least 2 characters (.co, .com, .net, etc.)
+    }
+
+    // Format digits to local mobile presentation: 09XX-XXX-XXXX (for input display)
+    function formatLocalMobile(digits) {
+      const d = String(digits || '').replace(/\D+/g, '');
+      if (!d) return '';
+      // If it doesn't start with 09, just return digits (no formatting)
+      if (!d.startsWith('09')) {
+        // progressively format if longer than 4
+        if (d.length <= 4) return d;
+        if (d.length <= 7) return d.slice(0,4) + '-' + d.slice(4);
+        return d.slice(0,4) + '-' + d.slice(4,7) + '-' + d.slice(7,11);
+      }
+      // Format expected 11-digit PH mobile: 09XX-XXX-XXXX
+      const p1 = d.slice(0,4);
+      const p2 = d.slice(4,7);
+      const p3 = d.slice(7,11);
+      if (d.length <= 4) return p1;
+      if (d.length <= 7) return p1 + '-' + p2;
+      return p1 + '-' + p2 + (p3 ? '-' + p3 : '');
+    }
+
+    // Format Philippine mobile numbers for display: 09XX-XXX-XXXX
+    function formatPHMobile(val) {
+      if (!val) return '';
+      const digits = String(val).replace(/\D+/g, '');
+      if (digits.length === 11 && digits.startsWith('09')) {
+        // Presentation-only: show country code +63 and the rest of the number formatted
+        return '+63 ' + digits.slice(1,4) + '-' + digits.slice(4,7) + '-' + digits.slice(7);
+      }
+      // Fallback: return original trimmed value
+      return val;
+    }
+
+    // Escape HTML when injecting into popover content
+    function escapeHtml(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    // CRUD operations (client-side simulated)
+    function summarizeChanges(prev, next) {
+      const fields = ['fullName', 'email', 'contactNumber', 'status', 'role'];
+      const changes = [];
+      fields.forEach(f => {
+        const a = (prev?.[f] ?? '').toString();
+        const b = (next?.[f] ?? '').toString();
+        if (a !== b) {
+          changes.push(`${f}: '${a || '—'}' → '${b || '—'}'`);
+        }
+      });
+      return changes.length ? changes.join('; ') : 'no visible changes';
+    }
+    // Note: These functions now work with database via API
+    // The actual CRUD operations are handled by separate PHP files
+    async function toggleStatus(id) {
+      console.log('toggleStatus called with id:', id, 'type:', typeof id);
+      
+      if (!id || isNaN(id)) {
+        alert('Error: Invalid staff ID: ' + id);
+        return;
+      }
+      
+      try {
+        const formData = new URLSearchParams();
+        formData.append('id', id);
+        
+        console.log('Sending toggle request with formData:', formData.toString());
+        
+        const response = await fetch('toggle_status.php', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+          body: formData.toString()
+        });
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        console.log('Toggle response:', data);
+        
+        if (data.success) {
+          alert(data.message || 'Status updated successfully.');
+          await refreshAll(); // Reload from database
+        } else {
+          alert('Error: ' + (data.message || 'Failed to toggle status.'));
+        }
+      } catch (error) {
+        console.error('Toggle status error:', error);
+        alert('Request error: ' + error.message);
+      }
+    }
+
+    function deleteStaff(id) {
+      // TODO: Implement API call to delete staff
+      alert('Delete functionality - to be implemented with API');
+    }
+
+    async function resetPassword(id) {
+      const defaultPassword = 'Welcome@123';
+      
+      try {
+        const formData = new FormData();
+        formData.append('staff_id', id);
+        formData.append('new_password', defaultPassword);
+        
+        const response = await fetch('reset_password.php', {
+          method: 'POST',
+          body: formData
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          alert('Password reset to default successfully!');
+          resetModal.hide();
+          await refreshAll(); // Refresh activities
+        } else {
+          alert('Failed to reset password: ' + (result.error || result.message));
+        }
+      } catch (error) {
+        console.error('Reset password error:', error);
+      }
+    }
+
+    // Refresh all data
+    // Log login activity
+    async function logLogin() {
+      try {
+        const formData = new FormData();
+        formData.append('staff_id', '0'); // 0 = Super Admin
+        
+        const response = await fetch('log_login.php', {
+          method: 'POST',
+          body: formData
+        });
+        
+        const result = await response.json();
+        if (result.success) {
+          console.log('Login activity logged:', result.staff_name);
+        }
+      } catch (error) {
+        console.error('Failed to log login:', error);
+      }
+    }
+    
+    async function logLogout() {
+      try {
+        const formData = new FormData();
+        formData.append('staff_id', '0'); // 0 = Super Admin
+        
+        const response = await fetch('log_logout.php', {
+          method: 'POST',
+          body: formData
+        });
+        
+        const result = await response.json();
+        if (result.success) {
+          console.log('Logout activity logged');
+          // Redirect to login page after logging
+          window.location.href = 'staff-login.html';
+        } else {
+          // Redirect anyway even if logging fails
+          window.location.href = 'staff-login.html';
+        }
+      } catch (error) {
+        console.error('Failed to log logout:', error);
+        // Redirect anyway
+        window.location.href = 'staff-login.html';
+      }
+    }
+
+    async function refreshAll() {
+      console.log('refreshAll called');
+      const staff = await fetchStaffFromDB();
+      console.log('Staff received in refreshAll:', staff, 'count:', staff.length);
+      renderDashboard(staff);
+      renderStaffTable(staff);
+      await populateStaffSelect();
+      await renderActivityLog();
+    }
+    
+    // UI wiring
+    document.addEventListener('DOMContentLoaded', function(){
+      // Don't log login on page refresh - only log actual logins
+      // logLogin();
+      
+      refreshAll();
+      populateBarangayInfoForm();
+
+  const staffModal = new bootstrap.Modal(document.getElementById('staffModal'));
+  const viewModal = new bootstrap.Modal(document.getElementById('viewModal'));
+  const resetModal = new bootstrap.Modal(document.getElementById('resetModal'));
+  const confirmModal = new bootstrap.Modal(document.getElementById('confirmModal'));
+  
+  // Clear all validation errors when staffModal is closed
+  document.getElementById('staffModal').addEventListener('hidden.bs.modal', function() {
+    ['firstName','middleName','lastName','suffix','contactNumber','email'].forEach(id => {
+      try {
+        const el = document.getElementById(id);
+        if (el) {
+          el.classList.remove('is-invalid');
+          const err = document.getElementById(id + 'Error');
+          if (err) { err.style.display = 'none'; err.textContent = ''; }
+        }
+      } catch (e) { /* ignore */ }
+    });
+  });
+  
+  // Password reset functionality removed - now uses default password
+
+      // Barangay Info is now read-only - no form submission needed
+
+      // Dynamic card header and footer update when switching tabs
+      const tabAccounts = document.getElementById('tab-accounts');
+      const tabActivity = document.getElementById('tab-activity');
+      const tabBarangayInfo = document.getElementById('tab-barangay-info');
+      const cardHeaderIcon = document.getElementById('cardHeaderIcon');
+      const cardHeaderText = document.getElementById('cardHeaderText');
+      const cardHeaderDesc = document.getElementById('cardHeaderDesc');
+      const cardFooterLeft = document.getElementById('cardFooterLeft');
+      const cardFooterRight = document.getElementById('cardFooterRight');
+
+      if (tabAccounts) {
+        tabAccounts.addEventListener('shown.bs.tab', function() {
+          // Update header
+          if (cardHeaderIcon) {
+            cardHeaderIcon.className = 'bi bi-people-fill me-2';
+            cardHeaderIcon.style.color = '#6a0dad';
+          }
+          if (cardHeaderText) cardHeaderText.textContent = 'Account Management';
+          if (cardHeaderDesc) cardHeaderDesc.textContent = 'Manage staff accounts, roles, and permissions';
+          
+          // Update footer
+          if (cardFooterLeft) {
+            cardFooterLeft.innerHTML = '<i class="bi bi-info-circle me-1"></i> Showing all staff members';
+          }
+          if (cardFooterRight) {
+            // Get actual staff count from database
+            fetchStaffFromDB().then(staff => {
+              const count = staff.length;
+              cardFooterRight.innerHTML = 'Total: <span id="totalCount" class="fw-bold text-dark">' + count + '</span> staff';
+            });
+          }
+          
+          // Show Add Staff button
+          const addStaffBtn = document.getElementById('addStaffButtonContainer');
+          if (addStaffBtn) addStaffBtn.style.display = 'block';
+        });
+      }
+
+      if (tabActivity) {
+        tabActivity.addEventListener('shown.bs.tab', function() {
+          // Update header
+          if (cardHeaderIcon) {
+            cardHeaderIcon.className = 'bi bi-clock-history me-2';
+            cardHeaderIcon.style.color = '#c5202f';
+          }
+          if (cardHeaderText) cardHeaderText.textContent = 'Activity Log';
+          if (cardHeaderDesc) cardHeaderDesc.textContent = 'Monitor Super Admin and staff actions including password resets and status changes';
+          
+          // Update footer
+          if (cardFooterLeft) {
+            cardFooterLeft.innerHTML = '<i class="bi bi-calendar-event me-1"></i> Showing today\'s activities';
+          }
+          if (cardFooterRight) {
+            // Fetch activities and count today's events
+            fetchActivitiesFromDB().then(activities => {
+              const today = new Date();
+              const todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+              
+              const todayCount = activities.filter(activity => {
+                const activityDate = new Date(activity.timestamp);
+                return activityDate >= todayStart;
+              }).length;
+              
+              cardFooterRight.innerHTML = 'Total events today: <span class="fw-bold text-dark">' + todayCount + '</span> | <a href="#" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#allActivitiesModal" onclick="renderAllActivitiesModal()"><i class="bi bi-list-ul me-1"></i>View All</a>';
+            });
+          }
+          
+          // Hide Add Staff button
+          const addStaffBtn = document.getElementById('addStaffButtonContainer');
+          if (addStaffBtn) addStaffBtn.style.display = 'none';
+        });
+      }
+
+      if (tabBarangayInfo) {
+        tabBarangayInfo.addEventListener('shown.bs.tab', function() {
+          // Update header
+          if (cardHeaderIcon) {
+            cardHeaderIcon.className = 'bi bi-geo-alt-fill me-2';
+            cardHeaderIcon.style.color = '#222c8e';
+          }
+          if (cardHeaderText) cardHeaderText.textContent = 'Barangay Information';
+          if (cardHeaderDesc) cardHeaderDesc.textContent = 'Configure barangay details and contact information';
+          
+          // Update footer
+          const info = loadBarangayInfo();
+          if (cardFooterLeft) {
+            cardFooterLeft.innerHTML = '<i class="bi bi-building me-1"></i> ' + (info.barangayName || 'Barangay') + ', ' + (info.municipalityCity || 'City');
+          }
+          if (cardFooterRight) {
+            const lastUpdated = localStorage.getItem(BRGY_INFO_KEY + '_updated');
+            const dateText = lastUpdated ? new Date(lastUpdated).toLocaleDateString() : '';
+            cardFooterRight.innerHTML = ' <span class="fw-bold text-dark">' + dateText + '</span>';
+          }
+          
+          // Hide Add Staff button
+          const addStaffBtn = document.getElementById('addStaffButtonContainer');
+          if (addStaffBtn) addStaffBtn.style.display = 'none';
+        });
+      }
+
+      // Open add new
+      document.getElementById('btnAddNew').addEventListener('click', ()=>{
+        openAddModal(); staffModal.show();
+      });
+
+      // Table action delegation
+      document.getElementById('staffTableBody').addEventListener('click', function(e){
+        const btn = e.target.closest('button');
+        if (!btn) return;
+        const action = btn.getAttribute('data-action');
+        const id = Number(btn.getAttribute('data-id'));
+        if (action === 'view') { openViewModal(id); viewModal.show(); }
+        if (action === 'reset') { 
+          const staff = loadData().find(s=>s.id===id);
+          document.getElementById('resetName').textContent = staff?.fullName || 'user'; 
+          document.getElementById('confirmResetBtn').onclick = ()=>{ resetPassword(id); }; 
+          resetModal.show(); 
+        }
+        if (action === 'toggle') { document.getElementById('confirmMessage').textContent = 'Deactivate / Activate this account?'; document.getElementById('confirmYesBtn').onclick = ()=>{ toggleStatus(id); confirmModal.hide(); }; confirmModal.show(); }
+        if (action === 'delete') { document.getElementById('confirmMessage').textContent = 'Delete this account permanently? This action cannot be undone.'; document.getElementById('confirmYesBtn').onclick = ()=>{ deleteStaff(id); confirmModal.hide(); }; confirmModal.show(); }
+      });
+
+      // Digits-only enforcement and formatted display for contact number input
+      (function wireContactDigitsOnly(){
+        const input = document.getElementById('contactNumber');
+        const err = document.getElementById('contactNumberError');
+        if (!input || !err) return;
+        let hideTimer = null;
+        function showTransient(msg){
+          err.textContent = msg || 'Digits only (0-9).';
+          err.style.display = 'block';
+          input.classList.add('is-invalid');
+          if (hideTimer) clearTimeout(hideTimer);
+          hideTimer = setTimeout(()=>{ err.style.display = 'none'; input.classList.remove('is-invalid'); }, 1200);
+        }
+        function sanitizeAndFormat(){
+          const before = input.value;
+          const cleaned = sanitizeDigits(before);
+          const formatted = formatLocalMobile(cleaned);
+          // Only update if different to avoid caret jump on some browsers
+          if (input.value !== formatted) input.value = formatted;
+          if (before !== formatted) {
+            // transient feedback if non-digit chars were present
+            if (sanitizeDigits(before) !== before.replace(/\D+/g,'')) {
+              showTransient('Digits only (0-9).');
+            }
+          }
+        }
+        input.addEventListener('input', sanitizeAndFormat);
+        input.addEventListener('paste', ()=> setTimeout(sanitizeAndFormat, 0));
+        input.addEventListener('blur', ()=>{
+          const v = sanitizeDigits(input.value);
+          input.value = formatLocalMobile(v);
+          if (v && !isValidPHMobile(v)) { err.textContent = 'Enter a valid 11-digit number starting with 09.'; err.style.display='block'; input.classList.add('is-invalid'); }
+          else { err.style.display='none'; input.classList.remove('is-invalid'); }
+        });
+      })();
+
+      // Form submit
+      // Validate names to allow letters and spaces only (no digits or special characters)
+      function isLettersOnly(v){ return /^[A-Za-z\s]+$/.test(String(v || '').trim()); }
+
+      function showFieldError(el, msg) {
+        if (!el) return;
+        el.classList.add('is-invalid');
+        const err = document.getElementById(el.id + 'Error');
+        if (err) { err.textContent = msg; err.style.display = 'block'; }
+      }
+
+      function clearFieldError(el) {
+        if (!el) return;
+        el.classList.remove('is-invalid');
+        const err = document.getElementById(el.id + 'Error');
+        if (err) { err.textContent = ''; err.style.display = 'none'; }
+      }
+        
+      // Real-time validation for each field
+      const firstNameInput = document.getElementById('firstName');
+      const middleNameInput = document.getElementById('middleName');
+      const lastNameInput = document.getElementById('lastName');
+      const suffixInput = document.getElementById('suffix');
+      const emailInput = document.getElementById('email');
+      const contactNumberInput = document.getElementById('contactNumber');
+      
+      const firstNameError = document.getElementById('firstNameError');
+      const middleNameError = document.getElementById('middleNameError');
+      const lastNameError = document.getElementById('lastNameError');
+      const suffixError = document.getElementById('suffixError');
+      const emailError = document.getElementById('emailError');
+      const contactNumberError = document.getElementById('contactNumberError');
+      
+      // Helper function to show error
+      function showError(input, errorDiv, message) {
+        input.classList.add('is-invalid');
+        errorDiv.textContent = message;
+        errorDiv.style.display = 'block';
+      }
+      
+      // Helper function to clear error
+      function clearError(input, errorDiv) {
+        input.classList.remove('is-invalid');
+        errorDiv.style.display = 'none';
+      }
+      
+      // First name validation
+      firstNameInput.addEventListener('input', function() {
+        const value = this.value.trim();
+        if (!value) {
+          showError(this, firstNameError, 'First name is required.');
+        } else if (!/^[a-zA-Z\s]+$/.test(value)) {
+          showError(this, firstNameError, 'Invalid first name. Only letters and spaces allowed.');
+        } else {
+          clearError(this, firstNameError);
+        }
+      });
+      
+      // Middle name validation
+      middleNameInput.addEventListener('input', function() {
+        const value = this.value.trim();
+        if (value && !/^[a-zA-Z\s]+$/.test(value)) {
+          showError(this, middleNameError, 'Invalid middle name. Only letters and spaces allowed.');
+        } else {
+          clearError(this, middleNameError);
+        }
+      });
+      
+      // Last name validation
+      lastNameInput.addEventListener('input', function() {
+        const value = this.value.trim();
+        if (!value) {
+          showError(this, lastNameError, 'Last name is required.');
+        } else if (!/^[a-zA-Z\s]+$/.test(value)) {
+          showError(this, lastNameError, 'Invalid last name. Only letters and spaces allowed.');
+        } else {
+          clearError(this, lastNameError);
+        }
+      });
+      
+      // Suffix validation
+      suffixInput.addEventListener('input', function() {
+        const value = this.value.trim();
+        if (value && !/^[a-zA-Z.]+$/.test(value)) {
+          showError(this, suffixError, 'Invalid suffix. Only letters and periods allowed (e.g., Jr., Sr., III).');
+        } else {
+          clearError(this, suffixError);
+        }
+      });
+      
+      // Email validation
+      emailInput.addEventListener('input', function() {
+        const value = this.value.trim();
+        if (!value) {
+          showError(this, emailError, 'Email is required.');
+        } else if (value !== value.toLowerCase()) {
+          showError(this, emailError, 'Email must be in lowercase.');
+        } else if (!/^[a-z0-9.]+@gmail\.com$/.test(value)) {
+          showError(this, emailError, 'Invalid email. Must be @gmail.com format (lowercase, no special characters).');
+        } else {
+          clearError(this, emailError);
+        }
+      });
+      
+      // Contact number validation
+      contactNumberInput.addEventListener('input', function() {
+        const digits = this.value.replace(/\D+/g, '');
+        if (!digits) {
+          showError(this, contactNumberError, 'Contact number is required.');
+        } else if (!/^09\d{9}$/.test(digits)) {
+          showError(this, contactNumberError, 'Invalid contact number. Must be 11 digits starting with 09.');
+        } else {
+          clearError(this, contactNumberError);
+        }
+      });
+
+      document.getElementById('staffForm').addEventListener('submit', function(e){
+    e.preventDefault();
+
+    // Gather input values
+    const firstName = (document.getElementById('firstName').value || '').trim();
+    const middleName = (document.getElementById('middleName').value || '').trim();
+    const lastName = (document.getElementById('lastName').value || '').trim();
+    const suffix = (document.getElementById('suffix').value || '').trim();
+    const email = (document.getElementById('email').value || '').trim();
+    const contactNumberRaw = (document.getElementById('contactNumber').value || '').trim();
+    const gender = (document.getElementById('gender').value || '').trim();
+    const civilStatus = (document.getElementById('civilStatus').value || '').trim();
+
+    // Sanitize contact number digits only for database
+    const contactNumber = contactNumberRaw.replace(/\D+/g, '');
+
+    // Client-side validation
+    let hasErrors = false;
+    
+    // First name - letters and spaces only, must start with capital letter
+    if (!firstName) {
+        showError(firstNameInput, firstNameError, 'First name is required.');
+        hasErrors = true;
+    } else if (!/^[a-zA-Z\s]+$/.test(firstName)) {
+        showError(firstNameInput, firstNameError, 'Invalid first name. Only letters and spaces allowed.');
+        hasErrors = true;
+    } else if (!/^[A-Z]/.test(firstName)) {
+        showError(firstNameInput, firstNameError, 'First name must start with a capital letter.');
+        hasErrors = true;
+    }
+    
+    // Middle name - letters and spaces only (if provided), must start with capital letter
+    if (middleName) {
+        if (!/^[a-zA-Z\s]+$/.test(middleName)) {
+            showError(middleNameInput, middleNameError, 'Invalid middle name. Only letters and spaces allowed.');
+            hasErrors = true;
+        } else if (!/^[A-Z]/.test(middleName)) {
+            showError(middleNameInput, middleNameError, 'Middle name must start with a capital letter.');
+            hasErrors = true;
+        }
+    }
+    
+    // Last name - letters and spaces only, must start with capital letter
+    if (!lastName) {
+        showError(lastNameInput, lastNameError, 'Last name is required.');
+        hasErrors = true;
+    } else if (!/^[a-zA-Z\s]+$/.test(lastName)) {
+        showError(lastNameInput, lastNameError, 'Invalid last name. Only letters and spaces allowed.');
+        hasErrors = true;
+    } else if (!/^[A-Z]/.test(lastName)) {
+        showError(lastNameInput, lastNameError, 'Last name must start with a capital letter.');
+        hasErrors = true;
+    }
+    
+    // Suffix - letters and periods only (if provided), must start with capital letter
+    if (suffix) {
+        if (!/^[a-zA-Z.]+$/.test(suffix)) {
+            showError(suffixInput, suffixError, 'Invalid suffix. Only letters and periods allowed.');
+            hasErrors = true;
+        } else if (!/^[A-Z]/.test(suffix)) {
+            showError(suffixInput, suffixError, 'Suffix must start with a capital letter.');
+            hasErrors = true;
+        }
+    }
+    
+    // Email validation
+    if (!email) {
+        showError(emailInput, emailError, 'Email is required.');
+        hasErrors = true;
+    } else if (email !== email.toLowerCase()) {
+        showError(emailInput, emailError, 'Email must be in lowercase.');
+        hasErrors = true;
+    } else if (!/^[a-z0-9.]+@gmail\.com$/.test(email)) {
+        showError(emailInput, emailError, 'Invalid email. Must be @gmail.com format (lowercase, no special characters).');
+        hasErrors = true;
+    }
+    
+    // Contact number validation
+    if (!/^09\d{9}$/.test(contactNumber)) {
+        showError(contactNumberInput, contactNumberError, 'Invalid contact number. Must be 11 digits starting with 09.');
+        hasErrors = true;
+    }
+    
+    // If there are validation errors, stop submission
+    if (hasErrors) {
+        return;
+    }
+
+    // Prepare data to send
+    const formData = new URLSearchParams();
+    formData.append('firstName', firstName);
+    formData.append('middleName', middleName);
+    formData.append('lastName', lastName);
+    formData.append('suffix', suffix);
+    formData.append('email', email);
+    formData.append('contactNumber', contactNumber);
+    formData.append('gender', gender);
+    formData.append('civilStatus', civilStatus);
+    formData.append('password', 'Welcome@123'); // Default password for new staff 
+
+    // Send data to server
+    fetch('add_staff.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: formData.toString()
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.success) {
+            alert(data.message || "Staff added successfully.");
+            // Reset form and close modal
+            document.getElementById('staffForm').reset();
+            bootstrap.Modal.getInstance(document.getElementById('staffModal')).hide();
+            refreshAll(); // Reload from database
+        } else {
+            let errorMsg = 'Error: ' + (data.message || 'Failed to add staff.');
+            if (data.help) {
+                errorMsg += '\n\nSolution: ' + data.help;
+            }
+            alert(errorMsg);
+        }
+    })
+    .catch(err => {
+        alert('Request error: ' + err.message + '\n\nMake sure MySQL is running in XAMPP Control Panel.');
+    });
+});
+
+  // Clear previous errors
+  [firstNameEl, middleNameEl, lastNameEl, suffixEl, emailEl, contactEl].forEach(el => clearFieldError(el));
+
+        // Required fields checks with inline errors
+        if (!firstName) { showFieldError(firstNameEl, 'First name is required.'); firstNameEl.focus(); return; }
+        if (!lastName) { showFieldError(lastNameEl, 'Last name is required.'); lastNameEl.focus(); return; }
+        if (!email) { showFieldError(emailEl, 'Email is required.'); emailEl.focus(); return; }
+        if (!contactNumber) { showFieldError(contactEl, 'Contact number is required.'); contactEl.focus(); return; }
+
+        // Email validation: must be valid format with proper domain extension
+        if (!isValidEmail(email)) {
+          showFieldError(emailEl, 'Please enter a valid email address (e.g., name@example.com).');
+          emailEl.focus();
+          return;
+        }
+
+        // Name validations: only letters and spaces allowed
+        if (!isLettersOnly(firstName)) { showFieldError(firstNameEl, 'First name must contain letters and spaces only.'); firstNameEl.focus(); return; }
+  if (middleName && !isLettersOnly(middleName)) { showFieldError(middleNameEl, 'Middle name must contain letters and spaces only.'); middleNameEl.focus(); return; }
+  if (!isLettersOnly(lastName)) { showFieldError(lastNameEl, 'Last name must contain letters and spaces only.'); lastNameEl.focus(); return; }
+  if (suffix && !isLettersOnly(suffix)) { showFieldError(suffixEl, 'Suffix must contain letters and spaces only.'); suffixEl.focus(); return; }
+
+        // Build full name with all parts
+        let fullName = firstName;
+        if (middleName) fullName += ' ' + middleName;
+        fullName += ' ' + lastName;
+        if (suffix) fullName += ' ' + suffix;
+
+        const payload = {
+          fullName: fullName.trim(),
+          role: 'Staff', // Default role
+          email: email,
+          contactNumber: contactNumber,
+          status: 'active' // Default status
+        };
+
+        // Validate contact number: must be 11 digits starting with 09
+        if (!isValidPHMobile(contactNumber)) {
+          showFieldError(contactEl, 'Enter a valid 11-digit number starting with 09.');
+          contactEl.focus();
+          return; // Do not add/edit staff if contact is invalid
+        }
+
+        if (id) {
+          editStaff(Number(id), payload);
+        } else {
+          addStaff({ ...payload, createdAt: nowISO() });
+        }
+        bootstrap.Modal.getInstance(document.getElementById('staffModal')).hide();
+      });
+
+      // Real-time validation with immediate visual feedback
+      (function wireRealTimeValidation(){
+        const fn = document.getElementById('firstName');
+        const mn = document.getElementById('middleName');
+        const ln = document.getElementById('lastName');
+        const sx = document.getElementById('suffix');
+        const em = document.getElementById('email');
+        const cn = document.getElementById('contactNumber');
+
+        // Validate name fields: only letters and spaces allowed
+        function validateNameField(el, fieldName, required = false) {
+          if (!el) return;
+          const value = el.value.trim();
+          
+          // Clear error if field is empty and not required
+          if (!value && !required) {
+            clearFieldError(el);
+            return;
+          }
+          
+          // Show error if required field is empty
+          if (!value && required) {
+            showFieldError(el, `${fieldName} is required.`);
+            return;
+          }
+          
+          // Check if contains only letters and spaces
+          if (!/^[A-Za-z\s]+$/.test(value)) {
+            showFieldError(el, `${fieldName} must contain letters and spaces only.`);
+            return;
+          }
+          
+          // Clear error if valid
+          clearFieldError(el);
+        }
+
+        // Validate email field
+        function validateEmailField(el) {
+          if (!el) return;
+          const value = el.value.trim();
+          
+          // Clear error if empty (will be caught on submit)
+          if (!value) {
+            clearFieldError(el);
+            return;
+          }
+          
+          // Check email format
+          if (!isValidEmail(value)) {
+            showFieldError(el, 'Please enter a valid email address');
+            return;
+          }
+          
+          // Clear error if valid
+          clearFieldError(el);
+        }
+
+        // Validate contact number field
+        function validateContactField(el) {
+          if (!el) return;
+          const value = sanitizeDigits(el.value);
+          
+          // Clear error if empty (will be caught on submit)
+          if (!value) {
+            clearFieldError(el);
+            return;
+          }
+          
+          // Check if it's a valid Philippine mobile number
+          if (!isValidPHMobile(value)) {
+            showFieldError(el, 'Enter a valid 11-digit number starting with 09.');
+            return;
+          }
+          
+          // Clear error if valid
+          clearFieldError(el);
+        }
+
+        // Wire up real-time validation on input
+        if (fn) fn.addEventListener('input', () => validateNameField(fn, 'First name', true));
+        if (mn) mn.addEventListener('input', () => validateNameField(mn, 'Middle name', false));
+        if (ln) ln.addEventListener('input', () => validateNameField(ln, 'Last name', true));
+        if (sx) sx.addEventListener('input', () => validateNameField(sx, 'Suffix', false));
+        if (em) em.addEventListener('input', () => validateEmailField(em));
+        if (cn) cn.addEventListener('input', () => validateContactField(cn));
+      })();
+
+      // Confirm Reset actual handler assigned earlier when opening modal
+
+  // wire panel staff select change (if panel exists)
+  const panelSelectEl = document.getElementById('panelStaffSelect');
+  if (panelSelectEl) panelSelectEl.addEventListener('change', ()=>{ renderActivityLog(); });
+  const activityRefreshBtn = document.getElementById('activityRefreshBtn');
+  if (activityRefreshBtn) activityRefreshBtn.addEventListener('click', async (e)=>{ e.preventDefault(); await renderActivityLog(); });
+
+
+    function openAddModal() {
+      document.getElementById('staffModalTitle').textContent = 'Add New Staff';
+      document.getElementById('staffId').value = '';
+      document.getElementById('firstName').value = '';
+      document.getElementById('middleName').value = '';
+      document.getElementById('lastName').value = '';
+      document.getElementById('suffix').value = '';
+      document.getElementById('contactNumber').value = '';
+      document.getElementById('email').value = '';
+      // clear validation states so previous errors don't persist
+      ['firstName','middleName','lastName','suffix','contactNumber','email'].forEach(id => {
+        try {
+          const el = document.getElementById(id);
+          if (el) {
+            el.classList.remove('is-invalid');
+            const err = document.getElementById(id + 'Error');
+            if (err) { err.style.display = 'none'; err.textContent = ''; }
+          }
+        } catch (e) { /* ignore */ }
+      });
+    }
+
+    function openEditModal(id) {
+      const s = loadData().find(x=>x.id===id);
+      if (!s) return alert('Staff not found');
+      // clear validation states
+      ['firstName','middleName','lastName','suffix','contactNumber','email'].forEach(id => {
+        try { const el = document.getElementById(id); if (el) { el.classList.remove('is-invalid'); const err = document.getElementById(id + 'Error'); if (err) { err.style.display='none'; err.textContent=''; } } } catch(e){}
+      });
+      document.getElementById('staffModalTitle').textContent = 'Edit Staff';
+      document.getElementById('staffId').value = s.id;
+      
+      // Split full name into parts (firstName, middleName, lastName, suffix)
+      const nameParts = s.fullName.split(' ');
+      let firstName = '', middleName = '', lastName = '', suffix = '';
+      
+      if (nameParts.length >= 1) firstName = nameParts[0];
+      if (nameParts.length === 2) {
+        lastName = nameParts[1];
+      } else if (nameParts.length === 3) {
+        middleName = nameParts[1];
+        lastName = nameParts[2];
+      } else if (nameParts.length >= 4) {
+        // Check if last part is a suffix
+        const lastPart = nameParts[nameParts.length - 1];
+        if (['Jr.', 'Sr.', 'II', 'III', 'IV', 'Jr', 'Sr'].includes(lastPart)) {
+          suffix = lastPart;
+          middleName = nameParts.slice(1, nameParts.length - 2).join(' ');
+          lastName = nameParts[nameParts.length - 2];
+        } else {
+          middleName = nameParts.slice(1, nameParts.length - 1).join(' ');
+          lastName = nameParts[nameParts.length - 1];
+        }
+      }
+      
+      document.getElementById('firstName').value = firstName;
+      document.getElementById('middleName').value = middleName;
+      document.getElementById('lastName').value = lastName;
+      document.getElementById('suffix').value = suffix;
+  document.getElementById('contactNumber').value = formatLocalMobile(s.contactNumber || '');
+      document.getElementById('email').value = s.email;
+    }
+
+    function openViewModal(id) {
+      const s = loadData().find(x=>x.id===id);
+      if (!s) { alert('Staff not found'); return; }
+      const setText = (elId, val) => { const el = document.getElementById(elId); if (el) el.textContent = val ?? '—'; };
+      setText('viewId', String(s.id));
+      setText('viewFullName', s.fullName || '—');
+      setText('viewRole', s.role || '—');
+      setText('viewEmail', s.email || '—');
+      setText('viewContact', s.contactNumber || '—');
+      const statusEl = document.getElementById('viewStatus');
+      if (statusEl) {
+        statusEl.textContent = s.status ? s.status.charAt(0).toUpperCase() + s.status.slice(1) : '—';
+        statusEl.className = s.status === 'active' ? 'badge bg-success' : 'badge bg-secondary';
+      }
+      setText('viewCreatedAt', s.createdAt ? new Date(s.createdAt).toLocaleString() : '—');
+    }
+
+    // refreshAll is now defined earlier as an async function
+
+    document.addEventListener('DOMContentLoaded', function(){
+      // Simple CSV export for activity (moved to modal footer if needed)
+      const exportBtn = document.getElementById('exportActivityBtn');
+      if (exportBtn) {
+        exportBtn.addEventListener('click', async function(e){
+          e.preventDefault();
+          // Fetch activities from database
+          const dbActivities = await fetchActivitiesFromDB();
+          if (!dbActivities.length) return alert('No activity to export.');
+          
+          // Create simple CSV content
+          let csv = 'No.,Date,Time,User,Action,Description\n';
+          
+          dbActivities.forEach((a, index) => {
+            const date = new Date(a.timestamp);
+            const dateStr = date.toLocaleDateString();
+            const timeStr = date.toLocaleTimeString();
+            const user = (a.staffName || 'Unknown').replace(/,/g, ';'); // Escape commas
+            const action = (a.action || '').replace(/,/g, ';'); // Escape commas
+            const desc = (a.details || '').replace(/,/g, ';'); // Escape commas
+            csv += `${index + 1},${dateStr},${timeStr},${user},${action},${desc}\n`;
+          });
+          
+          // Create and download CSV file
+          const blob = new Blob([csv], { type: 'text/csv' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'Activity_Log_Report_' + new Date().toISOString().slice(0,10) + '.csv';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        });
+      }
+    });
+
+  </script>
+</body>
+</html>

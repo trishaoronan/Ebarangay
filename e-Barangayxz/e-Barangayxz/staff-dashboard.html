@@ -1,0 +1,1621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="refresh" content="0; url=staff-dashboard.php" />
+  <script>window.location.replace('staff-dashboard.php');</script>
+  <title>Redirecting...</title>
+</head>
+<body>
+  <p>If you are not redirected automatically, <a href="staff-dashboard.php">click here</a>.</p>
+</body>
+</html>
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .notification-toast {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      overflow: hidden;
+      min-width: 300px;
+      max-width: 400px;
+      margin-top: 10px;
+      animation: slideIn 0.3s ease-out;
+    }
+    
+    @keyframes slideIn {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    
+    .notification-toast.hide {
+      animation: slideOut 0.3s ease-out forwards;
+    }
+    
+    @keyframes slideOut {
+      to {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+    }
+    
+    .notification-toast .toast-header {
+      background: #f8f9fa;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid #dee2e6;
+    }
+    
+    .notification-toast .toast-body {
+      padding: 1rem;
+      cursor: pointer;
+    }
+    
+    .notification-toast .toast-body:hover {
+      background-color: #f8f9fa;
+    }
+    
+    .notification-toast .icon-wrapper {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      margin-right: 12px;
+    }
+    
+    .notification-toast .icon-wrapper.document {
+      background-color: #e3f2fd;
+      color: #0d6efd;
+    }
+    
+    .notification-toast .icon-wrapper.approval {
+      background-color: #e8f5e9;
+      color: #198754;
+    }
+    
+    .notification-toast .icon-wrapper.warning {
+      background-color: #fff3cd;
+      color: #ffc107;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top" style="padding: 0.5rem 0; margin-top: -8px; padding-top: calc(0.5rem + 8px);">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center" href="staff-dashboard.html">
+        <img src="pics/eb-logo.jpg" alt="eBarangay Logo" class="me-2" style="height:40px; width:auto" />
+        <span>STAFF DASHBOARD</span>
+      </a>
+
+        <div class="d-flex align-items-center position-relative">
+        <!-- Notification Dropdown -->
+        <div class="dropdown me-2">
+          <button class="btn btn-light position-relative" id="notifButton" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+            <i class="bi bi-bell fs-5"></i>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="notifBadge">2</span>
+          </button>
+
+          <div class="dropdown-menu dropdown-menu-end shadow-sm p-0 border-0" id="notifDropdown" style="width:340px;">
+            <div class="p-3 border-bottom bg-light">
+              <h6 class="fw-bold mb-0">Notifications</h6>
+            </div>
+
+            <!-- Main notifications -->
+            <div class="notification-panel">
+              <div class="notif-item p-3 border-bottom unread">
+                <div class="d-flex align-items-start">
+                  <i class="bi bi-bell-fill me-2 text-primary fs-5"></i>
+                  <div>
+                    <h6 class="mb-1 fw-semibold text-dark">Document Request</h6>
+                    <p class="mb-0 small text-secondary">Juan Dela Cruz requested a Barangay Clearance document.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="notif-item p-3 border-bottom unread">
+                <div class="d-flex align-items-start">
+                  <i class="bi bi-hourglass-split me-2 text-primary fs-5"></i>
+                  <div>
+                    <h6 class="mb-1 fw-semibold text-dark">Approval Pending</h6>
+                    <p class="mb-0 small text-secondary">Waiting for approval of Maria Santos' Business Permit request.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="notif-item p-3 border-bottom">
+                <div class="d-flex align-items-start">
+                  <i class="bi bi-file-earmark-text me-2 text-primary fs-5"></i>
+                  <div>
+                    <h6 class="mb-1 fw-semibold text-dark">Document Submitted</h6>
+                    <p class="mb-0 small text-secondary">Donny Pangilinan submitted a Barangay Clearance request.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Hidden extra notifications -->
+              <div class="extra-notifs mt-0">
+                <div class="notif-item p-3 border-bottom">
+                  <div class="d-flex align-items-start">
+                    <i class="bi bi-calendar-event me-2 text-primary fs-5"></i>
+                    <div>
+                      <h6 class="mb-1 fw-semibold text-dark">Reminder</h6>
+                      <p class="mb-0 small text-secondary">Barangay meeting scheduled for October 25.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="notif-item p-3 border-bottom">
+                  <div class="d-flex align-items-start">
+                    <i class="bi bi-info-circle me-2 text-primary fs-5"></i>
+                    <div>
+                      <h6 class="mb-1 fw-semibold text-dark">System Update</h6>
+                      <p class="mb-0 small text-secondary">New staff portal features have been added.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Toggle Button -->
+            <button class="see-all-btn w-100 border-0 bg-transparent py-2 text-primary small fw-semibold" id="toggleExtraNotifs">
+              See Previous Notifications →
+            </button>
+          </div>
+        </div>
+
+        <button class="btn btn-outline-light btn-sm" id="staffLogoutBtn">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Sidebar & Main Dashboard -->
+  <div class="container-fluid">
+    <div class="row">
+      <nav class="col-md-3 col-lg-2 d-md-block sidebar p-3 shadow-sm">
+        <div class="nav flex-column">
+          <a class="nav-link active" href="staff-dashboard.html"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a>
+          <a class="nav-link" href="sidebar-requests.php"><i class="bi bi-files me-2"></i> Requests</a>
+          <a class="nav-link" href="sidebar-residents.php"><i class="bi bi-people me-2"></i> Residents</a>
+          <a class="nav-link" href="sidebar-reports.html"><i class="bi bi-clipboard-data me-2"></i> Reports</a>
+          <a class="nav-link" href="sidebar-profile.html"><i class="bi bi-card-list me-2"></i> Profile</a>
+        </div>
+      </nav>
+
+      <!-- Main Dashboard -->
+      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+        <!-- ✅ Your main content preserved exactly -->
+        <h3 class="fw-bold mb-4">Dashboard Overview</h3>
+
+        <div class="row g-4">
+          <div class="col-lg-8">
+            <div class="card shadow-sm p-3 h-100">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h6 class="fw-semibold mb-0">Total Requests Overview</h6>
+              </div>
+              <div style="height:240px;">
+                <canvas id="requestsOverviewChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+            <div class="card shadow-sm p-3 h-100 requests-stats-card">
+              <h6 class="fw-semibold mb-3">Request Statistics</h6>
+
+              <div class="stat-row mb-2 align-items-center">
+                <div class="stat-left">Total Requests</div>
+                <div class="stat-right" id="totalRequestsValue">0</div>
+              </div>
+
+              <div class="total-progress mb-3">
+                <div class="progress" style="height:8px;">
+                  <div class="progress-bar bg-primary" id="totalProgressBar" role="progressbar" style="width:0%"></div>
+                </div>
+              </div>
+
+              <div class="status-row mb-2">
+                <div class="d-flex justify-content-between">
+                  <div class="status-label">Completed</div>
+                  <div class="status-value text-success" id="completedValue">0</div>
+                </div>
+                <div class="progress mt-2" style="height:6px;">
+                  <div class="progress-bar bg-success" id="completedProgress" role="progressbar" style="width:0%"></div>
+                </div>
+              </div>
+
+              <div class="status-row mb-2">
+                <div class="d-flex justify-content-between">
+                  <div class="status-label">Pending</div>
+                  <div class="status-value" id="pendingValue">0</div>
+                </div>
+                <div class="progress mt-2" style="height:6px;">
+                  <div class="progress-bar bg-warning" id="pendingProgress" role="progressbar" style="width:0%"></div>
+                </div>
+              </div>
+
+              <div class="status-row">
+                <div class="d-flex justify-content-between">
+                  <div class="status-label">Rejected</div>
+                  <div class="status-value" id="rejectedValue">0</div>
+                </div>
+                <div class="progress mt-2" style="height:6px;">
+                  <div class="progress-bar bg-danger" id="rejectedProgress" role="progressbar" style="width:0%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-4 mt-4">
+          <div class="col-md-4">
+            <div class="card shadow-sm p-3 text-center h-100" role="button" data-bs-toggle="modal" data-bs-target="#barangayMapModal" style="cursor: pointer; transition: transform 0.2s;">
+              <div class="d-flex justify-content-center align-items-center w-100 mb-2">
+                <i class="bi bi-people-fill text-primary resident-icon"></i>
+              </div>
+              <h4 class="fw-bold mt-3">325</h4>
+              <h6>Total Residents</h6>
+              <div class="text-success small mt-2">↑ 12% Increase</div>
+              <div class="text-muted small mt-2">
+                <i class="bi bi-geo-alt-fill"></i> Click to view map
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-8">
+            <div class="card shadow-sm p-3 h-100">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h6 class="fw-semibold mb-0">Resident Demographics</h6>
+                <div class="d-flex align-items-center">
+                  <button type="button" class="btn btn-link text-primary p-0 me-3" 
+                          id="demographicsPopover"
+                          data-bs-toggle="popover" 
+                          data-bs-placement="left"
+                          data-bs-html="true"
+                          data-bs-title="Age Distribution">
+                    <i class="bi bi-info-circle"></i> Age Details
+                  </button>
+                  <select id="demographicsYearSelect" class="form-select form-select-sm" style="width:110px;">
+                    <!-- populated by script -->
+                  </select>
+                </div>
+              </div>
+              <div style="height:140px;">
+                <canvas id="residentStatsChart"></canvas>
+              </div>
+              <div id="demographicsSummary" class="mt-2 d-flex gap-2 flex-wrap"></div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+  <!-- Toast Container -->
+  <div class="toast-container"></div>
+
+  <!-- Bootstrap JS & Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Charts (unchanged) -->
+  <script>
+    // demographics year (used in popover and chart tooltips)
+    let demographicsYear = new Date().getFullYear();
+
+    // Build demographics popover content with year included (live totals)
+    function buildDemographicsPopoverContent(year) {
+      const totals = getCategoryTotalsForYear(year);
+      const totalAll = (totals || []).reduce((sum, v) => sum + (v || 0), 0);
+
+      function makeRow(label, idx, badgeClass) {
+        const count = totals[idx] || 0;
+        const pct = totalAll ? Math.round((count / totalAll) * 100) : 0;
+        return `
+          <div class="category mb-3">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <span class="fw-semibold">${label}</span>
+              <span class="badge ${badgeClass}">${escapeHtml(count)} total</span>
+            </div>
+            <div class="details small text-muted ps-2">
+              • ${pct}% of residents in ${year}.<br>
+              • Detailed breakdown available via chart tooltip.
+            </div>
+          </div>`;
+      }
+
+      return `
+        <div class="demographics-list">
+          <div class="mb-2 small text-muted">Year: <strong>${year}</strong></div>
+          ${makeRow('Children (0-12)', 0, 'bg-primary')}
+          ${makeRow('Teens (13-19)', 1, 'bg-success')}
+          ${makeRow('Adults (20-59)', 2, 'bg-warning')}
+          ${makeRow('Seniors (60+)', 3, 'bg-danger')}
+        </div>`;
+    }
+
+    // Utility to escape HTML in dynamically inserted text (used by tooltips/popovers)
+    function escapeHtml(str) {
+      if (!str && str !== 0) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    // Normalize various month key formats to the 3-letter chart label used by Chart.js (e.g., 'Jan','Feb')
+    function normalizeMonthLabel(key) {
+      if (!key) return '';
+      // If already a 3-letter month, return capitalized first letter + lower rest
+      const shortMonths = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      const k = String(key).trim();
+      // If numeric month like '6' or '06' or '2025-06'
+      const yyyyMm = k.match(/^(\d{4})[-\/](\d{1,2})(?:[-\/](\d{1,2}))?$/);
+      if (yyyyMm) {
+        const m = parseInt(yyyyMm[2], 10);
+        return shortMonths[m-1] || k;
+      }
+      // If month name full or abbreviated
+      const alpha = k.replace(/[^a-zA-Z]/g, '');
+      if (/^jan/i.test(alpha)) return 'Jan';
+      if (/^feb/i.test(alpha)) return 'Feb';
+      if (/^mar/i.test(alpha)) return 'Mar';
+      if (/^apr/i.test(alpha)) return 'Apr';
+      if (/^may/i.test(alpha)) return 'May';
+      if (/^jun/i.test(alpha)) return 'Jun';
+      if (/^jul/i.test(alpha)) return 'Jul';
+      if (/^aug/i.test(alpha)) return 'Aug';
+      if (/^sep/i.test(alpha)) return 'Sep';
+      if (/^oct/i.test(alpha)) return 'Oct';
+      if (/^nov/i.test(alpha)) return 'Nov';
+      if (/^dec/i.test(alpha)) return 'Dec';
+      // Last resort, return original trimmed
+      return k;
+    }
+
+    const residentAgeData = {
+      'Children': [
+        { age: '0-4', count: 20 },
+        { age: '5-8', count: 35 },
+        { age: '9-12', count: 25 }
+      ],
+      'Teens': [
+        { age: '13-15', count: 45 },
+        { age: '16-19', count: 55 }
+      ],
+      'Adults': [
+        { age: '20-29', count: 35 },
+        { age: '30-39', count: 40 },
+        { age: '40-49', count: 20 },
+        { age: '50-59', count: 15 }
+      ],
+      'Seniors': [
+        { age: '60-69', count: 20 },
+        { age: '70-79', count: 10 },
+        { age: '80+', count: 5 }
+      ]
+    };
+
+    // Yearly demographics data — will be fetched from server
+    let demographicsYearly = {};
+    const demographicsCategories = ['Children', 'Teens', 'Adults', 'Seniors'];
+    const demographicsColors = ['#0d6efd', '#198754', '#ffc107', '#dc3545'];
+
+    // Fetch live resident stats from get_resident_stats.php
+    async function loadDemographicsData() {
+      try {
+        const response = await fetch('get_resident_stats.php', { method: 'GET', cache: 'no-store' });
+        const data = await response.json();
+        
+        if (data && data.success && data.demographics) {
+          // Map API response — convert lowercase keys to title case for consistency
+          const currentYear = new Date().getFullYear();
+          demographicsYearly[currentYear] = {
+            'Children': data.demographics.children || 0,
+            'Teens': data.demographics.teens || 0,
+            'Adults': data.demographics.adults || 0,
+            'Seniors': data.demographics.seniors || 0
+          };
+
+          // If breakdown is available, map it to residentAgeData
+          if (data.breakdown) {
+            const bd = data.breakdown;
+            residentAgeData['Children'] = (bd.children || []).map(x => ({ age: x.label, count: x.count }));
+            residentAgeData['Teens']    = (bd.teens || []).map(x => ({ age: x.label, count: x.count }));
+            residentAgeData['Adults']   = (bd.adults || []).map(x => ({ age: x.label, count: x.count }));
+            residentAgeData['Seniors']  = (bd.seniors || []).map(x => ({ age: x.label, count: x.count }));
+          }
+          
+          // Initialize previous years with derived/fallback data if available
+          if (!demographicsYearly[currentYear - 1]) {
+            // If previous year not available, use slight variations of current year
+            demographicsYearly[currentYear - 1] = {};
+            demographicsCategories.forEach(cat => {
+              demographicsYearly[currentYear - 1][cat] = Math.round((demographicsYearly[currentYear][cat] || 0) * 0.95);
+            });
+          }
+          
+          // Populate year selector with available years
+          const yearSelect = document.getElementById('demographicsYearSelect');
+          if (yearSelect) {
+            yearSelect.innerHTML = '';
+            const availableYears = Object.keys(demographicsYearly).map(Number).sort((a, b) => b - a);
+            availableYears.forEach(year => {
+              const option = document.createElement('option');
+              option.value = year;
+              option.textContent = year;
+              if (year === currentYear) option.selected = true;
+              yearSelect.appendChild(option);
+            });
+            
+            // Wire year selector to update chart
+            yearSelect.addEventListener('change', function() {
+              demographicsYear = parseInt(this.value);
+              updateDemographicsForYear(demographicsYear);
+
+              // Refresh popover content with newly selected year
+              try { demographicsPopover.dispose(); } catch (e) {}
+              demographicsPopover = new bootstrap.Popover(document.getElementById('demographicsPopover'), {
+                trigger: 'hover focus',
+                html: true,
+                content: buildDemographicsPopoverContent(demographicsYear)
+              });
+            });
+          }
+          
+          console.log('Demographics data loaded successfully:', demographicsYearly[currentYear], data.breakdown || {});
+          return true;
+        }
+      } catch (error) {
+        console.error('Failed to load demographics data:', error);
+      }
+      
+      // Fallback to demo data if API fails
+      const currentYear = new Date().getFullYear();
+      demographicsYearly = {
+        [currentYear]: { Children: 80, Teens: 100, Adults: 110, Seniors: 35 },
+        [currentYear - 1]: { Children: 75, Teens: 95, Adults: 105, Seniors: 30 },
+        [currentYear - 2]: { Children: 78, Teens: 92, Adults: 102, Seniors: 32 },
+        [currentYear - 3]: { Children: 70, Teens: 88, Adults: 98, Seniors: 28 },
+        [currentYear - 4]: { Children: 65, Teens: 85, Adults: 95, Seniors: 27 },
+        [currentYear - 5]: { Children: 60, Teens: 80, Adults: 90, Seniors: 25 }
+      };
+      console.log('Using fallback demo data for demographics');
+      // Rebuild popover with fallback totals
+      try { demographicsPopover.dispose(); } catch (e) {}
+      demographicsPopover = new bootstrap.Popover(document.getElementById('demographicsPopover'), {
+        trigger: 'hover focus',
+        html: true,
+        content: buildDemographicsPopoverContent(demographicsYear)
+      });
+      return false;
+    }
+
+    function getCategoryTotalsForYear(year) {
+      const y = demographicsYearly[year] || {};
+      return demographicsCategories.map(c => (y[c] != null ? y[c] : 0));
+    }
+
+    function formatDelta(current, previous) {
+      const diff = current - previous;
+      const pct = previous ? Math.round((diff / previous) * 100) : (diff > 0 ? 100 : 0);
+      return { diff, pct };
+    }
+
+    // Build the Chart with initial year's data
+    let residentStatsChart = null;
+
+    function initializeChart() {
+      const residentStatsCtx = document.getElementById('residentStatsChart');
+      if (!residentStatsCtx) return;
+      
+      // Destroy previous chart instance if it exists
+      if (residentStatsChart) {
+        residentStatsChart.destroy();
+      }
+
+      residentStatsChart = new Chart(residentStatsCtx, {
+        type: 'bar',
+        data: {
+          labels: demographicsCategories,
+          datasets: [{
+            label: 'Residents',
+            data: getCategoryTotalsForYear(demographicsYear),
+            backgroundColor: demographicsColors
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              enabled: false,
+              external: function(context) {
+                // Remove previous tooltip if it exists
+                let tooltipEl = document.getElementById('chartjs-demographics-tooltip');
+                if (!tooltipEl) {
+                  tooltipEl = document.createElement('div');
+                  tooltipEl.id = 'chartjs-demographics-tooltip';
+                  tooltipEl.innerHTML = '<table></table>';
+                  document.body.appendChild(tooltipEl);
+                }
+
+                // Hide if no tooltip
+                const tooltipModel = context.tooltip;
+                if (tooltipModel.opacity === 0) {
+                  tooltipEl.style.opacity = 0;
+                  return;
+                }
+
+                // Set Text
+                if (tooltipModel.body) {
+                  const category = context.chart.data.labels[tooltipModel.dataPoints[0].dataIndex];
+                  const ageData = residentAgeData[category];
+                  const total = ageData.reduce((sum, item) => sum + item.count, 0);
+
+                  const tableBody = ageData.map(item => `
+                    <tr>
+                      <td class="pe-4">Ages ${item.age}</td>
+                      <td class="text-end pe-2">${item.count}</td>
+                      <td class="text-end"><span class="badge bg-secondary">${Math.round(item.count/total*100)}%</span></td>
+                    </tr>
+                  `).join('');
+
+                  const tableRoot = tooltipEl.querySelector('table');
+                  tableRoot.innerHTML = `
+                    <thead>
+                      <tr><th colspan="3" class="text-center pb-2">${category} — ${demographicsYear} <span class="badge bg-primary ms-2">${total} total</span></th></tr>
+                    </thead>
+                    <tbody>${tableBody}</tbody>
+                  `;
+                }
+
+                // Position tooltip and set styles
+                const position = context.chart.canvas.getBoundingClientRect();
+                tooltipEl.style.opacity = 1;
+                tooltipEl.style.position = 'absolute';
+                tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX - 80 + 'px';
+                tooltipEl.style.top = position.top + window.pageYOffset + tooltipModel.caretY - 100 + 'px';
+                tooltipEl.style.padding = '8px 12px';
+                tooltipEl.style.pointerEvents = 'none';
+                tooltipEl.style.background = 'rgba(255, 255, 255, 0.98)';
+                tooltipEl.style.borderRadius = '6px';
+                tooltipEl.style.boxShadow = '0 2px 8px rgba(0,0,0,0.15)';
+                tooltipEl.style.fontSize = '13px';
+                tooltipEl.style.minWidth = '180px';
+              }
+            }
+          },
+          scales: { 
+            y: { beginAtZero: true }
+          },
+          onHover: function(e, elements) {
+            if (elements && elements.length) {
+              e.native.target.style.cursor = 'pointer';
+            } else {
+              e.native.target.style.cursor = 'default';
+            }
+          }
+        }
+      });
+    }
+
+    // Update chart and summary for a selected year
+    function updateDemographicsForYear(year) {
+      const curTotals = getCategoryTotalsForYear(year);
+      const prevTotals = getCategoryTotalsForYear(year - 1);
+
+      // Update chart data
+      residentStatsChart.data.datasets[0].data = curTotals;
+      residentStatsChart.update();
+
+      // Update summary UI
+      const summary = document.getElementById('demographicsSummary');
+      if (!summary) return;
+      summary.innerHTML = '';
+      demographicsCategories.forEach((cat, i) => {
+        const cur = curTotals[i] || 0;
+        const prev = prevTotals[i] || 0;
+        const { diff, pct } = formatDelta(cur, prev);
+        const up = diff >= 0;
+        const badge = document.createElement('div');
+        badge.className = 'p-2 rounded-3 border d-flex align-items-center';
+        badge.style.minWidth = '170px';
+        badge.innerHTML = `
+          <div class="me-2" style="width:10px;height:28px;border-radius:4px;background:${demographicsColors[i]}"></div>
+          <div class="flex-grow-1">
+            <div class="small text-muted">${cat}</div>
+            <div class="fw-semibold">${cur} <small class="text-muted">total</small></div>
+          </div>
+          <div class="text-end ms-2">
+            <div class="small ${up ? 'text-success' : 'text-danger'}">${up ? '▲' : '▼'} ${Math.abs(diff)}</div>
+            <div class="small ${up ? 'text-success' : 'text-danger'}">${up ? '+' : '-'}${Math.abs(pct)}%</div>
+          </div>
+        `;
+        summary.appendChild(badge);
+      });
+    }
+
+    // Initialize chart and load data asynchronously
+    (async () => {
+      // Load demographics data first
+      await loadDemographicsData();
+      
+      // Then initialize chart with loaded data
+      initializeChart();
+      
+      // Update chart display with loaded data
+      updateDemographicsForYear(demographicsYear);
+      
+      // NOW initialize the demographics popover with real data
+      let demographicsPopover = new bootstrap.Popover(document.getElementById('demographicsPopover'), {
+        trigger: 'hover focus',
+        html: true,
+        content: buildDemographicsPopoverContent(demographicsYear)
+      });
+
+      // Wire year selector to refresh both chart and popover
+      const sel = document.getElementById('demographicsYearSelect');
+      if (sel) {
+        sel.addEventListener('change', function() {
+          demographicsYear = parseInt(this.value, 10) || demographicsYear;
+          // Recreate popover with updated content
+          try { demographicsPopover.dispose(); } catch (e) {}
+          demographicsPopover = new bootstrap.Popover(document.getElementById('demographicsPopover'), {
+            trigger: 'hover focus',
+            html: true,
+            content: buildDemographicsPopoverContent(demographicsYear)
+          });
+          // Update chart and summary when the year changes
+          try { updateDemographicsForYear(demographicsYear); } catch (e) { console.warn('Failed to update demographics for year', e); }
+        });
+      }
+      
+      console.log('Dashboard demographics initialized');
+    })();
+
+    // Monthly request breakdowns (per-month most-requested documents)
+    // Default demo data — will be overwritten if backend returns per-month details
+    const monthlyRequestDetails = {
+      'Jan': [
+        { name: 'Barangay Clearance', count: 25 },
+        { name: 'Business Permit', count: 18 },
+        { name: 'Certificate of Residency', count: 15 },
+        { name: 'Indigency Certificate', count: 7 }
+      ],
+      'Feb': [
+        { name: 'Barangay Clearance', count: 30 },
+        { name: 'Business Permit', count: 22 },
+        { name: 'Certificate of Residency', count: 20 },
+        { name: 'Indigency Certificate', count: 8 }
+      ],
+      'Mar': [
+        { name: 'Barangay Clearance', count: 35 },
+        { name: 'Business Permit', count: 25 },
+        { name: 'Certificate of Residency', count: 22 },
+        { name: 'Indigency Certificate', count: 8 }
+      ],
+      'Apr': [
+        { name: 'Barangay Clearance', count: 32 },
+        { name: 'Business Permit', count: 24 },
+        { name: 'Certificate of Residency', count: 20 },
+        { name: 'Indigency Certificate', count: 9 }
+      ],
+      'May': [
+        { name: 'Barangay Clearance', count: 38 },
+        { name: 'Business Permit', count: 28 },
+        { name: 'Certificate of Residency', count: 20 },
+        { name: 'Indigency Certificate', count: 9 }
+      ],
+      'Jun': [
+        { name: 'Barangay Clearance', count: 45 },
+        { name: 'Business Permit', count: 32 },
+        { name: 'Certificate of Residency', count: 28 },
+        { name: 'Indigency Certificate', count: 15 }
+      ]
+    };
+
+    const requestsChart = new Chart(document.getElementById('requestsOverviewChart'), {
+      type: 'line',
+      data: {
+        labels: ['Jan','Feb','Mar','Apr','May','Jun'],
+        datasets: [{
+          label: 'Requests',
+          data: [65, 80, 90, 85, 95, 120],
+          borderColor: '#2b6cb0',
+          backgroundColor: 'rgba(43,108,176,0.12)',
+          tension: 0.3,
+          fill: true,
+          pointRadius: 6,
+          pointHoverRadius: 8
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            enabled: false,
+            external: function(context) {
+              // Remove previous tooltip if it exists
+              let tooltipEl = document.getElementById('chartjs-tooltip');
+              if (!tooltipEl) {
+                tooltipEl = document.createElement('div');
+                tooltipEl.id = 'chartjs-tooltip';
+                tooltipEl.innerHTML = '<table></table>';
+                document.body.appendChild(tooltipEl);
+              }
+
+              // Hide if no tooltip
+              const tooltipModel = context.tooltip;
+              if (tooltipModel.opacity === 0) {
+                tooltipEl.style.opacity = 0;
+                return;
+              }
+
+              // Set Text
+              if (tooltipModel.body) {
+                const month = context.chart.data.labels[tooltipModel.dataPoints[0].dataIndex];
+                // Prefer per-month breakdowns if available; fall back to overall top documents
+                const monthData = (monthlyRequestDetails && monthlyRequestDetails[month]) ? monthlyRequestDetails[month] : null;
+                let tableRoot = tooltipEl.querySelector('table');
+                if (!tableRoot) {
+                  tooltipEl.innerHTML = '<table></table>';
+                  tableRoot = tooltipEl.querySelector('table');
+                }
+
+                // Helper to convert 3-letter month to full name
+                function fullMonthName(short) {
+                  const map = { Jan:'January', Feb:'February', Mar:'March', Apr:'April', May:'May', Jun:'June', Jul:'July', Aug:'August', Sep:'September', Oct:'October', Nov:'November', Dec:'December' };
+                  return map[String(short).slice(0,3)] || String(short);
+                }
+
+                // Determine display list: prefer monthData, but augment with globalTop to show more items
+                const globalTop = window.__mostRequestedGlobal || [];
+                let displayList = [];
+                if (monthData && Array.isArray(monthData) && monthData.length) {
+                  displayList = monthData.slice();
+                  // If less than 4 items, append from globalTop (avoid duplicates)
+                  if (displayList.length < 4 && Array.isArray(globalTop) && globalTop.length) {
+                    const existingNames = new Set(displayList.map(it => (it.name || it.document_type || '').toString()));
+                    for (const g of globalTop) {
+                      const gname = (g.document_type ?? g.name ?? '').toString();
+                      if (!existingNames.has(gname)) {
+                        displayList.push({ name: gname, count: '' });
+                        existingNames.add(gname);
+                      }
+                      if (displayList.length >= 4) break;
+                    }
+                    // If still short, try server-provided document types
+                    if (displayList.length < 4 && Array.isArray(window.__allDocumentTypes) && window.__allDocumentTypes.length) {
+                      for (const dt of window.__allDocumentTypes) {
+                        const dtName = dt.toString();
+                        if (!existingNames.has(dtName)) {
+                          displayList.push({ name: dtName, count: '' });
+                          existingNames.add(dtName);
+                        }
+                        if (displayList.length >= 4) break;
+                      }
+                    }
+                  }
+                } else if (Array.isArray(globalTop) && globalTop.length) {
+                  // No per-month data: show top global names but do not show their counts (empty badges)
+                  displayList = globalTop.slice(0, 4).map(g => ({ name: g.document_type ?? g.name ?? '', count: '' }));
+                  if (displayList.length < 4 && Array.isArray(window.__allDocumentTypes) && window.__allDocumentTypes.length) {
+                    const existingNames = new Set(displayList.map(it => it.name.toString()));
+                    for (const dt of window.__allDocumentTypes) {
+                      if (displayList.length >= 4) break;
+                      const name = dt.toString();
+                      if (!existingNames.has(name)) {
+                        displayList.push({ name: name, count: '' });
+                        existingNames.add(name);
+                      }
+                    }
+                  }
+                }
+
+                // Debug length
+                console.debug('tooltip displayList for', month, displayList);
+
+                if (displayList && displayList.length) {
+                  const tableBody = displayList.map(item => {
+                    const raw = item.count;
+                    const num = (raw === '' || raw === null || raw === undefined || raw === '') ? 0 : Number(raw);
+                    const hasPositive = !isNaN(num) && Number(num) > 0;
+                    const badgeClass = hasPositive ? 'bg-primary' : 'bg-secondary text-white';
+                    const displayVal = hasPositive ? String(num) : '0';
+                    return `
+                      <tr>
+                        <td class="pe-3">${escapeHtml(item.name || item.document_type || '')}</td>
+                        <td class="text-end"><span class="badge ${badgeClass}">${escapeHtml(displayVal)}</span></td>
+                      </tr>
+                    `;
+                  }).join('');
+                  tableRoot.innerHTML = `
+                    <thead>
+                      <tr><th colspan="2" class="text-center pb-2">${escapeHtml(fullMonthName(month))} Most Requested</th></tr>
+                    </thead>
+                    <tbody>${tableBody}</tbody>
+                  `;
+                } else {
+                  tableRoot.innerHTML = `<tbody><tr><td class="small text-muted">No additional details available</td></tr></tbody>`;
+                }
+              }
+
+              // Position tooltip and set styles
+              const position = context.chart.canvas.getBoundingClientRect();
+              tooltipEl.style.opacity = 1;
+              tooltipEl.style.position = 'absolute';
+              tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX - 100 + 'px';
+              tooltipEl.style.top = position.top + window.pageYOffset + tooltipModel.caretY - 120 + 'px';
+              tooltipEl.style.padding = '8px 12px';
+              tooltipEl.style.pointerEvents = 'none';
+              tooltipEl.style.background = 'rgba(255, 255, 255, 0.98)';
+              tooltipEl.style.borderRadius = '6px';
+              tooltipEl.style.boxShadow = '0 2px 8px rgba(0,0,0,0.15)';
+              tooltipEl.style.fontSize = '13px';
+              tooltipEl.style.minWidth = '200px';
+            }
+          }
+        },
+        scales: { 
+          y: { beginAtZero: true }
+        },
+        onHover: function(e, elements) {
+          if (elements && elements.length) {
+            e.native.target.style.cursor = 'pointer';
+          } else {
+            e.native.target.style.cursor = 'default';
+          }
+        }
+      }
+    });
+  </script>
+
+  <!-- Notification Script -->
+  <script>
+    // Create a single shared AudioContext instance
+    let audioContext = null;
+
+    // Initialize or resume AudioContext
+    function initAudioContext() {
+      if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      
+      if (audioContext.state === 'suspended') {
+        audioContext.resume();
+      }
+      return audioContext;
+    }
+
+    // Function to play notification sound using Web Audio API
+    function playNotificationSound() {
+      const context = initAudioContext();
+      
+      if (context && (context.state === 'running' || context.state === 'suspended')) {
+        const oscillator = context.createOscillator();
+        const gainNode = context.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(context.destination);
+        
+        // Configure sound
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(587.33, context.currentTime); // D5 note
+        gainNode.gain.setValueAtTime(0.1, context.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, context.currentTime + 0.5);
+        
+        // Play sound
+        oscillator.start(context.currentTime);
+        oscillator.stop(context.currentTime + 0.5);
+
+        // Clean up
+        setTimeout(() => {
+          oscillator.disconnect();
+          gainNode.disconnect();
+        }, 1000);
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      // Initialize AudioContext on first user interaction
+      document.addEventListener('click', () => {
+        initAudioContext();
+      }, { once: true });
+
+      const notifButton = document.getElementById("notifButton");
+      const notifBadge = document.getElementById("notifBadge");
+      const toggleExtraBtn = document.getElementById("toggleExtraNotifs");
+      const extraNotifs = document.querySelector(".extra-notifs");
+      const toastContainer = document.querySelector(".toast-container");
+
+      // Function to create and show a toast notification
+      function showToast(title, message, type = 'document', link = null) {
+        // Play notification sound
+        playNotificationSound();
+        
+        const toast = document.createElement('div');
+        toast.className = 'notification-toast';
+        
+        let iconClass = 'bi-file-text';
+        let iconType = 'document';
+        
+        switch(type) {
+          case 'approval':
+            iconClass = 'bi-check-circle';
+            iconType = 'approval';
+            break;
+          case 'warning':
+            iconClass = 'bi-exclamation-triangle';
+            iconType = 'warning';
+            break;
+        }
+        
+        // Render toast without a manual close (X) button — auto-dismiss only
+        toast.innerHTML = `
+          <div class="toast-header">
+            <div class="icon-wrapper ${iconType}">
+              <i class="bi ${iconClass}"></i>
+            </div>
+            <strong class="me-auto">${title}</strong>
+            <small class="text-muted">just now</small>
+          </div>
+          <div class="toast-body d-flex align-items-start">
+            <span>${message}</span>
+          </div>
+        `;
+        
+        toastContainer.appendChild(toast);
+        
+        // No manual close button — toasts auto-dismiss after timeout
+        
+        // Handle body click to navigate
+        if (link) {
+          toast.querySelector('.toast-body').addEventListener('click', () => {
+            window.location.href = link;
+          });
+        }
+        
+        // Auto remove after 5 seconds
+        setTimeout(() => {
+          if (toast.parentElement) {
+            toast.classList.add('hide');
+            setTimeout(() => toast.remove(), 300);
+          }
+        }, 5000);
+      }
+
+      // Fetch live notifications and request stats
+
+      async function fetchNotifications() {
+        try {
+          const res = await fetch('get_notifications.php', { cache: 'no-store' });
+          const data = await res.json();
+          const panel = document.querySelector('.notification-panel');
+          if (!panel) return;
+          panel.innerHTML = '';
+
+          // Normalize response shape: { success:true, data:{ notifications:[], unread_count } } OR { notifications:[], unread_count }
+          let payload = data;
+          if (data && data.success && data.data) payload = data.data;
+
+          const notifs = payload.notifications || [];
+          const unreadCount = (payload.unread_count ?? payload.unread) || 0;
+          notifBadge.textContent = unreadCount;
+          notifBadge.style.display = unreadCount ? 'inline-block' : 'none';
+
+          notifs.forEach(n => {
+            const item = document.createElement('div');
+            const isReadNum = Number(n.is_read ?? n.read ?? 0);
+            item.className = 'notif-item p-3 border-bottom' + (isReadNum === 0 ? ' unread' : '');
+            item.innerHTML = `
+              <div class="d-flex align-items-start">
+                <i class="bi bi-bell-fill me-2 text-primary fs-5"></i>
+                <div>
+                  <h6 class="mb-1 fw-semibold text-dark">${escapeHtml(n.title || 'Notification')}</h6>
+                  <p class="mb-0 small text-secondary">${escapeHtml(n.message || '')}</p>
+                </div>
+              </div>
+            `;
+
+            item.addEventListener('click', async (e) => {
+              e.stopPropagation();
+              try {
+                await fetch('mark_notification_read.php', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ id: n.id })
+                });
+                item.classList.remove('unread');
+                const cur = parseInt(notifBadge.textContent || '0', 10);
+                if (cur > 0) notifBadge.textContent = cur - 1;
+              } catch (err) {
+                console.error('mark read failed', err);
+              }
+              // Navigate to requests page
+              window.location.href = 'sidebar-requests.php';
+            });
+
+            panel.appendChild(item);
+
+            if (isReadNum === 0) {
+              // show toast for new/unread notifications
+              showToast(n.title || 'Notification', n.message || '', 'document', 'sidebar-requests.php');
+            }
+          });
+        } catch (err) {
+          console.error('Failed to fetch notifications', err);
+        }
+      }
+
+      async function fetchAndRenderRequestStats() {
+        try {
+          const res = await fetch('get_request_stats.php', { cache: 'no-store' });
+          const raw = await res.json();
+
+          // Normalize payload: accept { success:true, data:{...} } or direct object
+          const payload = (raw && raw.success && raw.data) ? raw.data : raw;
+
+          // totals may exist at payload.total or payload.total (as created in backend)
+          const total = payload.total ?? payload.total_requests ?? payload.count ?? 0;
+          const completed = payload.completed ?? 0;
+          const pending = payload.pending ?? 0;
+          const rejected = payload.rejected ?? 0;
+
+          // Update stat values
+          document.getElementById('totalRequestsValue').textContent = total;
+          document.getElementById('completedValue').textContent = completed;
+          document.getElementById('pendingValue').textContent = pending;
+          document.getElementById('rejectedValue').textContent = rejected;
+
+          const pct = (v) => (total ? Math.round((v / total) * 100) : 0);
+          document.getElementById('totalProgressBar').style.width = total ? '100%' : '0%';
+          document.getElementById('completedProgress').style.width = pct(completed) + '%';
+          document.getElementById('pendingProgress').style.width = pct(pending) + '%';
+          document.getElementById('rejectedProgress').style.width = pct(rejected) + '%';
+
+          // Update requests chart if monthly data present
+          const monthly = payload.monthly ?? payload.monthly_counts ?? null;
+          if (monthly) {
+            // monthly may be an object mapping label->value, or an array of objects, or include labels/series
+            if (Array.isArray(monthly)) {
+              const labels = monthly.map(m => m.label ?? m.month ?? m.name);
+              const series = monthly.map(m => m.count ?? m.value ?? 0);
+              if (labels.length) {
+                requestsChart.data.labels = labels;
+                requestsChart.data.datasets[0].data = series;
+                requestsChart.update();
+              }
+            } else if (monthly.labels && Array.isArray(monthly.labels) && Array.isArray(monthly.series)) {
+              requestsChart.data.labels = monthly.labels;
+              requestsChart.data.datasets[0].data = monthly.series;
+              requestsChart.update();
+            } else if (typeof monthly === 'object') {
+              const labels = Object.keys(monthly);
+              const series = labels.map(l => monthly[l] ?? 0);
+              requestsChart.data.labels = labels;
+              requestsChart.data.datasets[0].data = series;
+              requestsChart.update();
+            }
+          }
+
+          // Update most requested popover content and save global top list for tooltip fallback
+          const topDocs = payload.most_requested ?? payload.top_documents ?? payload.most_requested_documents ?? payload.most_requested ?? [];
+          if (Array.isArray(topDocs)) {
+            window.__mostRequestedGlobal = topDocs;
+            const content = topDocs.map(d => `
+              <div class="mb-2">
+                <div class="d-flex justify-content-between align-items-center">
+                  <span>${escapeHtml(d.document_type ?? d.name ?? d[0] ?? '')}</span>
+                  <span class="badge bg-primary ms-2">${d.count ?? d.cnt ?? 0}</span>
+                </div>
+              </div>
+            `).join('');
+            try {
+              requestsPopover._config.content = `<div class="most-requested-list">${content}</div>`;
+            } catch (e) {}
+          } else {
+            window.__mostRequestedGlobal = [];
+          }
+
+          // Save all known document types (server-provided) for name fallbacks
+          if (Array.isArray(payload.all_document_types)) {
+            window.__allDocumentTypes = payload.all_document_types.slice();
+          } else {
+            window.__allDocumentTypes = window.__allDocumentTypes || [];
+          }
+
+          // If backend returned per-month breakdowns, map them into monthlyRequestDetails
+          const monthlyDetailsFromServer = payload.monthly_details ?? payload.monthly_documents ?? payload.monthly_request_breakdown ?? null;
+          if (monthlyDetailsFromServer) {
+            // Expecting object mapping month label => array of { name, count }
+            if (typeof monthlyDetailsFromServer === 'object' && !Array.isArray(monthlyDetailsFromServer)) {
+              Object.keys(monthlyDetailsFromServer).forEach(k => {
+                const norm = normalizeMonthLabel(k);
+                monthlyRequestDetails[norm] = monthlyDetailsFromServer[k];
+              });
+            }
+            // Debug: log mapping and chart labels so we can see mismatches
+            try {
+              console.debug('monthlyRequestDetails keys:', Object.keys(monthlyRequestDetails));
+              console.debug('chart labels:', requestsChart.data.labels);
+              console.debug('globalTopDocs:', window.__mostRequestedGlobal || []);
+            } catch (e) {}
+          }
+        } catch (err) {
+          console.error('Failed to fetch request stats', err);
+        }
+      }
+
+      // Initial load
+      fetchNotifications();
+      fetchAndRenderRequestStats();
+
+      // Poll notifications every 60 seconds (1 minute)
+      setInterval(fetchNotifications, 60000);
+
+      // Regular notification panel functionality
+      notifButton.addEventListener("click", () => notifBadge.style.display = "none");
+
+      toggleExtraBtn.addEventListener("click", (e) => {
+        e.stopPropagation(); // keep dropdown open
+        e.preventDefault();
+
+        const isExpanded = extraNotifs.classList.contains("show");
+        extraNotifs.classList.toggle("show");
+
+        toggleExtraBtn.textContent = isExpanded
+          ? "See Previous Notifications →"
+          : "Hide Previous Notifications ↑";
+      });
+
+      // Make all notification items clickable
+      document.querySelectorAll('.notif-item').forEach(item => {
+        item.style.cursor = 'pointer';
+        item.addEventListener('click', () => {
+          window.location.href = 'sidebar-requests.php';
+        });
+      });
+
+      // Expose showToast function globally for other scripts
+      window.showNotification = showToast;
+    });
+
+    // Demographics data
+    const demographicsData = {
+      'Children': {
+        range: '0-12 years',
+        total: 80,
+        requestors: [
+          { age: '5-8', count: 15, note: 'School Requirements' },
+          { age: '9-12', count: 25, note: 'Sports/Activity Permits' }
+        ]
+      },
+      'Teens': {
+        range: '13-19 years',
+        total: 100,
+        requestors: [
+          { age: '13-16', count: 45, note: 'School Documents' },
+          { age: '17-19', count: 35, note: 'Work Permits/First Jobs' }
+        ]
+      },
+      'Adults': {
+        range: '20-59 years',
+        total: 110,
+        requestors: [
+          { age: '20-35', count: 55, note: 'Employment/Business' },
+          { age: '36-59', count: 40, note: 'Business/Property' }
+        ]
+      },
+      'Seniors': {
+        range: '60+ years',
+        total: 35,
+        requestors: [
+          { age: '60-75', count: 25, note: 'Benefits/Medical' },
+          { age: '76+', count: 10, note: 'Assistance Programs' }
+        ]
+      }
+    };
+
+    // Populate year select with current year and previous 4 years
+    // (moved into async initialization to avoid race condition)
+    (function populateYearSelect() {
+      const sel = document.getElementById('demographicsYearSelect');
+      if (!sel) return;
+      const cur = new Date().getFullYear();
+      const years = [];
+      for (let i = 0; i < 6; i++) years.push(cur - i);
+      sel.innerHTML = years.map(y => `<option value="${y}">${y}</option>`).join('');
+      sel.value = demographicsYear;
+    })();
+
+    // Initialize the requests popover
+    const requestsPopover = new bootstrap.Popover(document.getElementById('requestsPopover'), {
+      trigger: 'hover focus',
+      html: true,
+      content: `
+        <div class="most-requested-list">
+          <div class="mb-2">
+            <div class="d-flex justify-content-between align-items-center">
+              <span>Barangay Clearance</span>
+              <span class="badge bg-primary ms-2">45</span>
+            </div>
+          </div>
+          <div class="mb-2">
+            <div class="d-flex justify-content-between align-items-center">
+              <span>Business Permit</span>
+              <span class="badge bg-primary ms-2">32</span>
+            </div>
+          </div>
+          <div class="mb-2">
+            <div class="d-flex justify-content-between align-items-center">
+              <span>Certificate of Residency</span>
+              <span class="badge bg-primary ms-2">28</span>
+            </div>
+          </div>
+          <div>
+            <div class="d-flex justify-content-between align-items-center">
+              <span>Indigency Certificate</span>
+              <span class="badge bg-primary ms-2">15</span>
+            </div>
+          </div>
+        </div>
+      `
+    });
+  </script>
+
+  <style>
+    /* Demographics chart tooltip */
+    #chartjs-demographics-tooltip {
+      transition: all 0.1s ease;
+      z-index: 1000;
+    }
+    #chartjs-demographics-tooltip table {
+      margin: 0;
+    }
+    #chartjs-demographics-tooltip thead th {
+      font-weight: 600;
+      color: #2b6cb0;
+    }
+    #chartjs-demographics-tooltip td {
+      padding: 3px 0;
+      color: #333;
+      white-space: nowrap;
+    }
+    #chartjs-demographics-tooltip .badge {
+      font-size: 0.75rem;
+      min-width: 32px;
+    }
+
+    /* Chart tooltip styles */
+    #chartjs-tooltip {
+      transition: all 0.1s ease;
+      z-index: 1000;
+    }
+    #chartjs-tooltip table {
+      margin: 0;
+    }
+    #chartjs-tooltip thead th {
+      font-weight: 600;
+      color: #2b6cb0;
+    }
+    #chartjs-tooltip td {
+      padding: 3px 0;
+      color: #333;
+    }
+    #chartjs-tooltip .badge {
+      font-weight: 500;
+      min-width: 35px;
+    }
+
+    /* Styles for the most requested documents popover */
+    .most-requested-list {
+      min-width: 240px;
+      padding: 4px;
+    }
+    .most-requested-list .badge {
+      font-size: 0.8rem;
+      min-width: 32px;
+    }
+    .popover {
+      box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
+      max-width: 300px;
+    }
+    .popover-header {
+      background-color: #f8f9fa;
+      border-bottom: 1px solid #dee2e6;
+      font-weight: 600;
+      padding: 12px 15px;
+    }
+    .popover-body {
+      padding: 12px 15px;
+    }
+    
+    /* Demographics popover styles */
+    .demographics-list {
+      min-width: 260px;
+    }
+    .demographics-list .category:last-child {
+      margin-bottom: 0 !important;
+    }
+    .demographics-list .details {
+      line-height: 1.5;
+    }
+    .demographics-list .badge {
+      font-size: 0.75rem;
+      min-width: 80px;
+    }
+    
+    /* Map hover effect */
+    .card[role="button"]:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.15) !important;
+    }
+  </style>
+
+  <!-- Barangay Map Modal -->
+  <div class="modal fade" id="barangayMapModal" tabindex="-1" aria-labelledby="barangayMapModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="barangayMapModalLabel">
+            <i class="bi bi-geo-alt-fill text-primary me-2"></i>Barangay Pulong Buhangin Location
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-0">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15423.123456789!2d120.9500!3d14.8500!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397ae1f9f5f5f5f%3A0x1234567890abcdef!2sPulong%20Buhangin%2C%20Santa%20Maria%2C%20Bulacan!5e0!3m2!1sen!2sph!4v1234567890123!5m2!1sen!2sph" 
+            width="100%" 
+            height="450" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+        <div class="modal-footer">
+          <div class="text-start w-100">
+            <p class="mb-1 small text-muted">
+              <i class="bi bi-pin-map-fill me-1"></i>
+              <strong>Address:</strong> Pulong Buhangin, Santa Maria, Bulacan, Philippines
+            </p>
+          </div>
+          <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+          <a href="https://www.google.com/maps/search/Pulong+Buhangin,+Santa+Maria,+Bulacan" target="_blank" class="btn btn-primary btn-sm">
+            <i class="bi bi-box-arrow-up-right me-1"></i>Open in Google Maps
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- First Login Password Change Modal -->
+  <div class="modal fade" id="firstLoginPasswordModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="firstLoginPasswordModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-warning">
+          <h5 class="modal-title" id="firstLoginPasswordModalLabel">
+            <i class="bi bi-shield-exclamation me-2"></i>Password Change Required
+          </h5>
+        </div>
+        <div class="modal-body">
+          <div class="alert alert-warning mb-3">
+            <i class="bi bi-info-circle me-2"></i>
+            <strong>Security Notice:</strong> You are using the default password. For your account's security, you must change your password before continuing.
+          </div>
+          
+          <form id="firstLoginPasswordForm">
+            <div class="mb-3">
+              <label for="firstLoginNewPassword" class="form-label fw-semibold">New Password</label>
+              <input type="password" class="form-control" id="firstLoginNewPassword" placeholder="Enter new password" required>
+            </div>
+            
+            <div class="mb-3">
+              <label for="firstLoginConfirmPassword" class="form-label fw-semibold">Confirm New Password</label>
+              <input type="password" class="form-control" id="firstLoginConfirmPassword" placeholder="Confirm new password" required>
+            </div>
+
+            <div class="small text-muted mb-3">
+              <strong>Password requirements:</strong>
+              <ul class="mb-0 mt-1">
+                <li id="firstLogin-rule-length" class="text-muted">At least 8 characters</li>
+                <li id="firstLogin-rule-uppercase" class="text-muted">Contains an uppercase letter (A-Z)</li>
+                <li id="firstLogin-rule-lowercase" class="text-muted">Contains a lowercase letter (a-z)</li>
+                <li id="firstLogin-rule-number" class="text-muted">Contains a number (0-9)</li>
+                <li id="firstLogin-rule-special" class="text-muted">Contains a special character (!@#$%^&*)</li>
+              </ul>
+            </div>
+
+            <div id="firstLoginPasswordError" class="alert alert-danger small d-none"></div>
+            <div id="firstLoginPasswordSuccess" class="alert alert-success small d-none"></div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" id="firstLoginSubmitBtn">
+            <i class="bi bi-check-circle me-1"></i>Change Password
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Check if staff needs to change default password on page load
+    async function checkDefaultPassword() {
+      try {
+        const response = await fetch('check_default_password.php', {
+          method: 'GET',
+          cache: 'no-store'
+        });
+        
+        const result = await response.json();
+        
+        if (result.success && result.isDefaultPassword) {
+          // Show the password change modal
+          const modal = new bootstrap.Modal(document.getElementById('firstLoginPasswordModal'));
+          modal.show();
+        }
+      } catch (error) {
+        console.error('Error checking default password:', error);
+      }
+    }
+
+    // Password validation function
+    function validateFirstLoginPassword(password) {
+      const rules = {
+        length: password.length >= 8,
+        uppercase: /[A-Z]/.test(password),
+        lowercase: /[a-z]/.test(password),
+        number: /[0-9]/.test(password),
+        special: /[!@#$%^&*(),.?":{}|<>]/.test(password)
+      };
+      
+      // Update UI indicators
+      document.getElementById('firstLogin-rule-length').className = rules.length ? 'text-success' : 'text-muted';
+      document.getElementById('firstLogin-rule-uppercase').className = rules.uppercase ? 'text-success' : 'text-muted';
+      document.getElementById('firstLogin-rule-lowercase').className = rules.lowercase ? 'text-success' : 'text-muted';
+      document.getElementById('firstLogin-rule-number').className = rules.number ? 'text-success' : 'text-muted';
+      document.getElementById('firstLogin-rule-special').className = rules.special ? 'text-success' : 'text-muted';
+      
+      return Object.values(rules).every(Boolean);
+    }
+
+    // Add real-time validation
+    document.getElementById('firstLoginNewPassword')?.addEventListener('input', function() {
+      if (this.value) {
+        validateFirstLoginPassword(this.value);
+      }
+    });
+
+    // Handle password change submission
+    document.getElementById('firstLoginSubmitBtn')?.addEventListener('click', async function() {
+      const newPassword = document.getElementById('firstLoginNewPassword').value;
+      const confirmPassword = document.getElementById('firstLoginConfirmPassword').value;
+      const errorDiv = document.getElementById('firstLoginPasswordError');
+      const successDiv = document.getElementById('firstLoginPasswordSuccess');
+      const submitBtn = this;
+
+      // Clear previous messages
+      errorDiv.classList.add('d-none');
+      successDiv.classList.add('d-none');
+
+      // Validate passwords match
+      if (newPassword !== confirmPassword) {
+        errorDiv.textContent = 'Passwords do not match';
+        errorDiv.classList.remove('d-none');
+        return;
+      }
+
+      // Validate password strength
+      if (!validateFirstLoginPassword(newPassword)) {
+        errorDiv.textContent = 'Password does not meet all requirements';
+        errorDiv.classList.remove('d-none');
+        return;
+      }
+
+      try {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Changing...';
+
+        const formData = new FormData();
+        formData.append('new_password', newPassword);
+
+        const response = await fetch('change_first_login_password.php', {
+          method: 'POST',
+          body: formData,
+          cache: 'no-store'
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          successDiv.textContent = 'Password changed successfully! Refreshing...';
+          successDiv.classList.remove('d-none');
+          
+          setTimeout(() => {
+            location.reload();
+          }, 1500);
+        } else {
+          errorDiv.textContent = result.message || 'Failed to change password';
+          errorDiv.classList.remove('d-none');
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<i class="bi bi-check-circle me-1"></i>Change Password';
+        }
+      } catch (error) {
+        console.error('Password change error:', error);
+        errorDiv.textContent = 'An error occurred. Please try again.';
+        errorDiv.classList.remove('d-none');
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="bi bi-check-circle me-1"></i>Change Password';
+      }
+    });
+
+    // Check on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      checkDefaultPassword();
+    });
+
+    // Staff logout functionality
+    document.getElementById('staffLogoutBtn')?.addEventListener('click', async function() {
+      try {
+        // Get staff_id from sessionStorage (set during login)
+        const staffId = sessionStorage.getItem('staff_id');
+        
+        if (!staffId) {
+          // No session, just redirect
+          window.location.href = 'staff-login.html';
+          return;
+        }
+        
+        const formData = new FormData();
+        formData.append('staff_id', staffId);
+        
+        const response = await fetch('log_logout.php', {
+          method: 'POST',
+          body: formData,
+          cache: 'no-store'
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          // Clear session storage
+          sessionStorage.clear();
+          // Redirect to login page
+          window.location.href = 'staff-login.html';
+        } else {
+          console.error('Logout logging failed:', result.error);
+          // Still redirect even if logging fails
+          sessionStorage.clear();
+          window.location.href = 'staff-login.html';
+        }
+      } catch (error) {
+        console.error('Logout error:', error);
+        // Still redirect even on error
+        sessionStorage.clear();
+        window.location.href = 'staff-login.html';
+      }
+    });
+  </script>
+
+
+
+</body>
+</html>
+

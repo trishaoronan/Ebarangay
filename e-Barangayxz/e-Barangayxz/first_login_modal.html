@@ -1,0 +1,158 @@
+<!-- First Login Password Change Modal -->
+<div class="modal fade" id="firstLoginPasswordModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="firstLoginPasswordModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-warning">
+        <h5 class="modal-title" id="firstLoginPasswordModalLabel">
+          <i class="bi bi-shield-exclamation me-2"></i>Password Change Required
+        </h5>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-warning mb-3">
+          <i class="bi bi-info-circle me-2"></i>
+          <strong>Security Notice:</strong> You are using the default password. For your account's security, you must change your password before continuing.
+        </div>
+        
+        <form id="firstLoginPasswordForm">
+          <div class="mb-3">
+            <label for="firstLoginNewPassword" class="form-label fw-semibold">New Password</label>
+            <input type="password" class="form-control" id="firstLoginNewPassword" placeholder="Enter new password" required>
+          </div>
+          
+          <div class="mb-3">
+            <label for="firstLoginConfirmPassword" class="form-label fw-semibold">Confirm New Password</label>
+            <input type="password" class="form-control" id="firstLoginConfirmPassword" placeholder="Confirm new password" required>
+          </div>
+
+          <div class="small text-muted mb-3">
+            <strong>Password requirements:</strong>
+            <ul class="mb-0 mt-1">
+              <li id="firstLogin-rule-length" class="text-muted">At least 8 characters</li>
+              <li id="firstLogin-rule-uppercase" class="text-muted">Contains an uppercase letter (A-Z)</li>
+              <li id="firstLogin-rule-lowercase" class="text-muted">Contains a lowercase letter (a-z)</li>
+              <li id="firstLogin-rule-number" class="text-muted">Contains a number (0-9)</li>
+              <li id="firstLogin-rule-special" class="text-muted">Contains a special character (!@#$%^&*)</li>
+            </ul>
+          </div>
+
+          <div id="firstLoginPasswordError" class="alert alert-danger small d-none"></div>
+          <div id="firstLoginPasswordSuccess" class="alert alert-success small d-none"></div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="firstLoginSubmitBtn">
+          <i class="bi bi-check-circle me-1"></i>Change Password
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Check if staff needs to change default password on page load
+  async function checkDefaultPassword() {
+    try {
+      const response = await fetch('check_default_password.php', {
+        method: 'GET',
+        cache: 'no-store'
+      });
+      
+      const result = await response.json();
+      
+      if (result.success && result.isDefaultPassword) {
+        const modal = new bootstrap.Modal(document.getElementById('firstLoginPasswordModal'));
+        modal.show();
+      }
+    } catch (error) {
+      console.error('Error checking default password:', error);
+    }
+  }
+
+  function validateFirstLoginPassword(password) {
+    const rules = {
+      length: password.length >= 8,
+      uppercase: /[A-Z]/.test(password),
+      lowercase: /[a-z]/.test(password),
+      number: /[0-9]/.test(password),
+      special: /[!@#$%^&*(),.?":{}|<>]/.test(password)
+    };
+    
+    document.getElementById('firstLogin-rule-length').className = rules.length ? 'text-success' : 'text-muted';
+    document.getElementById('firstLogin-rule-uppercase').className = rules.uppercase ? 'text-success' : 'text-muted';
+    document.getElementById('firstLogin-rule-lowercase').className = rules.lowercase ? 'text-success' : 'text-muted';
+    document.getElementById('firstLogin-rule-number').className = rules.number ? 'text-success' : 'text-muted';
+    document.getElementById('firstLogin-rule-special').className = rules.special ? 'text-success' : 'text-muted';
+    
+    return Object.values(rules).every(Boolean);
+  }
+
+  document.getElementById('firstLoginNewPassword')?.addEventListener('input', function() {
+    if (this.value) {
+      validateFirstLoginPassword(this.value);
+    }
+  });
+
+  document.getElementById('firstLoginSubmitBtn')?.addEventListener('click', async function() {
+    const newPassword = document.getElementById('firstLoginNewPassword').value;
+    const confirmPassword = document.getElementById('firstLoginConfirmPassword').value;
+    const errorDiv = document.getElementById('firstLoginPasswordError');
+    const successDiv = document.getElementById('firstLoginPasswordSuccess');
+    const submitBtn = this;
+
+    errorDiv.classList.add('d-none');
+    successDiv.classList.add('d-none');
+
+    if (newPassword !== confirmPassword) {
+      errorDiv.textContent = 'Passwords do not match';
+      errorDiv.classList.remove('d-none');
+      return;
+    }
+
+
+    if (!validateFirstLoginPassword(newPassword)) {
+      errorDiv.textContent = 'Password does not meet all requirements';
+      errorDiv.classList.remove('d-none');
+      return;
+    }
+
+    try {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Changing...';
+
+      const formData = new FormData();
+      formData.append('new_password', newPassword);
+
+      const response = await fetch('change_first_login_password.php', {
+        method: 'POST',
+        body: formData,
+        cache: 'no-store'
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        successDiv.textContent = 'Password changed successfully! Refreshing...';
+        successDiv.classList.remove('d-none');
+        
+        setTimeout(() => {
+          location.reload();
+        }, 1500);
+      } else {
+        errorDiv.textContent = result.message || 'Failed to change password';
+        errorDiv.classList.remove('d-none');
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="bi bi-check-circle me-1"></i>Change Password';
+      }
+    } catch (error) {
+      console.error('Password change error:', error);
+      errorDiv.textContent = 'An error occurred. Please try again.';
+      errorDiv.classList.remove('d-none');
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<i class="bi bi-check-circle me-1"></i>Change Password';
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    checkDefaultPassword();
+  });
+</script>

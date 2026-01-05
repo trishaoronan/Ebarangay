@@ -1,0 +1,74 @@
+2025-12-27 15:19:09 - Request received
+2025-12-27 15:19:09 - Resident ID: 10
+2025-12-27 15:19:09 - POST: []
+2025-12-27 15:19:09 - FILES: []
+2025-12-27 15:19:09 - ERROR: Missing required field: lastName
+2025-12-27 15:20:58 - Request received
+2025-12-27 15:20:58 - Resident ID: 10
+2025-12-27 15:20:58 - POST: []
+2025-12-27 15:20:58 - FILES: []
+2025-12-27 15:20:58 - ERROR: Missing required field: lastName
+2025-12-27 15:21:17 - Request received
+2025-12-27 15:21:17 - Resident ID: 10
+2025-12-27 15:21:17 - POST: []
+2025-12-27 15:21:17 - FILES: []
+2025-12-27 15:21:17 - ERROR: Missing required field: lastName
+2025-12-27 15:32:44 - Request received
+2025-12-27 15:32:44 - Resident ID: 10
+2025-12-27 15:32:44 - POST: {"lastName":"Laforteza","firstName":"Sophia","middleName":"","suffix":"","contactNumber":"0912-345-6789","email":"","completeAddress":"katseye, 123","incidentType":"Noise Complaint","incidentDate":"2025-12-01","incidentTime":"10:32","incidentLocation":"mango ave","narrative":"dasdasdsadadsadsad","respondentName":"","respondentAddress":"","modeOfRelease":"Pickup"}
+2025-12-27 15:32:44 - FILES: ["evidence"]
+2025-12-27 15:32:44 - All required fields present
+2025-12-27 15:32:44 - Evidence files: 1
+2025-12-27 15:32:44 - Processing file 0: 123.jpeg (type: image/jpeg, size: 23412)
+2025-12-27 15:32:44 - File uploaded: uploads/blotter_evidence/evidence_10_1766845964_0.jpeg
+2025-12-27 15:32:44 - All evidence files uploaded: 1
+2025-12-27 15:32:44 - Table ready
+2025-12-27 15:32:44 - Request created: ID 61
+2025-12-27 15:36:25 - Request received
+2025-12-27 15:36:25 - Resident ID: 10
+2025-12-27 15:36:25 - POST: {"lastName":"Laforteza","firstName":"Sophia","middleName":"","suffix":"","contactNumber":"0912-345-6789","email":"","completeAddress":"katseye, 123","incidentType":"Noise Complaint","incidentDate":"2025-12-01","incidentTime":"10:35","incidentLocation":"mango ave","narrative":"adcaasdsadsad","respondentName":"","respondentAddress":"","modeOfRelease":"Download"}
+2025-12-27 15:36:25 - FILES: ["evidence"]
+2025-12-27 15:36:25 - All required fields present
+2025-12-27 15:36:25 - Evidence files: 1
+2025-12-27 15:36:25 - Processing file 0: Screenshot 2025-12-17 170724.png (type: image/png, size: 1062809)
+2025-12-27 15:36:25 - File uploaded: uploads/blotter_evidence/evidence_10_1766846185_0.png
+2025-12-27 15:36:25 - All evidence files uploaded: 1
+2025-12-27 15:36:25 - Table ready
+2025-12-27 15:36:25 - Request created: ID 62
+2025-12-27 15:36:25 - SUCCESS! Report ID: 62
+2025-12-27 15:45:30 - Request received
+2025-12-27 15:45:30 - Resident ID: 10
+2025-12-27 15:45:30 - POST: {"lastName":"Laforteza","firstName":"Sophia","middleName":"","suffix":"","contactNumber":"0912-345-6789","email":"","completeAddress":"katseye, 123","incidentType":"Other","incidentDate":"2025-12-03","incidentTime":"10:45","incidentLocation":"mango ave","narrative":"ascfsf","respondentName":"","respondentAddress":"","modeOfRelease":"Pickup"}
+2025-12-27 15:45:30 - FILES: ["evidence"]
+2025-12-27 15:45:30 - All required fields present
+2025-12-27 15:45:30 - Evidence files: 1
+2025-12-27 15:45:30 - Processing file 0: 123.jpeg (type: image/jpeg, size: 23412)
+2025-12-27 15:45:30 - File uploaded: uploads/blotter_evidence/evidence_10_1766846730_0.jpeg
+2025-12-27 15:45:30 - All evidence files uploaded: 1
+2025-12-27 15:45:30 - Table ready
+2025-12-27 15:45:30 - Request created: ID 63
+2025-12-27 15:45:30 - SUCCESS! Report ID: 63
+2025-12-27 18:35:15 - Request received
+2025-12-27 18:35:15 - Resident ID: 10
+2025-12-27 18:35:15 - POST: {"firstName":"Sophia","middleName":"","lastName":"Laforteza","suffix":"","contactNumber":"0912-345-6789","email":"","completeAddress":"katseye, 123","incidentType":"Noise Complaint","incidentDate":"2025-12-02","incidentTime":"13:35","incidentLocation":"mango ave","narrative":"dfdfdf","respondentName":"","respondentAddress":"","modeOfRelease":"Download"}
+2025-12-27 18:35:15 - FILES: ["evidence"]
+2025-12-27 18:35:15 - All required fields present
+2025-12-27 18:35:15 - Evidence files: 3
+2025-12-27 18:35:15 - Processing file 0: 123.jpeg (type: image/jpeg, size: 23412)
+2025-12-27 18:35:15 - File uploaded: uploads/blotter_evidence/evidence_10_1766856915_0.jpeg
+2025-12-27 18:35:15 - All evidence files uploaded: 1
+2025-12-27 18:35:15 - Table ready
+2025-12-27 18:35:15 - Request created: ID 72
+2025-12-27 18:35:15 - SUCCESS! Report ID: 72
+2025-12-27 18:41:34 - Request received
+2025-12-27 18:41:34 - Resident ID: 1
+2025-12-27 18:41:34 - POST: {"firstName":"Theo","middleName":"","lastName":"James","suffix":"","contactNumber":"0912-345-6789","email":"","completeAddress":"divergent, 123","incidentType":"Property Damage\/Vandalism","incidentDate":"2025-12-02","incidentTime":"13:41","incidentLocation":"mango ave","narrative":"adcd","respondentName":"","respondentAddress":"","modeOfRelease":"Download"}
+2025-12-27 18:41:34 - FILES: ["evidence"]
+2025-12-27 18:41:34 - All required fields present
+2025-12-27 18:41:34 - Evidence files: 3
+2025-12-27 18:41:34 - Processing file 0: 123.jpeg (type: image/jpeg, size: 23412)
+2025-12-27 18:41:34 - File uploaded: uploads/blotter_evidence/evidence_1_1766857294_0.jpeg
+2025-12-27 18:41:34 - All evidence files uploaded: 1
+2025-12-27 18:41:34 - Table ready
+2025-12-27 18:41:34 - Request created: ID 79
+2025-12-27 18:41:34 - SUCCESS! Report ID: 79

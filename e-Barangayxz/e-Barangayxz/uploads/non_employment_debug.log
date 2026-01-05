@@ -1,0 +1,35 @@
+2025-12-27 19:33:42 - Request received
+2025-12-27 19:33:42 - Missing fields: Civil Status, Specific Purpose, Mode of Release
+2025-12-27 19:34:10 - Request received
+2025-12-27 19:34:10 - Missing fields: Civil Status, Specific Purpose, Mode of Release
+2025-12-27 19:35:48 - Request received
+2025-12-27 19:35:48 - Missing fields: Civil Status, Specific Purpose, Mode of Release
+2025-12-27 19:36:07 - Request received
+2025-12-27 19:36:07 - Missing fields: Civil Status, Specific Purpose, Mode of Release
+2025-12-27 19:39:32 - Request received
+2025-12-27 19:39:32 - Missing fields: Civil Status, Specific Purpose, Mode of Release
+2025-12-27 19:42:34 - Request received
+2025-12-27 19:42:34 - POST data: {"firstName":"Theo","middleName":"","lastName":"James","suffix":"","dateOfBirth":"1987-05-06","civilStatus":"","completeAddress":"divergent, 123","contactNumber":"0912-345-6789","specificPurpose":"","modeOfRelease":""}
+2025-12-27 19:42:34 - FILES data: ["validId"]
+2025-12-27 19:42:34 - Missing fields: Civil Status, Specific Purpose, Mode of Release
+2025-12-27 20:12:50 - Request received
+2025-12-27 20:12:50 - POST data: {"firstName":"Chris","middleName":"","lastName":"Evans","suffix":"","dateOfBirth":"1950-01-01","civilStatus":"Married","completeAddress":"marvel, 123","contactNumber":"0900-000-0000","specificPurpose":"job application","declaration":"yes","modeOfRelease":"Pickup"}
+2025-12-27 20:12:50 - FILES data: ["validId"]
+2025-12-27 20:12:50 - Valid ID uploaded: uploads/non_employment_ids/non_employment_id_7_1766862770.jpeg
+2025-12-27 20:12:50 - Request row created: 86
+2025-12-27 20:12:50 - Values: civilStatus=Married, purpose=job application, modeOfRelease=Pickup, declaration=1
+2025-12-27 20:12:50 - SUCCESS save non_employment request_id=86
+2025-12-27 20:16:21 - Request received
+2025-12-27 20:16:21 - POST data: {"firstName":"Chris","middleName":"","lastName":"Evans","suffix":"","dateOfBirth":"1950-01-01","civilStatus":"Married","completeAddress":"marvel, 123","contactNumber":"0900-000-0000","specificPurpose":"financial aid","declaration":"yes","modeOfRelease":"Download"}
+2025-12-27 20:16:21 - FILES data: ["validId"]
+2025-12-27 20:16:21 - Valid ID uploaded: uploads/non_employment_ids/non_employment_id_7_1766862981.jpeg
+2025-12-27 20:16:21 - Request row created: 87
+2025-12-27 20:16:21 - Values: civilStatus=Married, purpose=financial aid, modeOfRelease=Download, declaration=1
+2025-12-27 20:16:21 - SUCCESS save non_employment request_id=87
+2025-12-28 05:23:14 - Request received
+2025-12-28 05:23:14 - POST data: {"firstName":"Chris","middleName":"","lastName":"Evans","suffix":"","dateOfBirth":"1950-01-01","civilStatus":"Single","completeAddress":"marvel, 123","contactNumber":"0900-000-0000","specificPurpose":"financial aid","declaration":"yes","modeOfRelease":"Pickup"}
+2025-12-28 05:23:14 - FILES data: ["validId"]
+2025-12-28 05:23:14 - Valid ID uploaded: uploads/non_employment_ids/non_employment_id_7_1766895794.jpeg
+2025-12-28 05:23:14 - Request row created: 88
+2025-12-28 05:23:14 - Values: civilStatus=Single, purpose=financial aid, modeOfRelease=Pickup, declaration=1
+2025-12-28 05:23:14 - SUCCESS save non_employment request_id=88

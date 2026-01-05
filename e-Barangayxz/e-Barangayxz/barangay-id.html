@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Redirecting...</title>
+  <meta http-equiv="refresh" content="0;url=barangay-id.php" />
+</head>
+<body>
+  <p>Redirecting to barangay-id.php...</p>
+</body>
+  </html>
+          <label class="form-label">How long have you lived in this Barangay?<span style="color: red;">*</span></label>
+          <input type="text" class="form-control" placeholder="e.g., 5 years" required />
+        </div>
+        <div class="col-12">
+          <label class="form-label">Complete Address (House/Lot No., Street, Purok)<span style="color: red;">*</span></label>
+          <input type="text" class="form-control" name="completeAddress" required />
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Contact Number<span style="color: red;">*</span></label>
+          <input type="tel" class="form-control" placeholder="09XX-XXX-XXXX" pattern="^\d{4}-\d{3}-\d{4}$" inputmode="numeric" title="Please enter a valid 11-digit phone number (e.g., 09123456789)" required />
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Email Address<span style="color: red;">*</span></label>
+          <input type="email" class="form-control" required />
+        </div>
+
+        <!-- Emergency Contact -->
+        <div class="col-12 mt-3">
+          <h5 class="fw-bold section-title">Emergency Contact Information</h5>
+        </div>
+        <div class="col-md-5">
+          <label class="form-label">Emergency Contact Person<span style="color: red;">*</span></label>
+          <input type="text" class="form-control" required />
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Contact Person's Number<span style="color: red;">*</span></label>
+          <input type="tel" class="form-control" pattern="^\d{4}-\d{3}-\d{4}$" inputmode="numeric" title="Please enter a valid 11-digit phone number (e.g., 09123456789)" required />
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Relationship<span style="color: red;">*</span></label>
+          <input type="text" class="form-control" required />
+        </div>
+
+        <!-- Documents -->
+        <div class="col-12 mt-3">
+          <h5 class="fw-bold section-title">Document Uploads</h5>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Upload 2x2 ID Picture<span style="color: red;">*</span></label>
+          <input type="file" class="form-control" accept="image/*" required />
+          <p class="small text-muted mt-1">Max file size: 2MB. Clear, recent photo with white background.</p>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Upload Proof of Residency (e.g., Utility Bill)<span style="color: red;">*</span></label>
+          <input type="file" class="form-control" accept="image/*,.pdf" required />
+          <p class="small text-muted mt-1">Max file size: 5MB. Must show your name and address.</p>
+        </div>
+      <!-- Mode of Release -->
+        <div class="col-md-6">
+          <label class="form-label">Mode of Release<span style="color: red;">*</span></label>
+          <select class="form-select" name="modeOfRelease" id="modeOfRelease" required>
+            <option value="">Select</option>
+            <option value="Pickup">Pickup</option>
+            <option value="Download">Download</option>
+          </select>
+        </div>
+        
+        <!-- Mode of Payment -->
+        <div class="col-md-6">
+          <label class="form-label">Mode of Payment<span style="color: red;">*</span></label>
+          <select class="form-select" name="modeOfPayment" id="modeOfPayment" required>
+            <option value="">Select</option>
+            <option value="GCash">GCash</option>
+            <option value="Cash">Cash</option>
+          </select>
+          <small class="text-muted">Document Fee: <strong>₱25.00</strong></small>
+        </div>
+        
+        <!-- Payment Notice -->
+        <div class="col-12" id="paymentNotice" style="display: none;">
+          <div class="alert alert-info mb-0">
+            <i class="bi bi-info-circle me-2"></i>
+            <span id="paymentNoticeText"></span>
+          </div>
+        </div>
+
+        <!-- Submit -->
+        <div class="col-12 text-end">
+          <button type="submit" class="btn btn-danger px-4" id="submitBtn">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+  <script src="contact-format.js"></script>
+  <script src="name-validation.js"></script>
+  <script>
+    initializeNameValidation('idApplicationForm');
+    
+    // Payment mode handling
+    (function() {
+      const modeOfRelease = document.getElementById('modeOfRelease');
+      const modeOfPayment = document.getElementById('modeOfPayment');
+      const paymentNotice = document.getElementById('paymentNotice');
+      const paymentNoticeText = document.getElementById('paymentNoticeText');
+      
+      function handlePaymentMode() {
+        const releaseValue = modeOfRelease.value;
+        const paymentValue = modeOfPayment.value;
+        const cashOption = modeOfPayment.querySelector('option[value="Cash"]');
+        
+        if (releaseValue === 'Download') {
+          modeOfPayment.value = 'GCash';
+          cashOption.disabled = true;
+          paymentNotice.style.display = 'block';
+          paymentNoticeText.innerHTML = '<strong>GCash payment is required for Download.</strong> You will receive payment instructions after submission.';
+        } else {
+          cashOption.disabled = false;
+          if (paymentValue === 'Cash') {
+            paymentNotice.style.display = 'block';
+            paymentNoticeText.innerHTML = '<strong>Cash payment selected.</strong> Please pay ₱25.00 at the barangay cashier upon pickup.';
+          } else if (paymentValue === 'GCash') {
+            paymentNotice.style.display = 'block';
+            paymentNoticeText.innerHTML = '<strong>GCash payment selected.</strong> You will receive payment instructions after submission.';
+          } else {
+            paymentNotice.style.display = 'none';
+          }
+        }
+      }
+      
+      modeOfRelease.addEventListener('change', handlePaymentMode);
+      modeOfPayment.addEventListener('change', handlePaymentMode);
+    })();
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('idApplicationForm');
+      if (form) {
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          if (form.checkValidity() === false) {
+            e.stopPropagation();
+            form.classList.add('was-validated');
+            return;
+          }
+          const modal = new bootstrap.Modal(document.getElementById('successModal'));
+          document.getElementById('successTitle').textContent = 'Submitted Successfully!';
+          document.getElementById('successMessage').textContent = 'Your Barangay ID request has been submitted successfully. Verification will be conducted, and you will be notified when the document is ready.';
+          modal.show();
+          document.getElementById('successOkBtn').addEventListener('click', function() {
+            window.location.href = 'resident-dashboard.php';
+          });
+        });
+      }
+    });
+  </script>
+
+  <!-- Success Modal -->
+  <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg rounded-4">
+        <div class="modal-header bg-success text-white border-0 rounded-top-4 py-3">
+          <h5 class="modal-title fw-bold" style="color: white;"><i class="bi bi-check-circle me-2"></i> Success!</h5>
+        </div>
+        <div class="modal-body text-center py-5">
+          <div class="mb-4">
+            <div style="width: 80px; height: 80px; margin: 0 auto; border: 3px solid #28a745; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+              <i class="bi bi-check2 text-success" style="font-size: 50px;"></i>
+            </div>
+          </div>
+          <h4 class="fw-bold mb-3" id="successTitle">Submitted Successfully!</h4>
+          <p class="text-muted mb-0" id="successMessage">Your request has been submitted successfully. Verification will be conducted, and you will be notified when the document is ready.</p>
+        </div>
+        <div class="modal-footer border-top-0 justify-content-center py-3">
+          <button type="button" class="btn btn-success px-5 py-2 rounded-3" id="successOkBtn" data-bs-dismiss="modal">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .modal-content { border-radius: 20px; }
+    .modal-header { border-radius: 20px 20px 0 0; }
+    .btn-success { background-color: #28a745; border: none; font-weight: 600; }
+    .btn-success:hover { background-color: #218838; }
+  </style>
+</body>
+</html>
+

@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Profile | eBarangay</title>
+  <link rel="icon" type="image/jpeg" href="pics/eb-logo.jpg"> <!--FAVICON-->
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <title>My Profile | eBarangay</title>
+      <link rel="icon" type="image/jpeg" href="pics/eb-logo.jpg">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"/>
+      <link rel="stylesheet" href="style.css"/>
+      <style>
+        .profile-pic-container { width: 140px; height: 140px; border-radius: 50%; overflow: hidden; background: linear-gradient(135deg, #c5202f, #222c8e, #6a0dad); display: flex; align-items: center; justify-content: center; border: 4px solid #fff; box-shadow: 0 4px 16px rgba(0,0,0,0.13); }
+        .profile-pic-container img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+        .profile-pic-container i { font-size: 4.5rem; color: #fff; }
+        .profile-upload-btn { width: 42px; height: 42px; padding: 0; border: 3px solid #fff; background: #fff; position: absolute; bottom: 2px; right: 2px; }
+        .profile-upload-btn i { font-size: 1.1rem; color: #6c757d; }
+        .profile-card { max-width: 600px; margin: 0 auto; }
+        .profile-form-card { max-width: 600px; margin: 0 auto; }
+      </style>
+    </head>
+    <body>
+      <nav class="navbar navbar-expand-lg px-4 py-2 sticky-top resident-topbar">
+        <a class="navbar-brand" href="resident-dashboard.php">
+          <img src="pics/eb-logo.jpg" alt="eBarangay Logo" class="me-2" style="height: 55px; width: auto;"> <strong>eBarangay</strong> | Resident Portal
+        </a>
+        <div class="ms-auto d-flex align-items-center">
+          <div class="logout-box"><a href="#" id="logoutLink" class="btn btn-outline-light topbar-action">Logout</a></div>
+        </div>
+      </nav>
+
+      <main class="container py-5">
+        <div id="profileView" class="profile-card card shadow-lg border-0 rounded-4 p-4 mb-4">
+          <div class="d-flex flex-column flex-md-row align-items-center align-items-md-start gap-4">
+            <div class="position-relative" style="min-width: 140px;">
+              <div class="profile-pic-container mb-2">
+                <img id="profileImage" src="" alt="Profile Picture" style="display: none;">
+                <i class="bi bi-person-fill" id="defaultProfileIcon"></i>
+              </div>
+            </div>
+            <div class="flex-grow-1 w-100">
+              <h2 class="fw-bold mb-1" id="residentName">Resident Name</h2>
+              <div class="row g-2 mb-2">
+                <div class="col-6 col-md-6"><span class="fw-bold">Email:</span> <span id="profileEmail"></span></div>
+                <div class="col-6 col-md-6"><span class="fw-bold">Phone:</span> <span id="profilePhone"></span></div>
+                <div class="col-12"><span class="fw-bold">Address:</span> <span id="profileAddress"></span></div>
+                <div class="col-6 col-md-6"><span class="fw-bold">Gender:</span> <span id="profileGender"></span></div>
+                <div class="col-6 col-md-6"><span class="fw-bold">Birthday:</span> <span id="profileBirthday"></span></div>
+                <div class="col-6 col-md-6"><span class="fw-bold">Age:</span> <span id="profileAge"></span></div>
+                <div class="col-6 col-md-6"><span class="fw-bold">Civil Status:</span> <span id="profileCivilStatus"></span></div>
+              </div>
+              <div class="d-flex gap-2 mt-3">
+                <button type="button" class="btn btn-outline-primary px-4" id="editProfileBtn"><i class="bi bi-pencil me-1"></i> Edit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="profileEdit" class="profile-form-card card shadow-lg border-0 rounded-4 p-4 mb-4" style="display:none;">
+          <form id="profileForm">
+            <div class="d-flex flex-column flex-md-row align-items-center align-items-md-start gap-4 mb-4">
+              <div class="position-relative" style="min-width: 140px;">
+                <div class="profile-pic-container mb-2">
+                  <img id="profileImageEdit" src="" alt="Profile Picture" style="display: none;">
+                  <i class="bi bi-person-fill" id="defaultProfileIconEdit"></i>
+                </div>
+                <button type="button" class="btn btn-light border shadow profile-upload-btn" id="changePhotoBtnEdit" title="Change Photo">
+                  <i class="bi bi-camera-fill"></i>
+                </button>
+                <input type="file" id="profilePicInputEdit" accept="image/*" style="display: none;">
+              </div>
+              <div class="flex-grow-1 w-100">
+                <h4 class="fw-bold mb-1" id="residentNameEdit">Resident Name</h4>
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label for="firstName" class="form-label fw-bold">First Name</label>
+                    <input type="text" class="form-control" id="firstName" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="lastName" class="form-label fw-bold">Last Name</label>
+                    <input type="text" class="form-control" id="lastName" required>
+                  </div>
+                  <div class="col-12">
+                    <label for="address" class="form-label fw-bold">Address</label>
+                    <input type="text" class="form-control" id="address" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="birthday" class="form-label fw-bold">Date of Birth</label>
+                    <input type="date" class="form-control" id="birthday" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="civilStatus" class="form-label fw-bold">Civil Status</label>
+                    <select class="form-select" id="civilStatus" required>
+                      <option value="Single">Single</option>
+                      <option value="Married">Married</option>
+                      <option value="Widowed">Widowed</option>
+                      <option value="Divorced">Divorced</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="contact" class="form-label fw-bold">Contact Number</label>
+                    <input type="tel" class="form-control" id="contact" placeholder="09XX-XXX-XXXX" inputmode="numeric" pattern="[0-9-]*" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="email" class="form-label fw-bold">Email</label>
+                    <input type="email" class="form-control" id="email" required>
+                  </div>
+                  <div class="col-12 text-end mt-4">
+                    <button type="submit" class="btn btn-primary px-4"><i class="bi bi-save me-1"></i> Save Changes</button>
+                    <button type="button" class="btn btn-outline-secondary px-4 ms-2" id="cancelEditBtn">Cancel</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </main>
+
+      <script>
+        // Logout
+        const logoutLink = document.getElementById('logoutLink');
+        if (logoutLink) logoutLink.addEventListener('click', e=>{ e.preventDefault(); fetch('resident_logout.php',{method:'POST'}).then(r=>r.json()).then(j=>{ window.location.href = (j && j.data && j.data.redirect) ? j.data.redirect : 'login-register.html'; }).catch(()=>window.location.href='login-register.html'); });
+
+        // Elements
+        const profileView = document.getElementById('profileView');
+        const profileEdit = document.getElementById('profileEdit');
+        const editProfileBtn = document.getElementById('editProfileBtn');
+        const cancelEditBtn = document.getElementById('cancelEditBtn');
+        const profileForm = document.getElementById('profileForm');
+        // View fields
+        const profileImage = document.getElementById('profileImage');
+        const defaultProfileIcon = document.getElementById('defaultProfileIcon');
+        const residentName = document.getElementById('residentName');
+        // Edit fields
+        const profileImageEdit = document.getElementById('profileImageEdit');
+        const defaultProfileIconEdit = document.getElementById('defaultProfileIconEdit');
+        const changePhotoBtnEdit = document.getElementById('changePhotoBtnEdit');
+        const profilePicInputEdit = document.getElementById('profilePicInputEdit');
+        const residentNameEdit = document.getElementById('residentNameEdit');
+        const firstNameInput = document.getElementById('firstName');
+        const lastNameInput = document.getElementById('lastName');
+        const addressInput = document.getElementById('address');
+        const birthdayInput = document.getElementById('birthday');
+        const civilStatusInput = document.getElementById('civilStatus');
+        const contactInput = document.getElementById('contact');
+        const emailInput = document.getElementById('email');
+
+        // Populate profile card
+        function populateProfileCard(data) {
+          if (!data) return;
+          residentName.textContent = (data.first_name || '') + (data.last_name ? ' ' + data.last_name : '');
+          document.getElementById('profileEmail').textContent = data.email || '';
+          document.getElementById('profilePhone').textContent = data.mobile || '';
+          document.getElementById('profileAddress').textContent = (data.street || '') + (data.barangay ? ', ' + data.barangay : '') + (data.municipality ? ', ' + data.municipality : '');
+          document.getElementById('profileGender').textContent = data.gender || '';
+          document.getElementById('profileBirthday').textContent = data.birthday || '';
+          document.getElementById('profileAge').textContent = data.age || '';
+          document.getElementById('profileCivilStatus').textContent = data.civil_status || '';
+          if (data.profile_pic) {
+            profileImage.src = data.profile_pic;
+            profileImage.style.display = 'block';
+            defaultProfileIcon.style.display = 'none';
+          } else {
+            profileImage.style.display = 'none';
+            defaultProfileIcon.style.display = '';
+          }
+        }
+
+        // Populate edit form
+        function populateEditForm(data) {
+          if (!data) return;
+          firstNameInput.value = data.first_name || '';
+          lastNameInput.value = data.last_name || '';
+          addressInput.value = data.street || '';
+          birthdayInput.value = data.birthday || '';
+          civilStatusInput.value = data.civil_status || 'Single';
+          contactInput.value = data.mobile || '';
+          emailInput.value = data.email || '';
+          residentNameEdit.textContent = (data.first_name || '') + (data.last_name ? ' ' + data.last_name : '');
+          if (data.profile_pic) {
+            profileImageEdit.src = data.profile_pic;
+            profileImageEdit.style.display = 'block';
+            defaultProfileIconEdit.style.display = 'none';
+          } else {
+            profileImageEdit.style.display = 'none';
+            defaultProfileIconEdit.style.display = '';
+          }
+        }
+
+        // Fetch and show profile
+        function fetchAndShowProfile() {
+          fetch('resident-profile-api.php', { credentials: 'same-origin' })
+            .then(res => res.json())
+            .then(resp => {
+              if (resp.success && resp.data) {
+                populateProfileCard(resp.data);
+                populateEditForm(resp.data);
+              }
+            });
+        }
+        fetchAndShowProfile();
+
+        // Edit button
+        editProfileBtn.addEventListener('click', function() {
+          profileView.style.display = 'none';
+          profileEdit.style.display = '';
+        });
+        cancelEditBtn.addEventListener('click', function() {
+          profileEdit.style.display = 'none';
+          profileView.style.display = '';
+          fetchAndShowProfile();
+        });
+
+        // Edit form profile picture upload logic
+        if (changePhotoBtnEdit && profilePicInputEdit) {
+          changePhotoBtnEdit.addEventListener('click', function() {
+            profilePicInputEdit.click();
+          });
+          profilePicInputEdit.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+              if (!file.type.startsWith('image/')) {
+                alert('Please select a valid image file.');
+                return;
+              }
+              if (file.size > 5 * 1024 * 1024) {
+                alert('Image size should not exceed 5MB.');
+                return;
+              }
+              // Preview instantly
+              const reader = new FileReader();
+              reader.onload = function(event) {
+                profileImageEdit.src = event.target.result;
+                profileImageEdit.style.display = 'block';
+                defaultProfileIconEdit.style.display = 'none';
+              };
+              reader.readAsDataURL(file);
+            }
+          });
+        }
+
+        // Save changes
+        profileForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          const fd = new FormData();
+          fd.append('first_name', firstNameInput.value);
+          fd.append('last_name', lastNameInput.value);
+          fd.append('street', addressInput.value);
+          fd.append('birthday', birthdayInput.value);
+          fd.append('civil_status', civilStatusInput.value);
+          fd.append('mobile', contactInput.value);
+          fd.append('email', emailInput.value);
+          if (profilePicInputEdit && profilePicInputEdit.files && profilePicInputEdit.files[0]) {
+            fd.append('profile_pic', profilePicInputEdit.files[0]);
+          }
+          fetch('resident-profile-api.php', {
+            method: 'POST',
+            body: fd,
+            credentials: 'same-origin'
+          })
+          .then(res => res.json())
+          .then(data => {
+            if (data.success) {
+              profileEdit.style.display = 'none';
+              profileView.style.display = '';
+              fetchAndShowProfile();
+            } else {
+              alert(data.message || 'Failed to update profile.');
+            }
+          });
+        });
+      </script>
+    </body>
+    </html>
+    changePhotoBtn.addEventListener('click', function() {
+      profilePicInput.click();
+    });
+
+    // Profile Card/Edit Logic (cleaned)
+    const profileImage = document.getElementById('profileImage');
+    const defaultProfileIcon = document.getElementById('defaultProfileIcon');
+    const profileUploadedBadge = document.getElementById('profileUploadedBadge');
+    const editProfileBtn = document.getElementById('editProfileBtn');
+    const profileCardSection = document.querySelector('section.container');
+    const profileForm = document.getElementById('profileForm');
+    const cancelEditBtn = document.getElementById('cancelEditBtn');
+    // Edit form fields
+    const firstNameInput = document.getElementById('firstName');
+    const lastNameInput = document.getElementById('lastName');
+    const addressInput = document.getElementById('address');
+    const birthdayInput = document.getElementById('birthday');
+    const statusInput = document.getElementById('status');
+    const contactInput = document.getElementById('contact');
+    const emailInput = document.getElementById('email');
+    // Edit form photo
+    const profileImageEdit = document.getElementById('profileImageEdit');
+    const defaultProfileIconEdit = document.getElementById('defaultProfileIconEdit');
+    const changePhotoBtnEdit = document.getElementById('changePhotoBtnEdit');
+    const profilePicInputEdit = document.getElementById('profilePicInputEdit');
+    const residentName = document.getElementById('residentName');
+    const residentNameEdit = document.getElementById('residentNameEdit');
+
+    function populateProfileCard(data) {
+      if (!data) return;
+      residentName.textContent = (data.first_name || '') + (data.last_name ? ' ' + data.last_name : '');
+      document.getElementById('profileEmail').textContent = data.email || '';
+      document.getElementById('profilePhone').textContent = data.mobile || '';
+      document.getElementById('profileAddress').textContent = (data.street || '') + (data.barangay ? ', ' + data.barangay : '') + (data.municipality ? ', ' + data.municipality : '');
+      document.getElementById('profileGender').textContent = data.gender || '';
+      document.getElementById('profileBirthday').textContent = data.birthday || '';
+      document.getElementById('profileAge').textContent = data.age || '';
+      document.getElementById('profileRegistered').textContent = data.created_at ? new Date(data.created_at).toLocaleDateString() : '';
+      if (data.profile_pic) {
+        profileImage.src = data.profile_pic;
+        profileImage.style.display = 'block';
+        defaultProfileIcon.style.display = 'none';
+        profileUploadedBadge.style.display = '';
+      } else {
+        profileImage.style.display = 'none';
+        defaultProfileIcon.style.display = '';
+        profileUploadedBadge.style.display = 'none';
+      }
+    }
+
+    function populateEditForm(data) {
+      if (!data) return;
+      firstNameInput.value = data.first_name || '';
+      lastNameInput.value = data.last_name || '';
+      addressInput.value = data.street || '';
+      birthdayInput.value = data.birthday || '';
+      statusInput.value = data.civil_status || 'Single';
+      contactInput.value = data.mobile || '';
+      emailInput.value = data.email || '';
+      residentNameEdit.textContent = (data.first_name || '') + (data.last_name ? ' ' + data.last_name : '');
+      if (data.profile_pic) {
+        profileImageEdit.src = data.profile_pic;
+        profileImageEdit.style.display = 'block';
+        defaultProfileIconEdit.style.display = 'none';
+      } else {
+        profileImageEdit.style.display = 'none';
+        defaultProfileIconEdit.style.display = '';
+      }
+    }
+
+    function fetchAndShowProfile() {
+      fetch('resident-profile-api.php', { credentials: 'same-origin' })
+        .then(res => res.json())
+        .then(resp => {
+          if (resp.success && resp.data) {
+            populateProfileCard(resp.data);
+            populateEditForm(resp.data);
+          }
+        });
+    }
+    fetchAndShowProfile();
+
+    // Edit button
+    editProfileBtn.addEventListener('click', function() {
+      profileCardSection.style.display = 'none';
+      profileForm.style.display = '';
+    });
+    cancelEditBtn.addEventListener('click', function() {
+      profileForm.style.display = 'none';
+      profileCardSection.style.display = '';
+      fetchAndShowProfile();
+    });
+
+    // Edit form profile picture upload logic
+    if (changePhotoBtnEdit && profilePicInputEdit) {
+      changePhotoBtnEdit.addEventListener('click', function() {
+        profilePicInputEdit.click();
+      });
+      profilePicInputEdit.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+          if (!file.type.startsWith('image/')) {
+            alert('Please select a valid image file.');
+            return;
+          }
+          if (file.size > 5 * 1024 * 1024) {
+            alert('Image size should not exceed 5MB.');
+            return;
+          }
+          // Preview instantly
+          const reader = new FileReader();
+          reader.onload = function(event) {
+            profileImageEdit.src = event.target.result;
+            profileImageEdit.style.display = 'block';
+            defaultProfileIconEdit.style.display = 'none';
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+    }
+
+    // Save changes
+    profileForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const fd = new FormData();
+      fd.append('first_name', firstNameInput.value);
+      fd.append('last_name', lastNameInput.value);
+      fd.append('street', addressInput.value);
+      fd.append('birthday', birthdayInput.value);
+      fd.append('civil_status', statusInput.value);
+      fd.append('mobile', contactInput.value);
+      fd.append('email', emailInput.value);
+      if (profilePicInputEdit && profilePicInputEdit.files && profilePicInputEdit.files[0]) {
+        fd.append('profile_pic', profilePicInputEdit.files[0]);
+      }
+      fetch('resident-profile-api.php', {
+        method: 'POST',
+        body: fd,
+        credentials: 'same-origin'
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          profileForm.style.display = 'none';
+          profileCardSection.style.display = '';
+          fetchAndShowProfile();
+        } else {
+          alert(data.message || 'Failed to update profile.');
+        }
+      });
+    });
+        const ok = updatePasswordRequirementsUI(this.value);
+        // clear/mark invalid visual state while typing only
+        if (ok) newPasswordInput.classList.remove('is-invalid');
+      });
+
+      passwordForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // clear previous validation state
+        newPasswordInput.classList.remove('is-invalid');
+        confirmPasswordInput.classList.remove('is-invalid');
+
+        const newPass = newPasswordInput.value.trim();
+        const confirmPass = confirmPasswordInput.value.trim();
+
+        // Validate complexity rules
+        const passed = updatePasswordRequirementsUI(newPass);
+        if (!passed) {
+          newPasswordInput.classList.add('is-invalid');
+          // build message listing missing rules
+          const missing = [];
+          for (const rule in passwordRequirements) {
+            if (!passwordRequirements[rule](newPass)) {
+              switch (rule) {
+                case 'minLen': missing.push('minimum 8 characters'); break;
+                case 'upper': missing.push('an uppercase letter'); break;
+                case 'lower': missing.push('a lowercase letter'); break;
+                case 'number': missing.push('a number'); break;
+                case 'special': missing.push('a special character'); break;
+              }
+            }
+          }
+          showModal('Error', 'Password must contain: ' + missing.join(', ') + '.', false);
+          return;
+        }
+
+        if (newPass !== confirmPass) {
+          confirmPasswordInput.classList.add('is-invalid');
+          showModal('Error', 'New Password and Confirm New Password do not match.', false);
+          return;
+        }
+
+        showModal('Success', 'Your password has been updated successfully.', true);
+        passwordForm.reset();
+
+        // reset toggle icons and aria state
+        document.querySelectorAll('.toggle-password').forEach(btn => {
+          btn.innerHTML = '<i class="bi bi-eye-slash"></i>';
+          btn.setAttribute('aria-pressed', 'false');
+        });
+      });
+    })();
+    // Contact number formatting (matches register behavior): formats as 09XX-XXX-XXXX while typing
+    (function() {
+      function sanitizeDigits(val) { return String(val || '').replace(/\D+/g, ''); }
+      function isValidPHMobile(val) { return /^09\d{9}$/.test(val); }
+
+      function formatPH(digits) {
+        if (!digits) return '';
+        const parts = [];
+        const d = digits;
+        if (d.length <= 4) {
+          parts.push(d);
+        } else if (d.length <= 7) {
+          parts.push(d.slice(0,4));
+          parts.push(d.slice(4));
+        } else {
+          parts.push(d.slice(0,4));
+          parts.push(d.slice(4,7));
+          parts.push(d.slice(7,11));
+        }
+        return parts.join('-');
+      }
+
+      function wireDigitsOnly(inputId, errorId, options = {}) {
+        const enforcePHMobile = !!options.enforcePHMobile;
+        const input = document.getElementById(inputId);
+        const err = document.getElementById(errorId);
+        if (!input) return;
+
+        let hideTimer = null;
+        function showTransientError(msg) {
+          if (hideTimer) clearTimeout(hideTimer);
+          if (err) {
+            err.textContent = msg || 'Digits only (0-9).';
+            err.style.display = 'block';
+          }
+          input.classList.add('is-invalid');
+          hideTimer = setTimeout(() => {
+            if (err) err.style.display = 'none';
+            input.classList.remove('is-invalid');
+          }, 1200);
+        }
+
+        function sanitize() {
+          const before = input.value;
+          const cleanedRaw = sanitizeDigits(before);
+          const cleaned = cleanedRaw.slice(0, 11);
+          const formatted = formatPH(cleaned);
+          if (before !== formatted) {
+            input.value = formatted;
+            if (cleanedRaw !== sanitizeDigits(before)) {
+              showTransientError('Digits only (0-9).');
+            }
+          }
+        }
+
+        input.addEventListener('input', sanitize);
+        input.addEventListener('paste', function () { setTimeout(sanitize, 0); });
+
+        input.addEventListener('blur', function () {
+          sanitize();
+          const v = sanitizeDigits(input.value);
+          input.value = formatPH(v);
+          if (v && enforcePHMobile && !isValidPHMobile(v)) {
+            if (err) { err.textContent = 'Enter a valid 11-digit number starting with 09.'; err.style.display = 'block'; }
+            input.classList.add('is-invalid');
+          } else {
+            if (err) { err.style.display = 'none'; }
+            input.classList.remove('is-invalid');
+          }
+        });
+      }
+
+      // Wire formatting for the profile contact field
+      wireDigitsOnly('contact', 'contactError', { enforcePHMobile: true });
+    })();
+
+    // Email validation
+    (function() {
+      const emailInput = document.getElementById('email');
+      const emailError = document.getElementById('emailError');
+      
+      // Allow-list for email providers
+      const ALLOWED_EMAIL_DOMAINS = [
+        'gmail.com',
+        'yahoo.com',
+        'outlook.com',
+        'hotmail.com',
+        'icloud.com',
+        'protonmail.com',
+        'aol.com'
+      ];
+
+      function getEmailDomain(email) {
+        if (typeof email !== 'string') return '';
+        const at = email.indexOf('@');
+        if (at === -1) return '';
+        return email.slice(at + 1).trim().toLowerCase();
+      }
+
+      function isAllowedEmailDomain(email) {
+        const d = getEmailDomain(email);
+        if (!d) return false;
+        return ALLOWED_EMAIL_DOMAINS.includes(d);
+      }
+
+      function getMissingEmailParts(val) {
+        const missing = [];
+        const v = (val || '').toLowerCase();
+        if (!v.includes('@')) missing.push('@');
+        if (!v.includes('.')) missing.push('.');
+        return missing;
+      }
+
+      function formatEmailErrorMessage(missing) {
+        if (!Array.isArray(missing) || missing.length === 0) return '';
+        if (missing.length === 1) {
+          const m = missing[0];
+          if (m === '@') return 'The email address must contain the "@" character.';
+          if (m === '.') return 'The email address must contain a dot (.) in the domain part.';
+        }
+        return 'Please enter a valid email address that includes "@" and a dot (.).';
+      }
+
+      function formatEmailDomainError() {
+        return 'Please use a supported email provider (e.g., gmail.com, yahoo.com, outlook.com, hotmail.com, icloud.com, protonmail.com, aol.com).';
+      }
+
+      function validateEmail() {
+        const val = emailInput.value.trim();
+        
+        // If field is empty or readonly, don't show error
+        if (!val || emailInput.readOnly) {
+          emailInput.classList.remove('is-invalid');
+          if (emailError) emailError.style.display = 'none';
+          return true;
+        }
+
+        const missing = getMissingEmailParts(val);
+        if (missing.length === 0) {
+          // Check domain allow-list
+          if (!isAllowedEmailDomain(val)) {
+            if (emailError) {
+              emailError.textContent = formatEmailDomainError();
+              emailError.style.display = 'block';
+            }
+            emailInput.classList.add('is-invalid');
+            return false;
+          }
+          if (emailError) emailError.style.display = 'none';
+          emailInput.classList.remove('is-invalid');
+          return true;
+        }
+
+        // Show error for missing parts
+        if (emailError) {
+          emailError.textContent = formatEmailErrorMessage(missing);
+          emailError.style.display = 'block';
+        }
+        emailInput.classList.add('is-invalid');
+        return false;
+      }
+
+      // Validate on input (while typing)
+      emailInput.addEventListener('input', function() {
+        if (emailInput.readOnly) return;
+        
+        const val = emailInput.value.trim();
+        if (!val) {
+          emailInput.classList.remove('is-invalid');
+          if (emailError) emailError.style.display = 'none';
+          return;
+        }
+
+        if (val.includes('@') && val.length >= 5) {
+          const missing = getMissingEmailParts(val);
+          if (missing.length === 0) {
+            if (!isAllowedEmailDomain(val)) {
+              if (emailError) {
+                emailError.textContent = formatEmailDomainError();
+                emailError.style.display = 'block';
+              }
+              emailInput.classList.add('is-invalid');
+            } else {
+              if (emailError) emailError.style.display = 'none';
+              emailInput.classList.remove('is-invalid');
+            }
+          } else {
+            if (emailError) {
+              emailError.textContent = formatEmailErrorMessage(missing);
+              emailError.style.display = 'block';
+            }
+            emailInput.classList.add('is-invalid');
+          }
+        } else {
+          if (emailError) emailError.style.display = 'none';
+          emailInput.classList.remove('is-invalid');
+        }
+      });
+
+      // Validate on blur
+      emailInput.addEventListener('blur', validateEmail);
+    })();
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,27 @@
+2025-12-28 05:40:14 Validation error missing: Relationship to Deceased, Monthly Income, Deceased Last Name, Deceased First Name, Date of Death, Place of Death, Cause of Death, Mode of Release
+2025-12-28 05:42:10 SESSION resident_id=13
+2025-12-28 05:42:10 POST keys: firstName,middleName,lastName,suffix,contactNumber,relationship,completeAddress,monthlyIncome,deceasedLastName,deceasedFirstName,deceasedMiddleName,deceasedSuffix,dateOfDeath,placeOfDeath,causeOfDeath,modeOfRelease
+2025-12-28 05:42:10 FILE keys: deathCertificate,proofKinship,barangayIndigency
+2025-12-28 05:42:10 Validation error missing: Relationship to Deceased, Monthly Income, Deceased Last Name, Deceased First Name, Date of Death, Place of Death, Cause of Death, Mode of Release
+2025-12-28 05:45:50 SESSION resident_id=13
+2025-12-28 05:45:50 POST keys: firstName,middleName,lastName,suffix,contactNumber,relationship,completeAddress,monthlyIncome,deceasedLastName,deceasedFirstName,deceasedMiddleName,deceasedSuffix,dateOfDeath,placeOfDeath,causeOfDeath,modeOfRelease
+2025-12-28 05:45:50 FILE keys: deathCertificate,proofKinship,barangayIndigency
+2025-12-28 05:45:50 Missing fields, applying fallbacks: Relationship to Deceased, Monthly Income, Deceased Last Name, Deceased First Name, Date of Death, Place of Death, Cause of Death, Mode of Release
+2025-12-28 05:45:50 Validation error: invalid dateOfDeath= (fallback to today)
+2025-12-28 05:45:50 Validation error: monthlyIncome invalid value= (fallback to 0)
+2025-12-28 05:45:50 Upload error: Missing required upload: deathCertificate
+2025-12-28 05:47:24 SESSION resident_id=13
+2025-12-28 05:47:24 POST keys: firstName,middleName,lastName,suffix,contactNumber,relationship,completeAddress,monthlyIncome,deceasedLastName,deceasedFirstName,deceasedMiddleName,deceasedSuffix,dateOfDeath,placeOfDeath,causeOfDeath,modeOfRelease
+2025-12-28 05:47:24 FILE keys: deathCertificate,proofKinship,barangayIndigency
+2025-12-28 05:47:24 Values used: rel=Spouse, income=8, deceased=dfdfcdfd/fdsfdsfv, date=2025-12-09, place=fdsfdsfdsf, mode=Pickup
+2025-12-28 05:47:24 SUCCESS request_id=89 resident_id=13
+2025-12-28 13:43:02 SESSION resident_id=10
+2025-12-28 13:43:02 POST keys: firstName,middleName,lastName,suffix,contactNumber,relationship,completeAddress,monthlyIncome,deceasedLastName,deceasedFirstName,deceasedMiddleName,deceasedSuffix,dateOfDeath,placeOfDeath,causeOfDeath,otherCauseText,modeOfRelease
+2025-12-28 13:43:02 FILE keys: deathCertificate,proofKinship,barangayIndigency
+2025-12-28 13:43:02 Values used: rel=Child, income=4000, deceased=dfdfcdfd/fdsfdsfv, date=2025-12-02, place=fdsfdsfdsf, mode=Pickup
+2025-12-28 13:43:02 SUCCESS request_id=95 resident_id=10
+2025-12-28 13:47:28 SESSION resident_id=10
+2025-12-28 13:47:28 POST keys: firstName,middleName,lastName,suffix,contactNumber,relationship,completeAddress,monthlyIncome,deceasedLastName,deceasedFirstName,deceasedMiddleName,deceasedSuffix,dateOfDeath,placeOfDeath,causeOfDeath,otherCauseText,modeOfRelease
+2025-12-28 13:47:28 FILE keys: deathCertificate,proofKinship,barangayIndigency
+2025-12-28 13:47:28 Values used: rel=Spouse, income=4000, deceased=dfdfcdfd/fdsfdsfv, date=2025-12-02, place=fdsfdsfdsf, mode=Download
+2025-12-28 13:47:28 SUCCESS request_id=96 resident_id=10

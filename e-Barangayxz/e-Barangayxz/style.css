@@ -1,0 +1,2483 @@
+
+  
+/* ======================================================
+   Styles extracted from login-register.html <style> block
+   Appended on 2025-10-21 for centralization
+====================================================== */
+.password-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* Ensure the input leaves room for the toggle button (prevents overlap with invalid outline) */
+.password-wrapper .form-control,
+.password-wrapper input[type="password"],
+.password-wrapper input[type="text"] {
+  padding-right: 48px; /* room for a ~36px button + spacing */
+  box-sizing: border-box;
+}
+
+.toggle-password {
+  position: absolute;
+  top: 50%;
+  right: 8px; /* slightly inset so it doesn't sit on the border */
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: #6c757d;
+  font-size: 1.05rem;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2; /* sit above the input's surface */
+  border-radius: 6px;
+}
+
+.toggle-password:hover {
+  color: var(--eb-primary, #8B0000);
+  background: rgba(0,0,0,0.03);
+}
+
+.toggle-password:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Keep padding when the input is invalid (so the toggle doesn't get pushed) */
+.password-wrapper .form-control.is-invalid,
+.password-wrapper .form-control:focus.is-invalid {
+  padding-right: 48px;
+}
+
+/* Responsive adjustments so the toggle button and error text fit on small screens */
+@media (max-width: 767.98px) {
+  .password-wrapper .form-control,
+  .password-wrapper input[type="password"],
+  .password-wrapper input[type="text"] {
+    padding-right: 44px; /* slightly smaller space on tablet */
+  }
+  .toggle-password {
+    right: 6px;
+    width: 34px;
+    height: 34px;
+    font-size: 1rem;
+  }
+  .password-wrapper .form-text {
+    font-size: 0.92rem;
+  }
+  .invalid-feedback {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .password-wrapper .form-control,
+  .password-wrapper input[type="password"],
+  .password-wrapper input[type="text"] {
+    padding-right: 40px; /* smaller phones */
+  }
+  .toggle-password {
+    right: 6px;
+    width: 30px;
+    height: 30px;
+    font-size: 0.95rem;
+  }
+  .password-wrapper .form-text {
+    font-size: 0.88rem;
+  }
+  .invalid-feedback {
+    font-size: 0.85rem;
+  }
+  /* Ensure the toggle sits above validation outlines on small screens */
+  .toggle-password { z-index: 10; }
+}
+/* Minimalist footer links */
+.footer-link {
+  color: #28a745;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  font-weight: 400;
+  transition: color 0.2s, text-decoration-thickness 0.2s;
+  cursor: pointer;
+}
+.footer-link:hover {
+  color: #1e7e34;
+  text-decoration-thickness: 2px;
+}
+/* Minimal scrollbar for modals */
+.modal-body::-webkit-scrollbar {
+  width: 6px;
+}
+.modal-body::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.2);
+  border-radius: 3px;
+}
+/* Pill-style tabs for login/register (matches provided design) */
+.d-flex.mb-4 {
+  display: inline-flex !important; /* shrink to content */
+  background: transparent;
+  padding: 4px;
+  border-radius: 12px;
+  gap: 8px;
+}
+.login-tab {
+  flex: 0 0 auto; /* don't stretch */
+  padding: 8px 18px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #8e2222, #6a0dad);
+  color: #fff;
+  border: none;
+  box-shadow: none;
+  font-weight: 600;
+  transition: all 0.18s ease;
+}
+.login-tab:hover {
+  transform: translateY(-1px);
+  filter: brightness(0.98);
+}
+/* Active tab: left-to-right gradient, white text */
+.login-tab.active {
+  background: linear-gradient(135deg, #c5202f, #222c8e, #6a0dad) !important;
+  color: #fff !important;
+  box-shadow: 0 6px 18px rgba(43, 6, 82, 0.12);
+}
+/* Inactive tab subtle border and light background */
+.login-tab:not(.active) {
+  background: #f4f6fb;
+  color: #333;
+  border: 1px solid #e9edf6;
+}
+/* Focus outline for accessibility */
+.login-tab:focus {
+  outline: 3px solid rgba(179,18,23,0.12);
+  outline-offset: 2px;
+}
+-- Color Variables --- */
+:root {
+  --eb-primary: #c5202f;     /* red */
+  --eb-secondary: #222c8e;   /* blue */
+  --eb-accent: #6a0dad;      /* purple */
+  --eb-light: #f9f9f9;
+  --eb-dark: #232347;
+  --eb-gold: #ffd700;
+}
+
+/* --- Global Body Styling --- */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--eb-light);
+  color: var(--eb-dark);
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* --- Reset Password Modal Header --- */
+.reset-password-header {
+  /* Gradient background for header */
+  background: linear-gradient(135deg, var(--eb-primary), var(--eb-secondary), var(--eb-accent)) !important;
+  color: #fff;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+
+/* Ensure title and close button are visible */
+.reset-password-header .modal-title {
+  color: #fff !important;
+  font-weight: 500;
+}
+
+.reset-password-header .btn-close {
+  filter: invert(1); /* makes Bootstrap close icon white on dark backgrounds */
+  opacity: 0.9;
+}
+
+/* --- Reset Link Button --- */
+.reset-link-btn {
+  background: linear-gradient(135deg, var(--eb-primary), var(--eb-accent));
+  color: #fff;
+  border: none;
+  font-weight: 500;
+  border-radius: 8px;
+  padding: 0.6rem;
+  transition: all 0.3s ease;
+}
+
+.reset-link-btn:hover,
+.reset-link-btn:focus {
+  background: linear-gradient(135deg, var(--eb-secondary), var(--eb-accent));
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+
+/* Navbar */
+.navbar {
+  background: linear-gradient(135deg, #c5202f, #222c8e, #6a0dad) !important;
+  color: #fff;
+  padding: 1rem 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  z-index: 1050;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border-top: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  border-left: none;
+  border-right: none;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.navbar .container-fluid {
+  padding-left: 1.2rem;
+  padding-right: 1.2rem;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.navbar .nav-link {
+  position: relative;
+  color: #fff !important;
+  padding: 0.5rem 1rem;
+  transition: color 0.3s;
+}
+.navbar .nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 0; height: 2px;
+  background: var(--eb-gold);
+  transition: width 0.3s ease;
+}
+.navbar .nav-link:hover::after { width: 100%; }
+.navbar .nav-link.active {
+  border-bottom: 2px solid var(--eb-gold);
+  font-weight: bold;
+}
+.navbar .btn-warning {
+  font-weight: 600;
+  border-radius: 30px;
+  background: var(--eb-accent);
+  color: #ffffff;
+  border: none;
+  transition: 0.3s;
+}
+.navbar .btn-warning:hover {
+  background-color: var(--eb-gold);
+  color: var(--eb-dark);
+  transform: scale(1.05);
+}
+
+/* Hero Section */
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #ffffff;
+  background-image: url('pics/pulo_bg2.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  width: 100%;
+}
+
+/* Content above overlay */
+.hero-section .container {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-section .lead {
+  color: #ffffff;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8), 1px 1px 5px rgba(0, 0, 0, 0.6);
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+}
+.hero-section h1 {
+  font-size: 4rem;
+  font-weight: 900;
+  line-height: 1.2;
+  color: #ffffff;
+  text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.9), 2px 2px 8px rgba(0, 0, 0, 0.7);
+  margin-bottom: 1.5rem;
+}
+.hero-section p {
+  font-size: 1.4rem;
+  color: #ffffff;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7), 1px 1px 4px rgba(0, 0, 0, 0.5);
+  margin-bottom: 2.5rem;
+}
+.hero-section .btn {
+  margin: 0.5rem;
+  padding: 0.9rem 2.5rem;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+/* Make Get Started button red */
+.hero-section .btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.hero-section .btn-danger:hover {
+  background-color: #c82333;
+  border-color: #bd2130;
+}
+
+/* Features */
+.feature-card {
+  border: none;
+  border-radius: 1rem;
+  background: #fff;
+  padding: 2rem;
+  text-align: center;
+  transition: transform .3s, box-shadow .3s;
+}
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(34,44,142,0.09);
+}
+.feature-card i { font-size: 3rem; color: var(--eb-accent); margin-bottom: 1rem; }
+
+/* Document Types (compact, centered) */
+.document-types-section {
+  /* Highlighted area with subtle blue wash and rounded container */
+  background: linear-gradient(180deg, rgba(34,44,142,0.03) 0%, rgba(106,13,173,0.02) 100%);
+  padding: 3rem 0; /* slightly more breathing room */
+  border-top: 1px solid rgba(34,44,142,0.04);
+  border-bottom: 1px solid rgba(34,44,142,0.04);
+}
+/* soft translucent tint overlay to add depth (keeps content readable) */
+.document-types-section::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; top: 0; bottom: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(34,44,142,0.04) 0%, rgba(106,13,173,0.03) 100%);
+  mix-blend-mode: overlay;
+  border-radius: 0;
+}
+.document-types-section .container { max-width: 1100px; margin: 0 auto; }
+.document-types-section .carousel { position: relative; }
+.document-types-section .carousel-inner,
+.document-types-section .carousel-item {
+  /* keep carousel height consistent to prevent layout jump */
+  min-height: 300px;
+}
+.document-types-section .carousel-item .row { justify-content: center; gap: 1rem; align-items: stretch; }
+.doc-card {
+  border-radius: 1rem;
+  padding: 1.35rem;
+  text-align: center;
+  background: rgba(255,255,255,0.96);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  min-height: 260px; /* ensure consistent card height */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  height: 100%;
+  border: 1px solid rgba(34,44,142,0.03);
+  box-shadow: 0 6px 18px rgba(34,44,142,0.03);
+}
+.doc-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 40px rgba(34,44,142,0.10);
+  border-color: rgba(34,44,142,0.06);
+}
+.doc-icon { font-size: 2.6rem; margin-bottom: 0.7rem; color: var(--eb-secondary); display:block; }
+.doc-card .card-title { font-weight:700; color: var(--eb-dark); margin-bottom: 0.35rem; }
+.doc-card .card-desc { color: var(--eb-text-muted); font-size: .95rem; }
+
+/* Ensure columns stretch so the doc-cards align and keep equal height in carousel */
+.document-types-section .carousel-item .row > [class*="col-"] {
+  display:flex;
+  align-items:stretch;
+}
+.document-types-section .carousel-item .row > [class*="col-"] .doc-card {
+  flex:1 1 auto;
+}
+
+@media (max-width: 991px) {
+  .document-types-section .carousel-inner,
+  .document-types-section .carousel-item { min-height: 260px; }
+  .doc-card { min-height: 240px; }
+}
+@media (max-width: 575px) {
+  .document-types-section .carousel-inner,
+  .document-types-section .carousel-item { min-height: auto; }
+  .doc-card { min-height: 180px; }
+}
+
+/* Ensure carousel columns stretch so doc-cards align in rows */
+.document-types-section .carousel-item .row > [class*="col-"] {
+  display:flex;
+  align-items:stretch;
+}
+.document-types-section .carousel-item .row > [class*="col-"] .doc-card {
+  flex:1 1 auto;
+}
+
+/* Carousel Controls */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: var(--eb-secondary);
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  background-size: 60%;
+}
+.carousel-indicators [data-bs-target] {
+  background-color: var(--eb-accent);
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  opacity: 0.6;
+  transition: opacity 0.3s;
+}
+.carousel-indicators .active {
+  opacity: 1;
+  background-color: var(--eb-gold);
+}
+.doc-icon { color: #222c8e !important; }
+.carousel-control-prev-icon, .carousel-control-next-icon { background-color: #6a0dad !important; filter: none !important; }
+
+/* Place carousel indicators (dots) centered and below the carousel cards */
+.document-types-section .carousel { position: relative; padding-bottom: 48px; }
+.document-types-section .carousel-indicators {
+  position: absolute; /* keep them overlayed but positioned below */
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+}
+
+@media (max-width: 767px) {
+  .document-types-section .carousel { padding-bottom: 64px; }
+  .document-types-section .carousel-indicators { bottom: 12px; }
+}
+
+.payment-section { 
+  /* Match document section style - light background instead of dark gradient */
+  background: transparent;
+  padding: 2.5rem 0;
+  color: var(--eb-dark); /* default text color for the light section */
+}
+.payment-section h2 { color: var(--eb-dark); text-align: center; margin-bottom: 1.5rem; }
+.payment-section .container { max-width: 1000px; margin: 0 auto; }
+.payment-section .row { display:flex; justify-content:center; gap:1.25rem; flex-wrap:wrap; align-items:stretch; }
+/* Force three equal columns on wide screens */
+.payment-section .row > [class*="col-"] {
+  flex: 0 0 calc(33.333% - 0.833rem);
+  max-width: calc(33.333% - 0.833rem);
+  display:flex;
+  align-items:stretch;
+}
+.payment-section .col-md-4 { display:flex; align-items:stretch; flex-direction:column; }
+.payment-card {
+  background: rgba(255,255,255,0.98); /* keep cards bright against the dark section */
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 6px 18px rgba(34,44,142,0.04);
+  text-align: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 160px;
+  border: 1px solid rgba(34,44,142,0.04);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  color: var(--eb-dark);
+}
+
+/* Small adjustment to ensure headings and paragraphs have consistent spacing */
+.payment-card h5 { margin-top: 0.5rem; margin-bottom: 0.4rem; }
+.payment-card p { margin-bottom: 0; }
+.payment-section .row > [class*="col-"] .payment-card { flex:1 1 auto; }
+
+@media (max-width: 991px) {
+  .payment-section .row > [class*="col-"] { flex: 0 0 48%; max-width: 48%; }
+}
+@media (max-width: 575px) {
+  .payment-section .row > [class*="col-"] { flex: 0 0 100%; max-width: 100%; }
+}
+.payment-card .doc-icon { font-size: 2.5rem; color: var(--eb-secondary); margin-bottom: 0.8rem; }
+.payment-card h5 { color: var(--eb-dark); margin-bottom: .25rem; }
+.payment-card p { color: var(--eb-text-muted); margin-bottom: 0; }
+.payment-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 40px rgba(34,44,142,0.12);
+  border-color: rgba(34,44,142,0.06);
+}
+
+/* Feedback */
+.feedback-section {
+  background: var(--eb-light);
+  padding: 4rem 0;
+}
+.feedback-card {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 10px 20px rgba(34,44,142,0.10);
+}
+.feedback-card h3 { color: var(--eb-primary); font-size: 2.5rem; font-weight: 700; }
+
+/* Consolidated Footer Styles (applies to all pages)
+   — single source of truth to avoid conflicting per-page rules */
+footer.footer, footer {
+  background: #ffffff; /* white background like resident dashboard */
+  color: #232347;      /* dark text */
+  padding: 1rem 0;
+  border-top: 1px solid #e9ecef;
+  font-size: 1rem;
+}
+footer.footer a, footer a, .footer a {
+  color: #232347;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.footer-link-dark {
+  /* Make footer links visible and match the resident dashboard blue */
+  color: #0d6efd !important; /* Bootstrap primary blue */
+  text-decoration: underline;
+}
+.footer-link-dark:hover {
+  color: #0b5ed7 !important;
+  text-decoration-thickness: 2px;
+}
+footer .small, footer small, .footer .small {
+  color: #6c757d; /* muted small text */
+}
+
+/* FAQs-specific styles */
+.accordion-button {
+  background-color: #f4f6fb;
+  color: var(--eb-dark);
+  font-weight: bold;
+}
+.accordion-button:not(.collapsed) {
+  color: #fff;
+  background-color: var(--eb-secondary);
+}
+
+/* =======================
+   Global Styles
+   ======================= */
+:root {
+  --eb-success: #1E6F5C;
+  --eb-success-light: #C1E7DA;
+  --eb-primary: #C5202F;
+  --eb-primary-light: #F4F4FB;
+  --eb-secondary: #222C8E;
+  --eb-accent: #7B1FA2;
+  --eb-gold: #FFD700;
+  --eb-text-muted: #6c757d;
+  --eb-bg-light: #F9F9F9;
+  --eb-bg-lighter: #F4F4FB;
+}
+
+body {
+  font-family: 'Inter', Arial, sans-serif;
+  background-color: var(--eb-bg-lighter);
+}
+
+/* =======================
+   Navbar & Logo
+   ======================= */
+.navbar-brand .eb-logo,
+.rounded-circle {
+  background: linear-gradient(135deg, var(--eb-primary) 0%, var(--eb-secondary) 100%);
+  color: #fff;
+  font-size: 1.3rem;
+  height: 2.4rem;
+  width: 2.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(34,44,142,0.10);
+}
+.navbar-brand .eb-logo {
+  background-color: transparent; /* remove filled circle background so the image shows cleanly */
+}
+/* remove default white circular border around eb-logo component */
+.eb-logo {
+  border: none !important;
+  padding: 0 !important;
+  background: transparent !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Dashboard stat cards -- more modern/appealing */
+.dashboard-stat {
+  border-radius: 14px;
+  padding: 1.25rem;
+  background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.7));
+  box-shadow: 0 8px 24px rgba(34,44,142,0.06);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.dashboard-stat:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(34,44,142,0.12); }
+.dashboard-stat .stat-icon {
+  width:56px; height:56px; display:inline-flex; align-items:center; justify-content:center; border-radius:12px; font-size:1.4rem;
+}
+.dashboard-stat .stat-value { font-size:1.7rem; font-weight:800; }
+.dashboard-stat .stat-label { color:var(--eb-text-muted); font-weight:600; }
+.dashboard-stat .stat-change { font-size:0.85rem; }
+    
+
+/* =======================
+   Hero Section
+   ======================= */
+/* Removed duplicate/conflicting .hero-section block for clarity */
+.hero-section .lead {
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+/* =======================
+   Stat Cards
+   ======================= */
+.stat-card {
+  background: var(--eb-primary-light);
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(34,44,142,0.04);
+  padding: 1rem 2rem;
+  min-width: 120px;
+}
+
+/* Resident stat larger typography and vertical centering */
+.resident-stat { display:flex; flex-direction:column; justify-content:center; align-items:center; }
+.resident-stat h4 { font-size:4.4rem; letter-spacing:0.6px; line-height:1; margin:0; }
+.resident-stat h6 { font-size:1.15rem; color:var(--eb-text-muted); margin-top:6px; }
+.resident-icon { font-size:2.4rem; width:64px; height:64px; display:inline-flex; align-items:center; justify-content:center; border-radius:12px; background: linear-gradient(135deg,#e8f0ff,#eae4ff); color:#1e3a8a; }
+.resident-stat .text-success { margin-top:10px; font-weight:600; }
+
+/* =======================
+   How It Works Section
+   ======================= */
+.how-it-works-card {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px rgba(197,32,47,0.08);
+}
+.how-it-works-card .badge {
+  background-color: var(--eb-primary);
+  color: #fff;
+  width: 2rem;
+  height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+.how-it-works-card .card-title {
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+.how-it-works-card ul li {
+  line-height: 1.5;
+}
+.how-it-works-main {
+  background: linear-gradient(135deg, var(--eb-bg-light) 10%, var(--eb-bg-light) 100%);
+  color: var(--eb-secondary);
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 32px rgba(34,44,142,0.12);
+  padding: 2rem 1.5rem;
+  border: none;
+}
+.how-it-works-main .card-title,
+.how-it-works-main strong {
+  color: var(--eb-secondary);
+  text-shadow: 0 2px 8px rgba(197,32,47,0.15);
+}
+.how-it-works-main .badge {
+  background: var(--eb-secondary);
+  color: var(--eb-primary-light);
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(197,32,47,0.08);
+}
+.how-it-works-main .alert {
+  background: rgba(255,255,255,0.18);
+  color: var(--eb-secondary);
+  border: 1px solid var(--eb-secondary);
+  font-weight: 500;
+}
+.how-it-works-alert {
+  background-color: var(--eb-primary-light);
+  color: var(--eb-primary);
+  border: 1px solid var(--eb-primary-light);
+  border-radius: 0.75rem;
+}
+
+/* =======================
+   Why Choose Section
+   ======================= */
+.choose-section {
+  background-color: #fff;
+}
+.feature-card {
+  border-radius: 1.5rem;
+  background: var(--eb-bg-light);
+  box-shadow: 0 2px 16px rgba(34,44,142,0.04);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(197,32,47,0.1);
+}
+.feature-card .bi {
+  color:  #6a0dad;
+}
+.feature-icon {
+  background: linear-gradient(135deg, var(--eb-primary-light) 0%, var(--eb-secondary) 100%);
+  color: #fff;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(197,32,47,0.10);
+  border: 2px solid #fff;
+}
+
+/* =======================
+   Document Types Carousel
+   ======================= */
+#document-types .display-4 {
+  color: var(--eb-primary-light);
+}
+.document-card .card {
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+.document-card .card:hover {
+  transform: translateY(-5px);
+  border-color: var(--eb-primary-light);
+}
+.document-card .icon-container {
+  width: 48px;
+  height: 48px;
+}
+
+/* ================ Custom Staff Dashboard Styles ================ */
+.eb-navbar {
+  background: linear-gradient(90deg, #6a0dad 0%, #5b2a86 50%, #3b1b6e 100%);
+  color: #fff;
+  padding: .8rem 1.2rem;
+}
+.eb-navbar .eb-title { font-weight:700; letter-spacing:1px; color:#fff; }
+
+.eb-sidebar {
+  background: #fff; /* cards look white */
+  min-height: calc(100vh - 72px);
+  border-right: 1px solid rgba(0,0,0,0.04);
+}
+.eb-sidebar .nav-link { color: #6b6b6b; padding: .9rem 1rem; border-radius: .5rem; margin-bottom:.25rem; }
+.eb-sidebar .nav-link.active { background: linear-gradient(90deg,#f6f0fb, #fff); color:#6a0dad; font-weight:700; box-shadow: 0 6px 18px rgba(106,13,173,0.06); }
+
+/* Requests statistics card */
+.requests-stats-card { background:#fff; }
+.requests-stats-card .stat-row { display:flex; justify-content:space-between; align-items:center; }
+.requests-stats-card .stat-left { color:#6b6b6b; }
+.requests-stats-card .stat-right { font-size:1.6rem; font-weight:700; }
+.requests-stats-card .bar-label { font-size:0.9rem; color:#6b6b6b; margin-bottom:4px; }
+
+/* make top chart area look like the screenshot */
+.card h6 { color:#374151; }
+
+/* small visual tweaks */
+.card { border-radius: .8rem; }
+
+/* Navbar / dropdown notifications (centralized) */
+.notification-panel {
+  /* limit height so the dropdown stays usable and scrolls when many items are present */
+  max-height: 300px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.extra-notifs {
+  display: none;
+  transition: all 0.24s ease;
+}
+.extra-notifs.show {
+  display: block;
+}
+.notif-item:hover {
+  background-color: #f8f9fa;
+}
+.notif-item .bi {
+  font-size: 1.2rem;
+}
+.see-all-btn {
+  font-weight: 600;
+}
+
+/* Ensure progress bars are slim like screenshot */
+.progress { background: #f1f5f9; height: 10px; border-radius: 999px; }
+.progress-bar { border-radius: 999px; }
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .eb-sidebar { display:none; }
+}
+.carousel-item-4-up .col-lg-3 {
+  flex: 0 0 25%;
+  max-width: 25%;
+}
+.carousel-control-prev,
+.carousel-control-next {
+  width: 3%;
+  background-color: rgba(123,31,162,0.12);
+  border-radius: 8px;
+  height: 60px;
+  top: calc(50% - 30px);
+  transition: background-color 0.3s ease;
+}
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  background-color: rgba(34,44,142,0.32);
+}
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(1);
+}
+.carousel-indicators [data-bs-target] {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #A6A6B1;
+  border: none;
+  opacity: 0.7;
+  transition: background-color 0.3s, opacity 0.3s;
+}
+.carousel-indicators .active {
+  background-color: var(--eb-accent);
+  opacity: 1;
+}
+
+/* =======================
+   Staff Section
+   ======================= */
+.staff-section {
+  background-color: var(--eb-secondary);
+  color: #fff;
+}
+.staff-section .display-3 {
+  color: #fff;
+}
+.staff-highlights-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 1.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.staff-highlights-card .badge {
+  background-color: #fff;
+  color: var(--eb-secondary);
+  font-weight: bold;
+  font-size: 1rem;
+  width: 2rem;
+  height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+.staff-section .btn-success {
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+/* Enhanced Request Statistics card styling (more engaging) */
+.requests-stats-card {
+  border-radius: 14px;
+  padding: 1.6rem;
+  background: linear-gradient(180deg, #ffffff, #f6f8ff);
+  box-shadow: 0 12px 30px rgba(34,44,142,0.06);
+  position: relative;
+  overflow: hidden;
+}
+.requests-stats-card::before {
+  /* decorative circle */
+  display: none !important; /* removed decorative circle per request */
+}
+.requests-stats-card h6 { position: relative; z-index: 2; }
+.requests-stats-card .stat-row { display:flex; align-items:center; justify-content:space-between; gap:12px; position: relative; z-index: 2; }
+.requests-stats-card .stat-left { font-size: .95rem; color: var(--eb-text-muted); font-weight: 600; }
+.requests-stats-card .stat-right { font-size: 2.25rem; font-weight: 800; color: var(--eb-secondary); }
+.requests-stats-card .stat-bar { margin-top: 0.8rem; position: relative; z-index: 2; }
+.requests-stats-card .bar-label { font-size: .85rem; color: var(--eb-text-muted); margin-bottom: 6px; }
+.requests-stats-card .progress { height: 14px; border-radius: 999px; overflow: hidden; }
+.requests-stats-card .progress-bar { transition: width 0.6s ease; }
+.requests-stats-card .badges-row { margin-top: 12px; display:flex; gap: .5rem; position: relative; z-index: 2; }
+.requests-stats-card .badge { padding: .45rem .6rem; font-weight:600; border-radius: 8px; }
+.requests-stats-card .badge.bg-warning { color: #2d2d2d; }
+
+/* make numbers animate-friendly */
+.requests-stats-card .stat-right.animate { transition: all 0.6s ease; }
+
+/* Specific styles for the new status layout */
+.requests-stats-card .total-progress { margin-top: 6px; margin-bottom: 10px; }
+.requests-stats-card .total-progress .progress { height: 6px; border-radius: 6px; background: rgba(0,0,0,0.04); }
+.requests-stats-card .total-progress .progress-bar { height:6px; background: linear-gradient(90deg, #2b6cb0, #6a0dad); }
+
+.requests-stats-card .status-row { padding: 0.45rem 0; border-bottom: 1px solid rgba(34,44,142,0.04); }
+.requests-stats-card .status-row:last-child { border-bottom: none; }
+.requests-stats-card .status-label { color: #333; font-weight: 600; }
+.requests-stats-card .status-value { font-weight: 700; color: #222c8e; }
+.requests-stats-card .small-progress .progress { background: rgba(0,0,0,0.04); border-radius: 6px; }
+.requests-stats-card .small-progress .progress-bar { height:6px; }
+
+/* space the card content a bit */
+.requests-stats-card .stat-row { margin-bottom: .6rem; }
+
+/* =======================
+   Buttons
+   ======================= */
+.btn-success {
+  background-color: var(--eb-success);
+  border-color: var(--eb-success);
+  transition: background-color 0.3s ease;
+}
+.btn-success:hover {
+  background-color: #17594A;
+  border-color: #17594A;
+}
+
+/* Topbar action (logout / notification) - match sidebar nav-link sizing
+   This makes topbar buttons visually consistent with sidebar items (Residents/Reports/Settings).
+*/
+.topbar-action {
+  padding: 0.9rem 1rem !important; /* match .eb-sidebar .nav-link vertical padding */
+  font-weight: 700 !important; /* stronger weight to visually match active sidebar items */
+  border-radius: 8px !important; /* same rounded corners */
+  font-size: 1rem !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 44px !important; /* ensure same touch target height */
+}
+.navbar .btn.topbar-action { line-height: 1; }
+
+/* Resident dashboard: neutralize the white boxed wrapper so logout matches sidebar sizing */
+.navbar.resident-topbar .logout-box {
+  background: transparent !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+.navbar.resident-topbar .logout-box .topbar-action {
+  /* ensure the action itself follows the topbar-action sizing exactly */
+  margin: 0 !important;
+}
+
+.btn-outline-secondary {
+  color: var(--eb-secondary);
+  border-color: var(--eb-secondary);
+  transition: color 0.3s, background-color 0.3s;
+}
+.btn-outline-secondary:hover {
+  background-color: var(--eb-secondary);
+  color: #fff;
+}
+.badge.bg-light {
+  background: #e9ecef;
+}
+
+/* =======================
+   Footer
+   ======================= */
+.footer {
+  background-color: var(--eb-primary-light);
+  border-top: 1px solid #e9ecef;
+  font-size: 1rem;
+}
+  body.login-page {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* prevent page-level scrolling */
+  }
+
+  /* The main section becomes the flexible area that can scroll internally. */
+  .login-section {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto; /* internal scrolling for the centered content if necessary */
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* When using the login-page layout we must allow the section to shrink
+     so the footer stays visible. Some pages add min-vh-100 on the section;
+     reset that here. */
+  body.login-page .login-section {
+    min-height: 0 !important;
+  }
+
+  /* Keep footer inside the flex column and visible (in-flow) */
+  body.login-page .footer,
+  body.login-page footer {
+    flex: 0 0 auto; /* stay at the bottom of the column layout */
+    margin: 0; /* reset any margin that could push it off-screen */
+    width: 100%;
+    position: relative;
+    z-index: 10;
+  }
+
+  /* Make footer text readable on darker gradient backgrounds */
+  body.login-page .footer,
+  body.login-page footer {
+    color: #fff !important;
+  }
+  body.login-page .footer a,
+  body.login-page footer a {
+    color: rgba(255,255,255,0.95) !important;
+  }
+  body.login-page .footer .text-muted,
+  body.login-page footer .text-muted {
+    color: rgba(255,255,255,0.95)!important;
+  }
+
+  /* Default footer styles for all pages */
+  footer.footer {
+    background: #ffffff !important;
+    color: #000 !important;
+  }
+  /* Index.html specific footer styles */
+  body.index-page footer.footer {
+    background: linear-gradient(135deg, var(--eb-secondary), var(--eb-accent), var(--eb-primary)) !important;
+    color: #fff !important;
+  }
+  body.index-page footer.footer a {
+    color: #fff !important;
+  }
+
+  /* Limit the card height relative to the available section height so footer stays visible */
+  .login-card {
+    max-width: 820px;
+    width: 90%;
+    max-height: calc(100% - 40px); /* leave a small breathing room inside the section */
+    border: none;
+    border-radius: 12px;
+    overflow: auto; /* allow internal scrolling if the card content is taller */
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  }
+.footer a {
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.footer a:hover {
+  color: var(--eb-accent);
+}
+
+footer {
+  margin-top: 50px; /* adjust value */
+}
+footer.footer { background: #ffffff !important; }
+footer.footer, 
+footer.footer * { color: #000 !important;}
+/* =======================
+   Login/Register
+   ======================= */
+.login-section {
+  background: var(--eb-bg-light);
+}
+.login-info-card, 
+.login-form-card {
+  border-radius: 1.5rem;
+  background: #fff;
+  box-shadow: 0 4px 24px rgba(123,31,162,0.08);
+}
+.login-info-card .badge {
+  background: var(--eb-accent);
+  color: #fff;
+  font-weight: 500;
+  font-size: 1rem;
+  border-radius: 1rem;
+  padding: 0.5rem 1.2rem;
+}
+.login-info_card h2 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+.login-info-card ul {
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+  padding-left: 1rem;
+}
+.login-form-card {
+  padding: 2rem 2rem 1.5rem 2rem;
+}
+.login-tab {
+   background: var(--eb-accent);
+  color: #fff;
+  font-weight: 600;
+  border-radius: 1.5rem 1.5rem 0 0;
+  border: none;
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+  transition: background 0.2s, color 0.2s;
+}
+.login-tab.active {
+  background: #fff;
+  color: var(--eb-secondary);
+  box-shadow: 0 2px 8px rgba(123,31,162,0.08);
+}
+.login-btn {
+  background: var(--eb-secondary);
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.1rem;
+  border-radius: 1.5rem;
+  border: none;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  padding: 0.75rem 0;
+  letter-spacing: 1px;
+  transition: background 0.2s;
+}
+.login-btn:hover {
+  background: var(--eb-primary);
+}
+
+/* =======================
+   User Dashboard
+   ======================= */
+.user-dashboard-section {
+  background: var(--eb-bg-light);
+}
+.dashboard-doc-card {
+  border-radius: 1.5rem;
+  background: #fff;
+  box-shadow: 0 4px 24px rgba(123,31,162,0.08);
+  transition: box-shadow 0.2s;
+  position: relative;
+}
+.dashboard-doc-card:hover {
+  box-shadow: 0 8px 32px rgba(123,31,162,0.16);
+}
+.dashboard-doc-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 1rem;
+  margin-right: 0.5rem;
+}
+.bg-purple {
+  background: var(--eb-accent) !important;
+}
+.dashboard-doc-card h5 {
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+.dashboard-doc-card ul {
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+  padding-left: 1.2rem;
+  color: var(--eb-success);
+  font-size: 1rem;
+}
+
+/* --- Extracted from index.html <style> block --- */
+
+/* Navbar logo image size (preserve original inline size) */
+
+
+/* =======================
+   Document Request Cards
+   ======================= */
+.card.shadow-sm.border-0.rounded-4 {
+  box-shadow: 0 2px 12px rgba(123,31,162,0.06);
+  border-radius: 1.5rem;
+  background: var(--eb-bg-light);
+  transition: box-shadow 0.2s;
+  position: relative;
+}
+.card.shadow-sm.border-0.rounded-4:hover {
+  box-shadow: 0 4px 24px rgba(123,31,162,0.12);
+}
+.card-body .d-flex .bg-primary {
+  background: var(--eb-primary) !important;
+}
+.card-body .d-flex .bg-success {
+  background: var(--eb-success) !important;
+}
+.card-body .d-flex .bg-purple {
+  background: var(--eb-accent) !important;
+}
+.card-body .d-flex .bg-orange {
+  background: #f97316 !important;
+}
+.card-body .d-flex span {
+  min-width: 48px;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  border-radius: 12px;
+}
+.card-title, h4.fw-bold {
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+.card-body ul.list-unstyled {
+  margin-bottom: 0;
+  padding-left: 0;
+}
+.card-body ul.list-unstyled li {
+  font-size: 1rem;
+  margin-bottom: 2px;
+  display: flex;
+  align-items: center;
+}
+.card-body .bi-check2 {
+  font-size: 1.1rem;
+}
+.card-body .mb-2.text-muted {
+  font-size: 1.05rem;
+}
+.card-body .mb-2 {
+  font-size: 1rem;
+}
+.stretched-link {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 1;
+  opacity: 0;
+}
+@media (max-width: 991px) {
+  .card.shadow-sm.border-0.rounded-4 {
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* ======================================================
+   Styles extracted from index.html (original inline)
+   Appended on 2025-10-06 to consolidate styles
+   ====================================================== */
+
+/* --- Header & Navbar Styling --- */
+:root {
+  --eb-primary: #c5202f;
+  --eb-secondary: #222c8e;
+  --eb-accent: #6a0dad;
+  --eb-gold: #ffcc33;
+}
+
+/* Navbar container */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+  background: linear-gradient(135deg, var(--eb-primary), var(--eb-secondary), var(--eb-accent)) !important;
+  padding: 0.75rem 1.2rem;
+  box-sizing: border-box;
+}
+
+/* Navbar brand (logo + text) */
+.navbar-brand {
+  color: #fff !important;
+  font-size: 1.1rem;
+}
+
+/* Navbar links */
+.navbar .nav-link {
+  position: relative;
+  color: #fff !important;
+  padding: 0.5rem 1rem;
+  transition: color 0.3s ease;
+}
+
+.navbar .nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background: var(--eb-gold);
+  transition: width 0.3s ease;
+}
+
+.navbar .nav-link:hover::after {
+  width: 100%;
+}
+
+/* Button style alignment */
+.navbar .btn {
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+/* Add top spacing for the next content section */
+body {
+  padding-top: 85px; /* prevents content from being hidden under fixed header */
+}
+
+/* ======================================================
+   Styles extracted from barangay-id.html (original inline)
+   Appended on 2025-10-06 to consolidate styles
+   ====================================================== */
+
+/* --- barangay-id.html inline-start --- */
+body { background-color: #f8f9fa; font-family: "Inter", sans-serif; color: #232347; }
+.navbar { background: linear-gradient(135deg, #c5202f, #222c8e, #6a0dad) !important; }
+.navbar .navbar-brand, .navbar .nav-link { color: #fff !important; }
+.page-header { background: #f8f9fa; color: #232347; padding: 2rem 1rem; border-radius: 0 0 15px 15px; box-shadow: 0 2px 6px rgba(34,44,142,0.05); }
+.form-card { background: #fff; border-radius: 12px; box-shadow: 0 4px 10px rgba(34,44,142,0.1); padding: 2rem; }
+.form-card:hover { box-shadow: 0 8px 30px rgba(106,13,173,0.15);}
+.btn-danger { background: linear-gradient(135deg, #6a0dad); border: none; font-weight: 700; color: white; transition: background 0.3s ease; }
+.btn-danger:hover { background: linear-gradient(135deg, #222c8e, #6a0dad); }
+.section-title { font-size: 1.1rem; font-weight: 600; color: #000; border-bottom: 2px solid #f1f1f1; margin-bottom: 1rem; padding-bottom: 0.5rem; }
+.form-label { font-weight: normal !important; color: #000 !important; }
+/* --- barangay-id.html inline-end --- */
+
+/* ======================================================
+   Styles extracted from certificate-residency.html (original inline)
+   Appended on 2025-10-06 to consolidate styles
+   ====================================================== */
+
+/* --- certificate-residency.html inline-start --- */
+body { background-color: #f9f9fb; color: #232347; }
+.navbar { background: linear-gradient(135deg, #c5202f, #222c8e, #6a0dad) !important; }
+.navbar .nav-link, .navbar .navbar-brand { color: #fff !important; }
+.navbar .nav-link.active { font-weight: bold; text-decoration: underline; }
+.page-header { background: #f9f9fb; color: #232347; padding: 2rem 1rem; border-radius: 0 0 15px 15px; text-align: left; box-shadow: 0 2px 6px rgba(34, 44, 142, 0.05); }
+.form-card { background: #fff; border-radius: 12px; box-shadow: 0 4px 10px rgba(34, 44, 142, 0.1); padding: 2rem; }
+.form-card:hover { box-shadow: 0 8px 30px rgba(106, 13, 173, 0.15);}
+.btn-danger { background: linear-gradient(135deg, #6a0dad);border: none; font-weight: 700; color: white; transition: background 0.3s ease; }
+.btn-danger:hover { background: linear-gradient(135deg, #222c8e, #6a0dad) !important; }
+/* --- certificate-residency.html inline-end --- */
+
+/* ======================================================
+  Styles extracted from batch 1 HTML files (appended)
+  Files: barangay-clearance.html, blotter-report.html,
+       burial-assistance.html, business-permit.html,
+       faqs.html, goodmoral-certificate.html,
+       login-register.html, indigency-certificate.html,
+       low-income-certificate.html, no-derogatory.html
+  Appended on 2025-10-06
+  ====================================================== */
+
+/* --- barangay-clearance.html inline-start --- */
+body { background-color: #f8f9fa; color: #232347; }
+.navbar { background: linear-gradient(135deg, #c5202f, #222c8e, #6a0dad) !important; }
+.navbar .nav-link, .navbar .navbar-brand { color: #fff !important; }
+.navbar .nav-link.active { font-weight: bold; text-decoration: underline; }
+.page-header { background: #f9f9fb; color: #232347; padding: 2rem 1rem; border-radius: 0 0 15px 15px; text-align: left; box-shadow: 0 2px 6px rgba(34,44,142,0.05); }
+.form-card { background: #fff; border-radius: 12px; box-shadow: 0 4px 10px rgba(34,44,142,0.1); padding: 2rem; }
+.btn-danger { background: linear-gradient(135deg, #6a0dad); border: none; color: white;}
+.btn-danger:hover { background: linear-gradient(135deg, #222c8e, #6a0dad); }
+/* --- barangay-clearance.html inline-end --- */
+
+/* --- blotter-report.html inline-start --- */
+body { background-color: #f8f9fa; font-family: "Inter", sans-serif; color: #232347; }
+.navbar { background: linear-gradient(135deg, #c5202f, #222c8e, #6a0dad) !important; }
+.page-header { background: #f8f9fa; color: #232347; padding: 2rem 1rem; border-radius: 0 0 15px 15px; box-shadow: 0 2px 6px rgba(34,44,142,0.05); }
+.form-card { background: #fff; border-radius: 12px; box-shadow: 0 4px 10px rgba(34,44,142,0.1); padding: 2rem; }
+.btn-danger { background: linear-gradient(135deg, #6a0dad); border: none; color: white; }
+.section-title { font-size: 1.1rem; font-weight: 600; color: #232347; border-bottom: 2px solid #dee2e6; margin-bottom: 1rem; padding-bottom: 0.5rem; }
+.form-label { font-weight: normal !important; color: #232347 !important; }
+/* --- blotter-report.html inline-end --- */
+
+/* --- burial-assistance.html inline-start --- */
+body { background-color: #f8f9fa; font-family: "Inter", sans-serif; color: #232347; }
+.navbar { background: linear-gradient(135deg, #c5202f, #222c8e, #6a0dad) !important; }
+.page-header { background: #f8f9fa; color: #232347; padding: 2rem 1rem; border-radius: 0 0 15px 15px; box-shadow: 0 2px 6px rgba(34,44,142,0.05); }
+.form-card { background: #fff; border-radius: 12px; box-shadow: 0 4px 10px rgba(34,44,142,0.1); padding: 2rem; }
+.btn-danger { background: linear-gradient(135deg, #6a0dad); border: none; color: white; }
+.section-title { font-size: 1.1rem; font-weight: 600; color: #232347; border-bottom: 2px solid #dee2e6; margin-bottom: 1rem; padding-bottom: 0.5rem; }
+.form-label { font-weight: normal !important; color: #232347 !important; }
+/* --- burial-assistance.html inline-end --- */
+
+/* --- business-permit.html inline-start --- */
+body { background-color: #f8f9fa; font-family: "Inter", sans-serif; color: #232347; }
+.navbar { background: linear-gradient(135deg, #c5202f, #222c8e, #6a0dad) !important; }
+.page-header { background: #f9f9fb; color: #232347; padding: 2rem 1rem; border-radius: 0 0 15px 15px; text-align: left; box-shadow: 0 2px 6px rgba(34,44,142,0.05); }
+.form-card { background: #fff; border-radius: 12px; box-shadow: 0 4px 10px rgba(34,44,142,0.1); padding: 2rem; }
+.btn-danger { background: linear-gradient(135deg, #6a0dad); border: none; color: white; }
+.btn-danger:hover {  background: linear-gradient(135deg, #222c8e, #6a0dad); }
+/* --- business-permit.html inline-end --- */
+
+/* --- faqs.html inline-start --- */
+.navbar { background: linear-gradient(135deg, #c5202f, #222c8e, #6a0dad) !important; }
+.navbar .nav-link, .navbar .navbar-brand, .navbar .navbar-toggler-icon { color: #fff !important; }
+.navbar .nav-link.active { font-weight: bold; text-decoration: underline; }
+body { display: flex; flex-direction: column; min-height: 100vh; }
+main { flex: 1; }
+/* --- faqs.html inline-end --- */
+
+/* --- goodmoral-certificate.html inline-start --- */
+body { background-color: #f8f9fa; font-family: "Inter", sans-serif; color: #232347; }
+.navbar { background: linear-gradient(135deg, #c5202f, #222c8e, #6a0dad) !important; }
+.page-header { background: #f9f9fb; color: #232347; padding: 2rem 1rem; border-radius: 0 0 15px 15px; text-align: left; box-shadow: 0 2px 6px rgba(34,44,142,0.05); }
+.form-card { background: #fff; border-radius: 12px; box-shadow: 0 4px 10px rgba(34,44,142,0.1); padding: 2rem; }
+.btn-danger { background: linear-gradient(135deg, #6a0dad); border: none; color: white; }
+.btn-danger:hover {  background: linear-gradient(135deg, #222c8e, #6a0dad); }
+/* --- goodmoral-certificate.html inline-end --- */
+
+/* --- login-register.html inline-start --- */
+.navbar { background: linear-gradient(135deg, #c5202f, #222c8e, #6a0dad) !important; }
+.navbar .nav-link, .navbar .navbar-brand, .navbar .navbar-toggler-icon { color: #fff !important; }
+.navbar .nav-link.active { font-weight: bold; text-decoration: underline; color: #fcfcfb !important; }
+body { display: flex; flex-direction: column; min-height: 100vh; background-color: #f9f9fb; color: #232347; font-family: 'Inter', sans-serif; }
+main { flex: 1; }
+.login-tab.active { background-color: #6a0dad; color: #101010; font-weight: bold; }
+.login-tab { border: 1px solid #6a0dad; color: #121213; transition: background-color 0.3s ease, color 0.3s ease; }
+.login-tab:hover { background-color: #b37ed9; color: #fff; }
+.form-control, .form-select { border-radius: 8px; border: 1.5px solid #ccc; transition: border-color 0.3s ease; }
+.form-control:focus, .form-select:focus { border-color: #222c8e; outline: none; box-shadow: 0 0 8px rgba(34,44,142,0.25); }
+.login-btn { background: linear-gradient(135deg, #8e2222, #6a0dad); border: none; color: white; font-weight: 700; border-radius: 8px; padding: 0.6rem; transition: background 0.3s ease; }
+.login-btn:hover { background: linear-gradient(135deg, #222c8e, #6a0dad); color: white; }
+/* --- login-register.html inline-end --- */
+
+/* --- indigency-certificate.html inline-start --- */
+body { background-color: #f8f9fa; font-family: "Inter", sans-serif; color: #232347; }
+.navbar { background: linear-gradient(135deg, #c5202f, #222c8e, #6a0dad) !important; }
+.page-header { background: #f9f9fb; color: #232347; padding: 2rem 1rem; border-radius: 0 0 15px 15px; text-align: left; box-shadow: 0 2px 6px rgba(34,44,142,0.05); }
+.form-card { background: #fff; border-radius: 12px; box-shadow: 0 4px 10px rgba(34,44,142,0.1); padding: 2rem; }
+.btn-danger { background: linear-gradient(135deg, #6a0dad); border: none; color: white; }
+.btn-danger:hover {  background: linear-gradient(135deg, #222c8e, #6a0dad); }
+/* --- indigency-certificate.html inline-end --- */
+
+/* --- low-income-certificate.html inline-start --- */
+body { background-color: #f8f9fa; font-family: "Inter", sans-serif; color: #232347; }
+.navbar { background: linear-gradient(135deg, #c5202f, #222c8e, #6a0dad) !important; }
+.page-header { background: #f8f9fa; color: #232347; padding: 2rem 1rem; border-radius: 0 0 15px 15px; box-shadow: 0 2px 6px rgba(34,44,142,0.05); }
+.form-card { background: #fff; border-radius: 12px; box-shadow: 0 4px 10px rgba(34,44,142,0.1); padding: 2rem; }
+.btn-danger { background: linear-gradient(135deg, #6a0dad); border: none; color: white; }
+.section-title { font-size: 1.1rem; font-weight: 600; color: #232347; border-bottom: 2px solid #dee2e6; margin-bottom: 1rem; padding-bottom: 0.5rem; }
+.form-label { font-weight: normal !important; color: #232347 !important; }
+/* --- low-income-certificate.html inline-end --- */
+
+/* --- no-derogatory.html inline-start --- */
+body { background-color: #f8f9fa; font-family: "Inter", sans-serif; color: #232347; }
+.navbar { background: linear-gradient(135deg, #c5202f, #222c8e, #6a0dad) !important; }
+.page-header { background: #f8f9fa; color: #232347; padding: 2rem 1rem; border-radius: 0 0 15px 15px; box-shadow: 0 2px 6px rgba(34,44,142,0.05); }
+.form-card { background: #fff; border-radius: 12px; box-shadow: 0 4px 10px rgba(34,44,142,0.1); padding: 2rem; }
+.btn-danger { background: linear-gradient(135deg, #6a0dad); border: none; color: white; }
+.section-title { font-size: 1.1rem; font-weight: 600; color: #232347; border-bottom: 2px solid #dee2e6; margin-bottom: 1rem; padding-bottom: 0.5rem; }
+.form-label { font-weight: normal !important; color: #232347 !important; }
+/* --- no-derogatory.html inline-end --- */
+
+/* ======================================================
+  Styles extracted from batch 2 HTML files (appended)
+  Files: non-employment.html, resident-dashboard.html,
+       sidebar-reports.html, sidebar-requests.html,
+       staff-login.html, sidebar-settings.html,
+       soloparent-certificate.html, staff-dashboard.html,
+       sidebar-residents.html, resident-profile.html,
+       barangay-clearance.html (remaining)
+  Appended on 2025-10-06
+  ====================================================== */
+
+/* --- non-employment.html inline-start --- */
+body { background-color: #f8f9fa; font-family: "Inter", sans-serif; color: #232347; }
+.navbar { background: linear-gradient(135deg, #c5202f, #222c8e, #6a0dad) !important; }
+.page-header { background: #f9f9fb; color: #232347; padding: 2rem 1rem; border-radius: 0 0 15px 15px; box-shadow: 0 2px 6px rgba(34,44,142,0.05); }
+.form-card { background: #fff; border-radius: 12px; box-shadow: 0 4px 10px rgba(34,44,142,0.1); padding: 2rem; }
+.btn-danger { background: linear-gradient(135deg, #6a0dad); border: none; color: white; }
+.btn-danger:hover {  background: linear-gradient(135deg, #222c8e, #6a0dad); }
+/* --- non-employment.html inline-end --- */
+
+/* --- resident-dashboard.html inline-start --- */
+html, body { height: 100%; margin: 0; font-family: "Inter", sans-serif; background-color: #f9f9fb; display:flex; flex-direction:column; }
+.navbar { background: linear-gradient(135deg, #c5202f, #222c8e, #6a0dad) !important; border-bottom: none; }
+.page-header { background: #f9f9fb; color: #232347; padding: 2rem 1rem; border-radius: 0 0 15px 15px; box-shadow: 0 2px 6px rgba(34,44,142,0.05); text-align:center; }
+.dashboard-card { background: #fff; border-radius: 12px; box-shadow: 0 4px 10px rgba(34,44,142,0.08); transition: transform 0.2s; padding: 2rem 1rem; text-align:center; }
+.btn-danger { background: linear-gradient(135deg, #c5202f, #6a0dad); border: none; color: white; }
+
+/* Resident Dashboard Logout Button Custom Style */
+.resident-dashboard-logout {
+  background-color: #343a40 !important; /* dark gray */
+  color: #fff !important;
+  border: none;
+  transition: background 0.2s;
+}
+.resident-dashboard-logout:hover,
+.resident-dashboard-logout:focus {
+  background: linear-gradient(135deg, #343a40, #23272b) !important; /* gradient dark gray */
+  color: #fff !important;
+}
+
+/* Shape container for logout button */
+.logout-shape {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border-radius: 2rem;
+  padding: 0.3rem 1.2rem;
+  box-shadow: none;
+}
+
+/* Logout button outline style (matches attachment) */
+.logout-outline-btn {
+  background: transparent !important;
+  color: #fff !important;
+  border: 2px solid #fff !important;
+  border-radius: 1.5rem !important;
+  font-size: 1.35rem;
+  font-weight: 500;
+  padding: 0.35rem 1.5rem;
+  transition: background 0.2s, color 0.2s;
+  box-shadow: none !important;
+}
+.logout-outline-btn:hover,
+.logout-outline-btn:focus {
+  background: #343a40 !important; /* dark gray background on hover */
+  color: #fff !important;
+  border: 2px solid #fff !important;
+}
+
+/* White box around logout button */
+.logout-box {
+  background: #fff;
+  border-radius: 2rem;
+  padding: 0.5rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(34,44,142,0.10);
+  transition: background 0.2s;
+  outline: #fff; 
+}
+.logout-box:hover {
+  background: #343a40;
+}
+
+
+.logout-box:hover .logout-outline-btn {
+  background: transparent !important;
+  color: #fff !important;
+  border: 2px solid #fff !important;
+  
+}
+
+
+
+
+/* --- resident-dashboard.html inline-end --- */
+
+/* --- sidebar-requests.html inline-start --- */
+body { background-color: #f9f9fb; font-family: "Segoe UI", sans-serif; color: #232347; }
+.table thead { background-color: #f7f8fa; }
+.table-hover tbody tr:hover { background-color: #fbfbfd; }
+.bulk-actions { display: none; background: #e3e7fe; padding: 10px; border-radius: 8px; margin-bottom: 15px; }
+.navbar { background: linear-gradient(135deg, #c5202f, #222c8e, #6a0dad) !important; box-shadow: 0 3px 8px rgba(34,44,142,0.3); }
+/* --- sidebar-requests.html inline-end --- */
+
+/* --- staff-login.html inline-start --- */
+ :root {
+      --primary-blue: #222c8e;
+      --primary-red: #c5202f;
+      --royal-purple: #6a0dad;
+      --bg-light: #f4f4fb;
+      --text-light: #ffffff;
+      --text-muted: #6c757d;
+      --text-dark: #232347;
+ }
+html, body { height: 100%; margin: 0; background: var(--bg-light); color: var(--text-dark);}
+
+/* Login card - optimized to show all content as a proper contained card */
+.login-card { 
+  max-width: 950px;
+  width: 92%;
+  border: none; 
+  border-radius: 16px; 
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(34, 44, 142, 0.2); 
+  display: flex;
+  flex-direction: row;
+}
+
+.login-left { 
+  background: linear-gradient(165deg, var(--primary-blue), var(--royal-purple), var(--primary-red)); 
+  color: var(--text-light); 
+  padding: 110px 30px 40px 30px; 
+  text-align: center; 
+  display: flex; 
+  flex-direction: column; 
+  justify-content: flex-start; 
+  flex: 0 0 40%;
+  min-height: 580px;
+}
+
+.login-left i.bi-shield-lock-fill {
+  font-size: 3.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.login-right { 
+  padding: 30px 40px 30px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background: #fff;
+  flex: 1;
+  min-height: 580px;
+}
+
+/* Logo styling for proper visibility */
+.login-right img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+  .login-card {
+    flex-direction: column;
+    width: 95%;
+  }
+  .login-left {
+    flex: 0 0 auto;
+    min-height: auto;
+    padding: 35px 25px;
+  }
+  .login-right {
+    min-height: auto;
+    border-radius: 0 0 16px 16px;
+    padding: 30px 25px;
+  }
+}
+
+.btn-login {
+  /* Simplified: solid color for better readability */
+  background-color: var(--eb-primary) !important;
+  color: #fff !important;
+  border: none;
+  box-shadow: 0 6px 18px rgba(34,44,142,0.12);
+  transition: background-color 220ms ease, transform 220ms ease, box-shadow 220ms ease, opacity 220ms ease;
+}
+
+/* Hover / focus: fill with solid dark-pink */
+.btn-login:hover,
+.btn-login:focus {
+  background-image: none !important;
+  background-color: #1b2370 !important; /* slightly darker than --eb-secondary */
+  color: #fff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(34,44,142,0.20) !important;
+  outline: none;
+}
+/* --- staff-login.html inline-end --- */
+
+/* --- sidebar-settings.html inline-start --- */
+ body { background-color: #f9f9fb; color: #232347; }
+.sidebar { min-height: 100vh; background-color: #ffffff; border-right: 1px solid #dee2e6; }
+.sidebar .nav-link { color: #222c8e; font-weight: 500; border-radius: 8px; margin-bottom: 5px; transition: background-color 0.3s ease; }
+.sidebar .nav-link.active { color: #6a0dad; background-color: #f3e9fc; }
+.sidebar .nav-link:hover:not(.active) { background-color: #e3e7fe; color: #222c8e; font-weight: 600; }
+.card { border-radius: 12px; border: none; box-shadow: 0 4px 15px rgba(34,44,142,0.1); transition: box-shadow 0.3s ease; }
+.card:hover { box-shadow: 0 8px 30px rgba(106,13,173,0.15); }
+.page-header h3 { font-weight: bold; color: #232347; }
+.page-header small { color: #6c757d; }
+.nav-tabs .nav-link { font-weight: 500; color: #222c8e; transition: color 0.3s ease; }
+.nav-tabs .nav-link.active { font-weight: 600; color: #6a0dad; }
+.form-label { font-weight: 500; color: #232347; }
+.btn { border-radius: 8px; transition: background-color 0.3s ease; }
+.btn-success { background: linear-gradient(135deg, #222c8e, #6a0dad); border: none; font-weight: 600; }
+.btn-success:hover { background: linear-gradient(135deg, #6a0dad, #c5202f); }
+.navbar { background: linear-gradient(135deg, #c5202f, #222c8e, #6a0dad) !important; box-shadow: 0 3px 8px rgba(34,44,142,0.3); }
+.navbar .nav-link, .navbar .navbar-brand, .navbar .navbar-toggler-icon { color: #fff !important; }
+.navbar .nav-link.active { font-weight: bold; text-decoration: underline; }
+.navbar .btn-outline-secondary, .navbar .btn-outline-danger { border-color: #fff !important; color: #fff !important; font-weight: 600 !important; transition: background-color 0.3s ease, color 0.3s ease; background-color: transparent !important; }
+.navbar .btn-outline-secondary:hover, .navbar .btn-outline-danger:hover { background-color: #222c8e !important; color: #fff !important; border-color: #222c8e !important; }
+/* --- sidebar-settings.html inline-end --- */
+
+/* --- soloparent-certificate.html inline-start --- */
+body { background-color: #f9f9fb; color: #232347; }
+.form-card { background: #fff; border-radius: 12px; box-shadow: 0 4px 10px rgba(34, 44, 142, 0.1); padding: 2rem; }
+.btn-danger { background-color: #c5202f !important; }
+/* --- soloparent-certificate.html inline-end --- */
+
+/* --- staff-dashboard.html inline-start --- */
+.notif-item.unread { background-color: #ffecf0; font-weight:600; color: #c5202f; }
+.notif-item { cursor:pointer; transition: background-color 0.3s ease; color: #232347;}
+.notif-item:hover { background-color:#f5f7fc; }
+/* --- staff-dashboard.html inline-end --- */
+
+/* --- sidebar-residents.html inline-start --- */
+.info-card { background: #f9f9fb; border-radius: 8px; padding: 12px; margin-bottom: 10px; }
+.stat-card { border-radius: 12px; padding: 15px; background: #f4f5fa;}
+/* --- sidebar-residents.html inline-end --- */
+
+/* --- resident-profile.html inline-start --- */
+.profile-header {
+  background: linear-gradient(135deg, var(--eb-primary), var(--eb-secondary), var(--eb-accent)) !important;
+  color: white;
+  padding: 3rem 0;
+  border-radius: 0 0 1rem 1rem;
+  box-shadow: 0 5px 15px rgba(34,44,142,0.15);
+}
+.profile-card { border: none; border-radius: 0.75rem; box-shadow: 0 4px 12px rgba(34,44,142,0.08); }
+.profile-pic-container { width:120px; height:120px; background-color:#fff; border-radius:50%; border:5px solid rgba(255,255,255,0.5); display:flex; align-items:center; justify-content:center; margin:0 auto 1rem; }
+/* --- resident-profile.html inline-end --- */
+
+/*
+ * ========================================
+ * 1. LOADING SCREEN STYLES
+ * ========================================
+ */
+#loadingScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(34,44,142,0.08);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+#loadingScreen.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+  color: #fff;
+}
+
+#loadingText {
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  animation: fadeIn 1s infinite alternate;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0.6;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+
+
+
+body {
+  background-color: #f9f9fb;
+  font-family: "Inter", sans-serif;
+  color: #232347;
+}
+
+/* Navbar */
+.navbar {
+  background: linear-gradient(135deg, #c5202f, #222c8e, #6a0dad) !important;
+}
+.navbar .navbar-brand, .navbar .nav-link {
+  color: #fff !important;
+}
+
+/* Header */
+.page-header {
+  background: #f9f9fb;
+  color: #232347;
+  padding: 2rem 1rem;
+  border-radius: 0 0 15px 15px;
+  box-shadow: 0 2px 6px rgba(34,44,142,0.05);
+}
+
+/* Form card */
+.form-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(34,44,142,0.1);
+  padding: 2rem;
+  transition: box-shadow 0.3s ease;
+}
+.form-card:hover {
+  box-shadow: 0 8px 30px rgba(106,13,173,0.15);
+}
+
+/* Buttons */
+.btn-danger {
+  background: linear-gradient(135deg, #6a0dad);
+  border: none;
+  font-weight: 700;
+  color: white;
+  transition: background 0.3s ease;
+}
+.btn-danger:hover {
+  background: linear-gradient(135deg, #222c8e, #6a0dad);
+}
+
+/* Section titles */
+.section-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #232347;
+  border-bottom: 2px solid #dee2e6;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+}
+
+
+
+/* Small text */
+.small.text-muted {
+  color: #6c757d !important;
+}
+
+/* ========== Non-editable field style ========== */
+.readonly-field {
+  background-color: #f8f9fa !important;
+  color: #6c757d !important;
+  cursor: not-allowed !important;
+}
+.readonly-field:focus {
+  background-color: #f8f9fa !important;
+  color: #6c757d !important;
+  box-shadow: none !important;
+  border-color: #dee2e6 !important;
+}
+
+/* Modal header styles */
+.bg-gradient-purple {
+  background: linear-gradient(135deg, #c4a6e9, #9a4ed9) !important;
+  color: #fff;
+}
+
+/* Profile header and card styles (optional for consistency) */
+.profile-header {
+  padding: 2rem 0 1rem 0;
+}
+.profile-pic-container {
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 1rem auto;
+  border-radius: 50%;
+  background: #e9ecef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  color: #c5202f;
+}
+.profile-card {
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(34,44,142,0.08);
+  border: none;
+  
+}
+
+/* Change Password Modal Styles */
+.change-password-header {
+  background: linear-gradient(135deg, #c5202f, #222c8e, #6a0dad) !important;
+}
+
+/* Password field wrapper for icon alignment */
+.password-wrapper {
+  position: relative;
+}
+
+
+
+.save-password-btn {
+  background: linear-gradient(135deg, #c5202f, #222c8e, #6a0dad) !important;
+  font-weight: 600;
+}
+
+.save-password-btn:hover,  .save-password-btn:focus {
+  background: linear-gradient(135deg, #222c8e, #6a0dad);
+  color: #fff;
+}
+
+/* Optional alert customization */
+#changeMessage {
+  font-weight: 500;
+}
+
+/* ======================================================
+   Styles for super-admin.html
+   Appended on 2025-10-21
+   ====================================================== */
+
+/* --- super-admin.html styles start --- */
+.card-summary { 
+  min-height: 160px; 
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 4px 15px rgba(34,44,142,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+.card-summary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(106,13,173,0.05) 0%, transparent 70%);
+  border-radius: 50%;
+  transform: translate(30%, -30%);
+}
+.card-summary:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(106,13,173,0.15);
+}
+.card-summary h5 {
+  color: #6a0dad;
+  font-weight: 600;
+  font-size: 1rem;
+}
+.card-summary h2 {
+  color: #222c8e;
+  font-weight: 800;
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.table-actions { 
+  white-space: nowrap;
+  min-width: 200px;
+}
+.table-actions button { 
+  margin: 2px;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+.table-actions button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+.table-actions .btn-outline-primary {
+  border-color: #6a0dad;
+  color: #6a0dad;
+}
+.table-actions .btn-outline-primary:hover {
+  background: #6a0dad;
+  color: #fff;
+}
+.table-actions .btn-outline-warning {
+  border-color: #ffc107;
+  color: #f59e0b;
+}
+.table-actions .btn-outline-warning:hover {
+  background: #ffc107;
+  color: #000;
+}
+.table-actions .btn-outline-secondary {
+  border-color: #6c757d;
+  color: #6c757d;
+}
+.table-actions .btn-outline-secondary:hover {
+  background: #6c757d;
+  color: #fff;
+}
+.table-actions .btn-outline-danger {
+  border-color: #c5202f;
+  color: #c5202f;
+}
+.table-actions .btn-outline-danger:hover {
+  background: #c5202f;
+  color: #fff;
+}
+
+.status-badge.active { 
+  background: linear-gradient(135deg, #1e6f5c, #2d9d78); 
+  color: #fff; 
+  padding: 0.35rem 0.8rem;
+  font-weight: 600;
+}
+.status-badge.inactive { 
+  background: #6c757d; 
+  color: #fff; 
+  padding: 0.35rem 0.8rem;
+  font-weight: 600;
+}
+
+.recent-list { 
+  padding-left: 0;
+  margin: 0;
+  list-style: none;
+}
+.recent-list li { 
+  list-style: none; 
+  padding: 10px 0; 
+  border-bottom: 1px solid #f0f0f0;
+  opacity: 0;
+  animation: fadeInUp 0.5s ease forwards;
+}
+.recent-list li:last-child {
+  border-bottom: none;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.small-muted { 
+  font-size: .85rem; 
+  color: #6c757d; 
+}
+
+.log-item { 
+  border-bottom: 1px solid #f0f0f0; 
+  padding: 12px 0;
+  transition: background-color 0.2s ease;
+}
+.log-item:hover {
+  background-color: rgba(106,13,173,0.02);
+  border-radius: 6px;
+}
+.log-item:last-child {
+  border-bottom: none;
+}
+.log-item:first-child {
+  padding-top: 0;
+}
+
+.dashboard-header {
+  margin-bottom: 2rem;
+}
+.dashboard-header h2 {
+  color: #222c8e;
+  font-weight: 700;
+}
+/* --- super-admin.html styles end --- */
+
+/* ======================================================
+   Styles for index.html (footer and chatbot)
+   Appended on 2025-10-21
+   ====================================================== */
+
+/* --- index.html footer styles start --- */
+/* Ensure footer text and links are white */
+footer.footer, footer.footer h5, footer.footer p, footer.footer li, footer.footer .small {
+  color: #fff !important;
+}
+footer.footer a, footer.footer .footer-link {
+  color: #fff !important;
+  text-decoration: none !important;
+}
+/* Footer icons (Bootstrap icons / inline svgs) */
+footer.footer i, footer.footer .bi, footer.footer svg {
+  color: #fff !important;
+  fill: #fff !important; /* for svgs */
+}
+/* --- index.html footer styles end --- */
+
+/* --- index.html chatbot styles start --- */
+@keyframes slideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Override: ensure footer links using .footer-link-dark are visible on dark footers
+   placed at end so it wins over other footer color rules that use !important */
+.bg-dark .footer-link-dark,
+footer.bg-dark a.footer-link-dark {
+  color: #0d6efd !important;
+  text-decoration: none !important; /* match screenshot (clean blue text) */
+}
+.bg-dark .footer-link-dark:hover,
+footer.bg-dark a.footer-link-dark:hover {
+  color: #0b5ed7 !important;
+}
+
+#chatToggleBtn:hover {
+  transform: scale(1.05);
+  background-color: #8b5cf6;
+}
+
+/* Chat window layout */
+#chatBody {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* spacing between messages */
+  padding: 12px;
+}
+
+/* Footer link utility: use in footers to match resident dashboard text color */
+.footer-link-dark {
+  color: #232347 !important; /* matches resident dashboard footer text */
+  text-decoration: none !important;
+}
+.footer-link-dark:hover {
+  color: #000 !important;
+  text-decoration: underline !important;
+}
+
+.user-msg, .bot-msg {
+  max-width: 82%;
+  padding: 12px 16px;
+  border-radius: 14px;
+  line-height: 1.45;
+  font-size: 15px;
+  animation: fadeIn 0.18s ease;
+  box-shadow: 0 4px 10px rgba(16,24,40,0.06);
+  word-break: break-word;
+}
+
+/* user messages align right with a brighter accent */
+.user-msg {
+  background: linear-gradient(90deg,#4f46e5,#7c3aed);
+  color: #fff;
+  align-self: flex-end;
+  border-bottom-right-radius: 6px;
+}
+
+/* bot messages align left and look lighter */
+.bot-msg {
+  background-color: #f3f4f6;
+  color: #111827;
+  align-self: flex-start;
+  border: 1px solid #e6e9ee;
+  border-bottom-left-radius: 6px;
+}
+
+/* Timestamp styling */
+.msg-time {
+  display: block;
+  margin-top: 6px;
+  font-size: 11px;
+  color: rgba(0,0,0,0.45);
+  font-style: italic;
+}
+
+/* Suggestion / quick-reply buttons */
+.faq-btn {
+  background-color: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.18s ease, transform 0.08s ease, box-shadow 0.12s;
+  box-shadow: 0 2px 6px rgba(16,24,40,0.04);
+}
+
+.faq-btn:hover {
+  background-color: #6d28d9;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* Scrollbar styling for the chat body */
+#chatBody::-webkit-scrollbar { width: 8px; }
+#chatBody::-webkit-scrollbar-thumb { background-color: #c7d2fe; border-radius: 10px; }
+
+@keyframes fadeIn { 
+  from { opacity: 0; transform: scale(0.98);} 
+  to { opacity:1; transform:scale(1);} 
+}
+/* --- index.html chatbot styles end --- */
+
+/* ======================================================
+   Regulations Section Styles
+   ====================================================== */
+.reg-card {
+  background: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(34,44,142,0.08);
+}
+
+.reg-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(34,44,142,0.15) !important;
+}
+
+/* ======================================================
+   Feedback Section Styles
+   ====================================================== */
+.feedback-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feedback-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(34,44,142,0.18) !important;
+}
+
+
+/* ======================================================
+   Index Page Header Top-Strip Fix (no hero changes)
+   ====================================================== */
+/* Background for entire index page */
+body.index-page {
+  background: url('pics/pulo_bg2.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* Remove only the thin white strip at the very top of the navbar on index page */
+body.index-page .navbar { border-top: 0 !important; }
+
+/* =======================
+   Responsive breakpoints
+   Tablet: <=1024px, Mobile: <=600px
+   Added: 2025-10-31 — makes layout adapt for smaller screens
+   ======================= */
+/* 🌐 Responsive Fixes for Mobile and Tablet */
+
+/* Navbar adjustments */
+@media (max-width: 991px) {
+  .navbar-brand {
+    font-size: 14px;
+    line-height: 1.3;
+    white-space: normal;
+  }
+
+  .navbar-brand img {
+    height: 45px;
+  }
+
+  .navbar-collapse {
+    background-color: #1f2c73;
+    padding: 1rem;
+    border-radius: 10px;
+  }
+
+  .btn-login {
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  /* Additional tablet styles */
+  .navbar { padding: 0.6rem 0.8rem; }
+  .navbar .container-fluid { padding-left: 0.8rem; padding-right: 0.8rem; }
+  .navbar .nav-link { padding: 0.4rem 0.6rem; font-size: 0.95rem; }
+}
+
+/* Hero section responsiveness */
+@media (max-width: 768px) {
+  .hero-section {
+    text-align: center;
+    padding: 80px 0 60px;
+  }
+
+  .hero-section .lead {
+    font-size: 14px;
+  }
+
+  .hero-section h1 {
+    font-size: 26px;
+    line-height: 1.3;
+  }
+
+  .hero-section p {
+    font-size: 14px;
+    margin-bottom: 1rem;
+  }
+
+  .hero-section .btn {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  /* Document cards and carousel */
+  .doc-card, .feature-card, .payment-card, .feedback-card, .reg-card {
+    margin: 0 auto;
+    width: 90%;
+  }
+
+  .carousel-inner .row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .carousel-control-prev i,
+  .carousel-control-next i {
+    font-size: 1.8rem;
+    color: #333;
+  }
+
+  .carousel-control-prev,
+  .carousel-control-next {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  /* Feedback and Regulation sections */
+  .feedback-card p {
+    font-size: 14px;
+  }
+
+  .reg-card {
+    text-align: center;
+  }
+
+  .reg-card i {
+    font-size: 2rem;
+  }
+
+  /* Footer layout for mobile */
+  footer .col-md-4 {
+    text-align: center;
+  }
+
+  footer ul {
+    padding-left: 0;
+  }
+
+  footer li {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  /* Navbar compressed */
+  .navbar { padding: 0.5rem 0.6rem; }
+  .navbar .container-fluid { padding-left: 0.6rem; padding-right: 0.6rem; }
+  .navbar-brand { font-size: 0.95rem; }
+  .navbar-brand img { height: 42px; margin-right: 8px; }
+  .navbar .nav-link { padding: 0.35rem 0.5rem; font-size: 0.9rem; }
+
+  /* Collapse behaviour: make login button full width inside collapsed menu */
+  .navbar .collapse .btn-login { display: block; width: 100%; margin: 0.6rem 0 0 0; }
+
+  /* Hero adjustments for small screens */
+  .hero-section { min-height: 60vh; padding-top: 70px; text-align: left; }
+  .hero-section .container { padding-left: 0.75rem; padding-right: 0.75rem; }
+  .hero-section h1 { font-size: 1.9rem; line-height: 1.15; }
+  .hero-section p { font-size: 1rem; }
+  .hero-section .lead { font-size: 0.9rem; display: block; }
+  .hero-section .btn { padding: 0.55rem 1rem; font-size: 0.95rem; }
+
+  /* Cards stack vertically */
+  .document-types-section .row { gap: 1rem; }
+  .document-types-section .carousel-item .col-md-3,
+  .document-types-section .carousel-item .col-md-4 { flex: 0 0 100%; max-width: 100%; }
+  .doc-card { min-height: auto; padding: 0.9rem; }
+  .doc-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+
+  /* Hide wide carousel controls to avoid overlap on very small screens */
+  .carousel-control-prev, .carousel-control-next { display: none; }
+  .carousel-indicators { bottom: 6px; }
+
+  /* Payment cards full width */
+  .payment-section .row > [class*="col-"] { flex: 0 0 100%; max-width: 100%; }
+  .payment-card { padding: 0.95rem; min-height: auto; }
+
+  /* Feedback/reg cards take full width and smaller padding */
+  .feedback-card, .reg-card { padding: 1rem; }
+
+  /* Chatbot: make it narrower to fit small screens */
+  #chatWindow { width: calc(100% - 32px); right: 16px; left: 16px; bottom: 16px; border-radius: 12px; }
+  #chatToggleBtn { width: 52px; height: 52px; font-size: 24px; }
+
+  /* Footer spacing */
+  footer.footer { padding: 2rem 1rem; }
+  footer.footer .row { gap: 1rem; }
+  footer.footer .col-md-4 { flex: 0 0 100%; max-width: 100%; text-align: left; }
+
+  /* Small utility adjustments */
+  .hero-section .col-lg-6, .hero-section .col-md-8 { width: 100%; }
+  .feature-card { padding: 1rem; }
+  .navbar .navbar-toggler-icon { filter: invert(1); }
+}
+
+/* FINAL: Ensure absolutely no space above header while keeping layout flow
+   - Reset any remaining margins/paddings that could create a gap
+   - Keep navbar in-flow (sticky) so content is not moved unexpectedly
+   - Do not use negative margins or absolute positioning to avoid overlap
+*/
+/* Scoped header fix for document pages (apply only when body has .doc-page)
+   Keeps the rest of the site unchanged.
+*/
+body.doc-page {
+  /* prevent margin collapse from the first child */
+  border-top: 0 solid transparent;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+body.doc-page .navbar {
+  position: sticky !important;
+  top: 0 !important;
+  /* lift the navbar visually to the viewport top while preserving
+     internal spacing (mirrors staff-dashboard pattern) */
+  margin-top: -8px !important;
+  padding-top: calc(1rem + 8px) !important;
+  box-sizing: border-box;
+  border-top: 0 !important; /* override earlier white top border */
+}
+
+/* Close buttons in privacy/contact modals should match the login button gradient
+   while keeping the original button sizing. Use a lightweight class `.btn-close-gradient`
+   (already present in some HTML) and also target Close buttons inside the common
+   modal IDs so we don't have to edit every HTML file. */
+.btn-close-gradient,
+#privacyModal .modal-footer .btn[data-bs-dismiss="modal"],
+#contactModal .modal-footer .btn[data-bs-dismiss="modal"] {
+  background: linear-gradient(135deg, #8e2222, #6a0dad) !important; /* same as .login-btn */
+  color: #fff !important;
+  border: none !important;
+  /* keep the original padding/height so size doesn't change */
+  box-shadow: 0 6px 18px rgba(43, 6, 82, 0.12);
+}
+
+#privacyModal .modal-footer .btn[data-bs-dismiss="modal"]:hover,
+#contactModal .modal-footer .btn[data-bs-dismiss="modal"]:hover,
+.btn-close-gradient:hover {
+  background: linear-gradient(135deg, #222c8e, #6a0dad) !important; /* login hover gradient */
+  transform: translateY(-1px);
+  color: #fff !important;
+}
+
+.btn-close-gradient:focus,
+#privacyModal .modal-footer .btn[data-bs-dismiss="modal"]:focus,
+#contactModal .modal-footer .btn[data-bs-dismiss="modal"]:focus {
+  outline: 3px solid rgba(197, 32, 47, 0.12);
+  outline-offset: 2px;
+}
+
