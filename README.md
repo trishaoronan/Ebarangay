@@ -1,4 +1,4 @@
-# Pulong Buhangin e-Barangay
+# e-Barangay Pulong Buhangin
 
 A comprehensive digital platform for barangay services, designed to streamline administrative processes and enhance transparency in local government operations. This system enables residents to request and manage various certificates and clearances online, while providing barangay officials with efficient tools for document processing and management.
 
